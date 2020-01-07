@@ -3,15 +3,26 @@ import logo from './logo.svg';
 import Price from './Components/Price'
 import './App.css';
 
-function App() {
-  return (
-    <div>
-      <h1>Cash Cow - Mooooo</h1>
-      <Price symbol={"aapl"}/>
-      <Price symbol={"goog"}/>
-    </div>
-    
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      symbols: ["aapl", "goog"]
+    }
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>Cash Cow - Mooooo</h1>
+
+        {this.state.symbols.map((symbol) => (
+          <Price symbol={symbol}/>
+        ))}
+
+      </div>
+    );
+  }
 }
 
 export default App;
