@@ -8,6 +8,7 @@ function App() {
     <div>
       <h1>Cash Cow - Mooooo</h1>
       <Price symbol={"aapl"}/>
+      <Price symbol={"goog"}/>
     </div>
     
   );
