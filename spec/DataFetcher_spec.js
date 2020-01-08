@@ -31,33 +31,32 @@ describe("DataFetcher", () =>{
         symbol: 'AAPL',
         closePrices: [
           // NB last seven *working days* - no data on holidays/weekends
-          // NB months in JavaScipt dates go from 0 (Jan) to 11 (Dec)
           {
-            date: new Date(2020, 0, 8),
+            date: new Date("2020-1-8"),
             closePrice: 302.7100,
           },
           {
-            date: new Date(2020, 0, 7),
+            date: new Date("2020-1-7"),
             closePrice: 298.3900
           },
           {
-            date: new Date(2020, 0, 6),
+            date: new Date("2020-1-6"),
             closePrice: 299.8000
           },
           {
-            date: new Date(2020, 0, 3),
+            date: new Date("2020-1-3"),
             closePrice: 297.4300
           },
           {
-            date: new Date(2020, 0, 2),
+            date: new Date("2020-1-2"),
             closePrice: 300.3500
           },
           {
-            date: new Date(2019, 11, 31),
+            date: new Date("2019-12-31"),
             closePrice: 293.6500
           },
           {
-            date: new Date(2019, 11, 30),
+            date: new Date("2019-12-30"),
             closePrice: 291.5200
           },
         ],
