@@ -6,7 +6,6 @@ class DataFetcher {
       let key = process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
-      console.log(response.data)
       return this.parseQuote(response.data)
     } catch(err) {
       console.log(err)
@@ -27,7 +26,6 @@ class DataFetcher {
         change : parseFloat(result["Global Quote"]['09. change']),
         percent_change : parseFloat(result["Global Quote"]['10. change percent'])
       }
-      console.log(data)
       return data
     } else {
       return result

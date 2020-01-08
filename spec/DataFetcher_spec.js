@@ -1,7 +1,6 @@
 const DataFetcher = require('../models/DataFetcher')
 const fs = require("fs")
 
-
 describe("DataFetcher", () =>{
   let rawDummy = fs.readFileSync(`${__dirname}/dummy.json`);
   let dummyData = JSON.parse(rawDummy)
