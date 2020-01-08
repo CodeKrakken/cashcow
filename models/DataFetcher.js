@@ -31,6 +31,30 @@ class DataFetcher {
       return result
     }
   }
+
+  static async fetchWeekData(symbol) {
+    try {
+      let key = process.env.AV_KEY
+      let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
+      let response = await axios.get(endpoint)
+      return this.parseWeekly(response.data)
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
+  static parseWeekly(result) {
+
+    // currently all results from past 100 days
+    if (result["Time Series (Daily)"]) {
+      let data = {
+        result: result["Time Series (Daily)"],
+      }
+      return data
+    } else {
+      return result
+    }
+  }
 }
 
 module.exports = DataFetcher;
