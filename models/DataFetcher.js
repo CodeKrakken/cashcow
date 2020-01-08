@@ -37,18 +37,27 @@ class DataFetcher {
       let key = process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
-      return this.parseWeekly(response.data)
+      return this.parseWeekData(response.data, symbol)
     } catch(err) {
       console.log(err)
     }
   }
 
-  static parseWeekly(result) {
-
-    // currently all results from past 100 days
+  static parseWeekData(result, symbol) {
     if (result["Time Series (Daily)"]) {
+      let allPrices = Object.keys(result["Time Series (Daily)"]).map((key) => {
+        return [key, result["Time Series (Daily)"][key]]
+      })
+      let weekPrices = allPrices.slice(0, 7)
+      let weekClosePrices = weekPrices.map((dayPriceInfo) => {
+        return {
+          date: new Date(dayPriceInfo[0]),
+          closePrice: parseFloat(dayPriceInfo[1]["4. close"]),
+        }
+      })
       let data = {
-        result: result["Time Series (Daily)"],
+        symbol: symbol,
+        closePrices: weekClosePrices,
       }
       return data
     } else {
