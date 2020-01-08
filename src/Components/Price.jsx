@@ -12,7 +12,9 @@ class Price extends React.Component{
   componentDidMount() {
     Axios.get(`/finance/${this.props.symbol}`)
     .then(res => {
-      this.setState({price : res.data[0].lastSalePrice})
+      let result = res.data
+      console.log(res)
+      this.setState({price : result.price})
     })
   }  
 
