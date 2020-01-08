@@ -40,12 +40,7 @@ async function fetchQuote(symbol) {
   } else {
     return result.data
   }
-
 }
-
-// app.get('/', async (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "index.html"));
-// })
 
 app.use('/', express.static(path.join(__dirname, "client")))
 
