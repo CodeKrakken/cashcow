@@ -12,6 +12,16 @@ class NewsFetcher {
       console.log(err)
     }
   }
+
+  static parseArticle(data) {
+    return {
+      title : data.title,
+      body : data.description,
+      url : data.url,
+      image_url : data.urlToImage,
+      timestamp : data.publishedAt
+    }
+  }
 }
 
 module.exports = NewsFetcher

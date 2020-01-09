@@ -3,7 +3,7 @@ const fs = require("fs")
 
 describe("DataFetcher", () =>{
   describe(".parseQuote", () => {
-    let rawDummy = fs.readFileSync(`${__dirname}/dummy.json`);
+    let rawDummy = fs.readFileSync(`${__dirname}/dummyData/dummy.json`);
     let dummyData = JSON.parse(rawDummy)
 
     it("parses a response", () => {
@@ -23,7 +23,7 @@ describe("DataFetcher", () =>{
   })
 
   describe(".parseWeekData", () => {
-    let rawDummy = fs.readFileSync(`${__dirname}/weekDummy.json`);
+    let rawDummy = fs.readFileSync(`${__dirname}/dummyData/weekDummy.json`);
     let dummyData = JSON.parse(rawDummy)
 
     it("parses a response from the Time Series (Daily) API", () => {
@@ -62,6 +62,20 @@ describe("DataFetcher", () =>{
         ],
       }
       expect(DataFetcher.parseWeekData(dummyData, 'AAPL')).toEqual(expectedResponse);
+    })
+  })
+
+  describe(".getEncodedName", () => {
+    it("returns Microsoft Corp from json data", () => {
+      let rawDummy = fs.readFileSync(`${__dirname}/dummyData/dummyMicrosoft.json`);
+      let dummyData = JSON.parse(rawDummy)
+      expect(DataFetcher.getEncodedName(dummyData)).toEqual("Microsoft%20Corp.")
+    })
+
+    it("returns Apple Inc from json data", () => {
+      let rawDummy = fs.readFileSync(`${__dirname}/dummyData/dummyApple.json`);
+      let dummyData = JSON.parse(rawDummy)
+      expect(DataFetcher.getEncodedName(dummyData)).toEqual("Apple,%20Inc.")
     })
   })
 })
