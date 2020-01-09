@@ -1,6 +1,7 @@
 import React from 'react';
 import Price from './Components/Price'
 import Graph from './Components/Graph'
+import NewsContainer from './Components/NewsContainer'
 import './App.css';
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
             <div>
               <Price symbol={symbol}/>
               <Graph symbol={symbol}/>
+              <NewsContainer symbol={symbol}/>
             </div>
           ))}
         </div>
