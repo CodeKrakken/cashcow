@@ -5,7 +5,8 @@ const app = express()
 const server = require('http').createServer(app);
 const path = require('path');
 const axios = require('axios')
-const dataFetcher = require('./models/DataFetcher')
+const DataFetcher = require('./models/DataFetcher')
+const NewsFetcher = require('./models/NewsFetcher')
 
 require('dotenv').config()
 
@@ -15,12 +16,20 @@ app.use('/', express.static(path.join(__dirname, 'client')))
 
 app.get('/finance/:symbol', async (req, res) =>{
   let symbol = req.params.symbol
-  res.json(await dataFetcher.fetchQuote(symbol))
+  console.log(res.data)
+  res.json(await DataFetcher.fetchQuote(symbol))
+})
+
+app.get('/news/:symbol', async (req, res) => {
+  let symbol = req.params.symbol
+  // res.json(await NewsFetcher.fetchArticles)
+  let result = await NewsFetcher.fetchArticles(symbol)
+  console.log(result)
 })
 
 app.get('/week/:symbol', async (req, res) => {
   let symbol = req.params.symbol
-  res.json(await dataFetcher.fetchWeekData(symbol))
+  res.json(await DataFetcher.fetchWeekData(symbol))
 })
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
