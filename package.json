@@ -18,7 +18,7 @@
     "eject": "react-scripts eject",
     "test": "echo not-implemented"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://cashcow-api.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },
