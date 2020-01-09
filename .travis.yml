@@ -1,0 +1,11 @@
+language: node_js
+
+node_js:
+  - "8"
+
+# https://lord.io/blog/2014/travis-multiple-subdirs/
+env:
+  - TEST_DIR=client
+  - TEST_DIR=server
+
+script: cd $TEST_DIR && npm install && npm test
