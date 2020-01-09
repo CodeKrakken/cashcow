@@ -1,6 +1,6 @@
-# CashCow
+# This is CashCow
 
-This is CashCow!
+Invest!
 
 ## Setup
 ```
