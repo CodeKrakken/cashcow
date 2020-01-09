@@ -21,7 +21,6 @@ app.use('/', express.static(path.join(__dirname, "client")))
 app.get('/finance/:symbol', async (req, res) =>{
   try {
     res.header("Access-Control-Allow-Origin", "*");
-    console.log(req.params)
     let symbol = req.params.symbol
     let result = await axios.get(`https://cloud.iexapis.com/stable/tops?token=${process.env.API_KEY}&symbols=${symbol}`)
     res.json(result.data)
