@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
-
 class Price extends React.Component{
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -14,6 +12,9 @@ class Price extends React.Component{
     .then(res => {
       let result = res.data
       this.setState({price : result.price.toFixed(2)})
+    })
+    .catch((err) => {
+      console.log('failed to fetch - may be over API limit');
     })
   }
 
