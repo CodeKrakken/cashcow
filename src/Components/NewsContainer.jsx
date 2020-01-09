@@ -26,12 +26,8 @@ class NewsContainer extends React.Component{
           </div>
         ))}
       </div>
-
     )
-    
   }
-
-
 }
 
 export default NewsContainer;
