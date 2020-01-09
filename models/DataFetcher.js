@@ -43,6 +43,7 @@ class DataFetcher {
     }
   }
 
+  // parsers could be in own class?
   static parseWeekData(result, symbol) {
     if (result["Time Series (Daily)"]) {
       let allPrices = Object.keys(result["Time Series (Daily)"]).map((key) => {
@@ -64,6 +65,22 @@ class DataFetcher {
     } else {
       return result
     }
+  }
+
+  static async fetchCompanyDetails(symbol) {
+    try {
+      let key = process.env.API_KEY
+      let response = await axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/company?token=${key}`)
+      return response.data
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  static getEncodedName(data) {
+    let encodedName = encodeURI(data.companyName)
+    console.log(data)
+    return encodedName
   }
 }
 
