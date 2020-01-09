@@ -43,16 +43,12 @@ class Graph extends React.Component{
       const x = d3
         .scaleTime()
         .domain(minMaxDates(this.state.sevenDayData))
-        .range([0, width]);
+        .range([0, width - 20]);
 
       const y = d3
         .scaleLinear()
-        // .domain([0, 500])
-        .domain([0, minMaxPrice(this.state.sevenDayData)[1] + 200]) //max value
-        // .domain([0, minMaxPrice(this.state.sevenDayData)[1]]) //max value
-        // .domain(minMaxPrice(this.state.sevenDayData))
-        .range([height, 0]);
-        // .range([height, 0]);
+        .domain([0, minMaxPrice(this.state.sevenDayData)[1]]) //max value
+        .range([height, 20]);
 
       const graph = chart
         .selectAll(".graph")
