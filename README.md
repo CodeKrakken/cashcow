@@ -10,7 +10,7 @@ To install
 git clone https://github.com/CodeKrakken/cash-cow-client.git
 npm install
 ```
-Visit the backend repositoy [cash-cow-api](https://github.com/CodeKrakken/cash-cow-api) and clone & install
+Visit the backend repository [cash-cow-api](https://github.com/CodeKrakken/cash-cow-api) and clone & install
 
 
 About
