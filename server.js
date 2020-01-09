@@ -16,7 +16,7 @@ app.use('/', express.static(path.join(__dirname, 'client')))
 
 app.get('/', (req, res) => {
   res.send("visit http://cashcow20.herokuapp.com/ to make your moolions with CashCow")
-}
+})
 
 app.get('/finance/:symbol', async (req, res) =>{
   let symbol = req.params.symbol
