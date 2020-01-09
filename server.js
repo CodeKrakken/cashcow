@@ -20,10 +20,7 @@ app.get('/finance/:symbol', async (req, res) =>{
 
 app.get('/week/:symbol', async (req, res) => {
   let symbol = req.params.symbol
-
-  // currently logs the data our parser outputs - and shows this to the screen
-  // (go to localhost:5000/week/aapl for example)
-  console.log(res.json(await dataFetcher.fetchWeekData(symbol)))
+  res.json(await dataFetcher.fetchWeekData(symbol))
 })
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))

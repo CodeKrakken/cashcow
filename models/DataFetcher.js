@@ -49,6 +49,7 @@ class DataFetcher {
         return [key, result["Time Series (Daily)"][key]]
       })
       let weekPrices = allPrices.slice(0, 7)
+      // weekClosePrices is an Array of Objects
       let weekClosePrices = weekPrices.map((dayPriceInfo) => {
         return {
           date: new Date(dayPriceInfo[0]),
