@@ -14,11 +14,11 @@ class App extends React.Component {
     return (
       <div>
         <h1>Cash Cow - Mooooo</h1>
-
+        <div class="symbols">
         {this.state.symbols.map((symbol) => (
           <Price symbol={symbol}/>
         ))}
-
+        </div>
       </div>
     );
   }
