@@ -21,10 +21,16 @@ app.get('/finance/:symbol', async (req, res) =>{
 
 app.get('/news/:symbol', async (req, res) => {
   let symbol = req.params.symbol
+  //console.log("Symbol:", symbol)
   let details = await DataFetcher.fetchCompanyDetails(symbol)
+  //console.log("Details:", details)
   let name = DataFetcher.getEncodedName(details)
+  //console.log("Name:", name)
   let result = await NewsFetcher.fetchArticles(name)
-  res.status(200).send(result.articles)
+  console.log("Result:", result)
+  let articles = NewsFetcher.parseArticles(result.articles)
+  // console.log("Articles:", articles)
+  res.status(200).send(articles)
 })
 
 app.get('/week/:symbol', async (req, res) => {
@@ -39,4 +45,3 @@ app.get('/finance/details/:symbol', async (req, res) => { //get company details
 })
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
-
