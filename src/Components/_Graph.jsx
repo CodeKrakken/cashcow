@@ -59,7 +59,7 @@ class Graph extends React.Component {
   }
 
 
-  handleGraphScale = () => {
+  handleGraphScale = () => { 
     const xMin = d3.min(this.state.data, d => {
       return d['date'];
     });
