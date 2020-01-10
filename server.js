@@ -9,14 +9,29 @@ const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
 const fs = require("fs")
 
+console.log(process.env.NODE_ENV)
+
+
 require('dotenv').config()
 
 app.use(bodyParser.json())
 
-app.use('/', express.static(path.join(__dirname, 'frontend/build')))
+if (process.env.NODE_ENV == 'development') {
+  app.use('/', express.static(path.join(__dirname, 'frontend/public')))
+} else if (process.env.NODE_ENV == 'production') {
+  app.use('/', express.static(path.join(__dirname, 'frontend/build')))
+}
+
+
+
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
+  res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
+  if (process.env.NODE_ENV == 'development') {
+    res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
+  } else if (process.env.NODE_ENV == 'production') {
+    res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
+  }
 })
 
 app.get('/api/finance/:symbol', async (req, res) =>{
@@ -46,7 +61,11 @@ app.get('/api/finance/details/:symbol', async (req, res) => { //get company deta
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
+  if (process.env.NODE_ENV == 'development') {
+    res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
+  } else if (process.env.NODE_ENV == 'production') {
+    res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
+  }
 })
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
