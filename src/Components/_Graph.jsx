@@ -24,6 +24,7 @@ class Graph extends React.Component {
           low: data[i].low,
           open: data[i].open,
           close: data[i].close,
+          volume: data[i].volume
         })
       }
 
