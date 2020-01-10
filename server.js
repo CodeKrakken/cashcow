@@ -7,6 +7,7 @@ const path = require('path');
 const axios = require('axios')
 const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
+const fs = require("fs")
 
 require('dotenv').config()
 
@@ -38,6 +39,13 @@ app.get('/finance/details/:symbol', async (req, res) => { //get company details
   let symbol = req.params.symbol
   let result = await DataFetcher.fetchCompanyDetails(symbol)
   res.status(200).send(result)
+})
+
+app.get('/data', async (req, res) => {
+  let raw = fs.readFileSync('./spec/dummyData/timeseries.json')
+  let data = JSON.parse(raw)
+  res.json(data)
+  console.log("hello")
 })
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
