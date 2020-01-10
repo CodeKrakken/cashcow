@@ -17,6 +17,7 @@ class Graph extends React.Component {
 
       for (let i = 0; i < data.length; i++) {
         timeseries.push({
+          //graph input array accepts array of objects in the following format
           date: new Date(data[i].timestamp),
           high: data[i]['2. high'],
           low: data[i]['3. low'],
@@ -25,15 +26,14 @@ class Graph extends React.Component {
         })
       }
 
+      // graph is drawn with the following functions
       this.setState({ data : timeseries });
       this.initializeChart()
       this.handleGraphScale()
-      this.createAxes()
-
+      this.generateAxes()
       this.state.lines.forEach((line, i) => {
         this.generateLine(line, this.state.colors[i])
-      })
-      
+        })
       }
     );
   }
@@ -75,11 +75,11 @@ class Graph extends React.Component {
 
     const xScale = d3
       .scaleTime()
-      .domain([xMin, xMax]) //size of range of x values
+      .domain([xMin, xMax]) // size of range of x values
       .range([0, this.state.width]); // chart width
     const yScale = d3
       .scaleLinear()
-      .domain([yMin - 5, yMax]) //size of range of y values
+      .domain([yMin - 2, yMax]) // size of range of y values
       .range([this.state.height, 0]); // chart height
 
     this.setState({
@@ -88,7 +88,7 @@ class Graph extends React.Component {
     })
   }
 
-  createAxes = () => {
+  generateAxes = () => {
     this.state.svg
       .append('g')
       .attr('id', 'xAxis')
