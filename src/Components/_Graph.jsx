@@ -6,7 +6,8 @@ class Graph extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      lines : ["high", "open", "close", "low"]
+      lines : ["high", "open", "close", "low"],
+      colors : ["steelblue", "mediumturquoise", "coral", "beige"]
     }
   }
 
@@ -28,7 +29,11 @@ class Graph extends React.Component {
       this.initializeChart()
       this.handleGraphScale()
       this.createAxes()
-      this.generateCloseLine()
+
+      this.state.lines.forEach((line, i) => {
+        this.generateLine(line, this.state.colors[i])
+      })
+      
       }
     );
   }
@@ -116,7 +121,7 @@ class Graph extends React.Component {
       .attr('d', line);
     }
 
-    generateLines = (metric) => {
+    generateLine = (metric, color) => {
       const line = d3.line()
         .x(d => { // draw x line
           return this.state.xScale(d['date']);
@@ -130,7 +135,7 @@ class Graph extends React.Component {
         .data([this.state.data])
         .style('fill', 'none')
         .attr('id', 'priceChart')
-        .attr('stroke', 'steelblue')
+        .attr('stroke', color)
         .attr('stroke-width', '1.5')
         .attr('d', line);
       }
