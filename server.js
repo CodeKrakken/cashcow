@@ -28,7 +28,8 @@ app.get('/api/news/:symbol', async (req, res) => {
   let details = await DataFetcher.fetchCompanyDetails(symbol)
   let name = DataFetcher.getEncodedName(details)
   let result = await NewsFetcher.fetchArticles(name)
-  res.status(200).send(result.articles)
+  let articles = NewsFetcher.parseArticles(result.articles)
+  res.status(200).send(articles)
 })
 
 app.get('/api/week/:symbol', async (req, res) => {
@@ -42,8 +43,11 @@ app.get('/api/finance/details/:symbol', async (req, res) => { //get company deta
   res.status(200).send(result)
 })
 
+<<<<<<< HEAD
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
 })
 
+=======
+>>>>>>> backend/route-tests
 server.listen(port, () => console.log(`Listening on port: ${port}`))
