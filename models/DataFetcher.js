@@ -59,7 +59,7 @@ class DataFetcher {
           low: dayPriceInfo[1]['3. low'],
           open: dayPriceInfo[1]['1. open'],
           close: dayPriceInfo[1]['4. close'],
-          // volume: dayPriceInfo[1]['5. volume']
+          volume: dayPriceInfo[1]['5. volume']
         }
       })
       return weekQuoteData
