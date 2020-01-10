@@ -45,7 +45,6 @@ app.get('/data', async (req, res) => {
   let raw = fs.readFileSync('./spec/dummyData/timeseries.json')
   let data = JSON.parse(raw)
   res.json(data)
-  console.log("hello")
 })
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
