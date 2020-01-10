@@ -10,7 +10,7 @@ class Graph extends React.Component{
   }
 
   componentDidMount() {
-    Axios.get(`/week/${this.props.symbol}`)
+    Axios.get(`api/week/${this.props.symbol}`)
     .then(res => {
       let result = res.data
       this.setState({sevenDayData : result})
