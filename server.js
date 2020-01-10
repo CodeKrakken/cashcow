@@ -7,6 +7,7 @@ const path = require('path');
 const axios = require('axios')
 const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
+const fs = require("fs")
 
 require('dotenv').config()
 
@@ -28,7 +29,9 @@ app.get('/api/news/:symbol', async (req, res) => {
   let details = await DataFetcher.fetchCompanyDetails(symbol)
   let name = DataFetcher.getEncodedName(details)
   let result = await NewsFetcher.fetchArticles(name)
-  res.status(200).send(result.articles)
+  console.log("Result:", result)
+  let articles = NewsFetcher.parseArticles(result.articles)
+  res.status(200).send(articles)
 })
 
 app.get('/api/week/:symbol', async (req, res) => {
