@@ -12,19 +12,22 @@ class Graph extends React.Component {
   }
 
   componentDidMount() {
-    d3.json('/data').then(data => {
+    d3.json(`/week/${this.props.symbol}`).then(data => {
+      console.log(data)
       let timeseries = []
 
       for (let i = 0; i < data.length; i++) {
         timeseries.push({
           //graph input array accepts array of objects in the following format
-          date: new Date(data[i].timestamp),
-          high: data[i]['2. high'],
-          low: data[i]['3. low'],
-          open: data[i]["1. open"],
-          close: data[i]['4. close'],
+          date: new Date(data[i].date),
+          high: data[i].high,
+          low: data[i].low,
+          open: data[i].open,
+          close: data[i].close,
         })
       }
+
+      console.log(timeseries)
 
       // graph is drawn with the following functions
       this.setState({ data : timeseries });
@@ -41,14 +44,14 @@ class Graph extends React.Component {
   initializeChart = () => {
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
     const width = 800 - margin.left - margin.right;
-    const height = 800 - margin.top - margin.bottom;
+    const height = 600 - margin.top - margin.bottom;
     const svg = d3
-    .select('#chart')
-    .append('svg')
-    .attr('width', width + margin['left'] + margin['right'])
-    .attr('height', height + margin['top'] + margin['bottom'])
-    .append('g')
-    .attr('transform', `translate(${margin['left']},  ${margin['top']})`);
+      .select('#chart')
+      .append('svg')
+      .attr('width', width + margin['left'] + margin['right'])
+      .attr('height', height + margin['top'] + margin['bottom'])
+      .append('g')
+      .attr('transform', `translate(${margin['left']},  ${margin['top']})`);
 
     this.setState({
       svg : svg,
@@ -79,7 +82,7 @@ class Graph extends React.Component {
       .range([0, this.state.width]); // chart width
     const yScale = d3
       .scaleLinear()
-      .domain([yMin - 2, yMax]) // size of range of y values
+      .domain([yMin - 4, yMax]) // size of range of y values
       .range([this.state.height, 0]); // chart height
 
     this.setState({
