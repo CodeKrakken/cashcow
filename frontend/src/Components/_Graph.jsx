@@ -12,8 +12,7 @@ class Graph extends React.Component {
   }
 
   componentDidMount() {
-    d3.json(`/week/${this.props.symbol}`).then(data => {
-      console.log(data)
+    d3.json(`/api/week/${this.props.symbol}`).then(data => {
       let timeseries = []
 
       for (let i = 0; i < data.length; i++) {
@@ -27,8 +26,6 @@ class Graph extends React.Component {
           volume: data[i].volume
         })
       }
-
-      console.log(timeseries)
 
       // graph is drawn with the following functions
       this.setState({ data : timeseries });
