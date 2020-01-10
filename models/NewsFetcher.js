@@ -14,6 +14,7 @@ class NewsFetcher {
   }
 
   static parseArticle(data) {
+    console.log("Data", data)
     return {
       title : data.title,
       body : data.description,
@@ -28,6 +29,7 @@ class NewsFetcher {
     for (let i = 0; i < arrayOfArticles.length; i++) {
       articles.push(this.parseArticle(arrayOfArticles[i]))
     }
+    console.log(articles)
     return articles;
   }
 }
