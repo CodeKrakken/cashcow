@@ -8,7 +8,7 @@ class NewsContainer extends React.Component{
   }
 
   componentDidMount() {
-    Axios.get(`/news/${this.props.symbol}`)
+    Axios.get(`api/news/${this.props.symbol}`)
     .then(res => {
       let result = res.data
       console.log(res.data)
