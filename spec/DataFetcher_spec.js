@@ -27,40 +27,65 @@ describe("DataFetcher", () =>{
     let dummyData = JSON.parse(rawDummy)
 
     it("parses a response from the Time Series (Daily) API", () => {
-      let expectedResponse = {
-        symbol: 'AAPL',
-        closePrices: [
-          // NB last seven *working days* - no data on holidays/weekends
-          {
-            date: new Date("2020-1-8"),
-            closePrice: 302.7100,
-          },
-          {
-            date: new Date("2020-1-7"),
-            closePrice: 298.3900
-          },
-          {
-            date: new Date("2020-1-6"),
-            closePrice: 299.8000
-          },
-          {
-            date: new Date("2020-1-3"),
-            closePrice: 297.4300
-          },
-          {
-            date: new Date("2020-1-2"),
-            closePrice: 300.3500
-          },
-          {
-            date: new Date("2019-12-31"),
-            closePrice: 293.6500
-          },
-          {
-            date: new Date("2019-12-30"),
-            closePrice: 291.5200
-          },
-        ],
-      }
+      let expectedResponse = [
+        // NB last seven *working days* - no data on holidays/weekends
+        {
+          date: new Date("2020-1-8"),
+          high: '303.2300',
+          low: '297.1560',
+          open: '297.1600',
+          close: '302.7100',
+          volume: '22192266',
+        },
+        {
+          date: new Date("2020-1-7"),
+          high: '300.9000',
+          low: '297.4800',
+          open: '299.8400',
+          close: '298.3900',
+          volume: '26221027',
+        },
+        {
+          date: new Date("2020-1-6"),
+          high: '299.9600',
+          low: '292.7500',
+          open: '293.7900',
+          close: '299.8000',
+          volume: '29644644',
+        },
+        {
+          date: new Date("2020-1-3"),
+          high: '300.5800',
+          low: '296.5000',
+          open: '297.1500',
+          close: '297.4300',
+          volume: '36633878',
+        },
+        {
+          date: new Date("2020-1-2"),
+          high: '300.6000',
+          low: '295.1900',
+          open: '296.2400',
+          close: '300.3500',
+          volume: '33911864',
+        },
+        {
+          date: new Date("2019-12-31"),
+          high: '293.6800',
+          low: '289.5200',
+          open: '289.9300',
+          close: '293.6500',
+          volume: '25247625',
+        },
+        {
+          date: new Date("2019-12-30"),
+          high: '292.6900',
+          low: '285.2200',
+          open: '289.4600',
+          close: '291.5200',
+          volume: '36059614',
+        },
+      ]
       expect(DataFetcher.parseWeekData(dummyData, 'AAPL')).toEqual(expectedResponse);
     })
   })
