@@ -8,7 +8,7 @@ class Price extends React.Component{
   }
 
   componentDidMount() {
-    Axios.get(`/finance/${this.props.symbol}`)
+    Axios.get(`/api/finance/${this.props.symbol}`)
     .then(res => {
       let result = res.data
       this.setState({price : result.price.toFixed(2)})
