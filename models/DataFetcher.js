@@ -1,11 +1,11 @@
 const axios = require('axios')
 
 class DataFetcher {
-  static async fetchQuote(symbol) {
+  static async fetchQuote(symbol, sender = axios) {
     try {
       let key = process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
-      let response = await axios.get(endpoint)
+      let response = await sender.get(endpoint)
       return this.parseQuote(response.data)
     } catch(err) {
       console.log(err)
