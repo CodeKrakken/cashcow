@@ -1,7 +1,22 @@
 const DataFetcher = require('../models/DataFetcher')
 const fs = require("fs")
+const sinon = require('sinon')
+const axios = require('axios')
 
-describe("DataFetcher", () =>{
+
+describe("DataFetcher", () => {
+
+  describe(".fetchQuote", () => {
+    it("check that fetchquote calls axios.get with expected endpoint", () => {
+      const dummyResponse = { data: {} }
+      const expectedEndpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GOOGL&apikey=${process.env.AV_KEY}`
+      const get = sinon.stub(axios, "get")
+      get.returns(dummyResponse)
+      DataFetcher.fetchQuote("GOOGL")
+      sinon.assert.calledWith(get, expectedEndpoint)
+    })
+  })
+
   describe(".parseQuote", () => {
     let rawDummy = fs.readFileSync(`${__dirname}/dummyData/dummy.json`);
     let dummyData = JSON.parse(rawDummy)
