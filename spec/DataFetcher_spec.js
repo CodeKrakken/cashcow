@@ -3,9 +3,7 @@ const fs = require("fs")
 const sinon = require('sinon')
 const axios = require('axios')
 
-
 describe("DataFetcher", () => {
-
   describe(".fetchQuote", () => {
     it("check that fetchquote calls axios.get with expected endpoint", () => {
       const expectedEndpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GOOGL&apikey=${process.env.AV_KEY}`
