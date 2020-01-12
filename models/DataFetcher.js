@@ -37,7 +37,7 @@ class DataFetcher {
       let key = process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
-      return this.parseWeekData(response.data, symbol)
+      return this.parseWeekData(response.data)
     } catch(err) {
       console.log(err)
     }
