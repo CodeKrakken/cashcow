@@ -8,10 +8,9 @@ describe("DataFetcher", () => {
 
   describe(".fetchQuote", () => {
     it("check that fetchquote calls axios.get with expected endpoint", () => {
-      const dummyResponse = { data: {} }
       const expectedEndpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GOOGL&apikey=${process.env.AV_KEY}`
       const get = sinon.stub(axios, "get")
-      get.returns(dummyResponse)
+      get.returns({ data: {} })
       DataFetcher.fetchQuote("GOOGL")
       get.restore()
       sinon.assert.calledWith(get, expectedEndpoint)
@@ -20,10 +19,9 @@ describe("DataFetcher", () => {
 
   describe("fetchWeekData", () => {
     it("check that fetchweekdata calls axios.get with expected endpoint", () => {
-      const dummyResponse = { data: {} }
       const expectedEndpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GOOGL&apikey=${process.env.AV_KEY}`
       const get = sinon.stub(axios, "get")
-      get.returns(dummyResponse)
+      get.returns({ data: {} })
       DataFetcher.fetchWeekData("GOOGL")
       get.restore()
       sinon.assert.calledWith(get, expectedEndpoint)
@@ -134,10 +132,9 @@ describe("DataFetcher", () => {
 
   describe("fetchCompanyDetails", () => {
     it("checks that fetchCompanyDetails calls axios.get with expected endpoint", () => {
-      const dummyResponse = { data: {} }
       const expectedEndpoint = `https://cloud.iexapis.com/stable/stock/GOOGL/company?token=${process.env.API_KEY}`
       const get = sinon.stub(axios, "get")
-      get.returns(dummyResponse)
+      get.returns({ data: {} })
       DataFetcher.fetchCompanyDetails("GOOGL")
       get.restore()
       sinon.assert.calledWith(get, expectedEndpoint)
