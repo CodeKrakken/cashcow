@@ -13,6 +13,19 @@ describe("DataFetcher", () => {
       const get = sinon.stub(axios, "get")
       get.returns(dummyResponse)
       DataFetcher.fetchQuote("GOOGL")
+      get.restore()
+      sinon.assert.calledWith(get, expectedEndpoint)
+    })
+  })
+
+  describe("fetchWeekData", () => {
+    it("check that fetchweekdata calls axios.get with expected endpoint", () => {
+      const dummyResponse = { data: {} }
+      const expectedEndpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GOOGL&apikey=${process.env.AV_KEY}`
+      const get = sinon.stub(axios, "get")
+      get.returns(dummyResponse)
+      DataFetcher.fetchWeekData("GOOGL")
+      get.restore()
       sinon.assert.calledWith(get, expectedEndpoint)
     })
   })
