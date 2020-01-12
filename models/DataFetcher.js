@@ -1,11 +1,11 @@
 const axios = require('axios')
 
 class DataFetcher {
-  static async fetchQuote(symbol, sender = axios) {
+  static async fetchQuote(symbol) {
     try {
-      let key = process.env.AV_KEY
-      let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
-      let response = await sender.get(endpoint)
+      const key = process.env.AV_KEY
+      const endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
+      const response = await axios.get(endpoint)
       return this.parseQuote(response.data)
     } catch(err) {
       console.log(err)
@@ -14,7 +14,7 @@ class DataFetcher {
 
   static parseQuote(result) {
     if (result['Global Quote']) {
-      let data = {
+      const data = {
         symbol : result['Global Quote']['01. symbol'],
         open : parseFloat(result['Global Quote']['02. open']),
         high : parseFloat(result['Global Quote']['03. high']),
@@ -36,7 +36,6 @@ class DataFetcher {
     try {
       let key = process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
-      console.log(endpoint)
       let response = await axios.get(endpoint)
       return this.parseWeekData(response.data, symbol)
     } catch(err) {
@@ -80,7 +79,6 @@ class DataFetcher {
 
   static getEncodedName(data) {
     let encodedName = encodeURI(data.companyName)
-    console.log(data)
     return encodedName
   }
 }
