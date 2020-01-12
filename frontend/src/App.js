@@ -18,7 +18,7 @@ class App extends React.Component {
         <h1>Cash Cow - Mooooo</h1>
         <div>
           {this.state.symbols.map((symbol) => (
-            <div>
+            <div className="app">
               <Price symbol={symbol}/>
               <Graph symbol={symbol}/>
               <NewsContainer symbol={symbol}/>
