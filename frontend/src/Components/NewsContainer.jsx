@@ -11,18 +11,18 @@ class NewsContainer extends React.Component{
     Axios.get(`api/news/${this.props.symbol}`)
     .then(res => {
       let result = res.data
-      console.log(res.data)
       this.setState({articles : result})
     })
   }
 
   render() {
     return(
-      <div>
+      <div className="article-container">
         {this.state.articles.map((article) => (
-          <div>
-            <a href={article.url}><p>{article.title}</p></a>
-            <img src={article.image_url}></img>
+          <div className="article">
+            <img className="article-image" src={article.image_url}></img>
+            <a className="article-title" href={article.url}><p>{article.title}</p></a>
+            <p className="article-body">{article.body}</p>
           </div>
         ))}
       </div>
