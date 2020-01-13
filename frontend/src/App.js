@@ -18,17 +18,26 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>Welcome To CashCow</h1>
-        <div>
-          < StockForm
-            symbol={this.state.symbol}
-            onSymbolChange={this.handleSymbolChange} />
+      <div class="app-container">
+        <div class="top-bar">
+          <div class="brand-container">
+            <h1>CashCow</h1>
+          </div>
+          <div class="search-container">
+            < StockForm
+              symbol={this.state.symbol}
+              onSymbolChange={this.handleSymbolChange} />
+          </div>
         </div>
-        <div>
-          <Price symbol={this.state.symbol}/>
-          <Graph symbol={this.state.symbol}/>
-          <NewsContainer symbol={this.state.symbol}/>
+
+        <div class="main-container">
+          <div class="app-left">
+            <Price symbol={this.state.symbol}/>
+            <Graph symbol={this.state.symbol}/>
+          </div>
+          <div class="app-right">
+            <NewsContainer symbol={this.state.symbol}/>
+          </div>
         </div>
       </div>
     );
