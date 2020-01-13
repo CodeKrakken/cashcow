@@ -1,6 +1,6 @@
 import React from 'react';
 import Price from './Components/Price'
-import Graph from './Components/_Graph'
+import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
 import './App.css';
 
