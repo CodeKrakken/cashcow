@@ -4,7 +4,9 @@
   max-height : 400px;
   flex-direction: row;
   overflow-y: scroll;
-  border: solid blue;
+  /* border: solid blue; */
+  justify-content: space-between;
+  margin: 2px;
 }
 
 .article {
@@ -13,9 +15,9 @@
 }
 
 .article-image {
-  display: block;
-  max-width:230px;
-  max-height:95px;
+  /* display: block; */
+  max-width: 300px;
+  max-height: 120px;
   width: auto;
   height: auto;
 }

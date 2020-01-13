@@ -1,5 +1,5 @@
 .price-container {
-  border : solid;
+  /* border : solid; */
   width : 300px;
   display: flex;
   flex-direction: column;

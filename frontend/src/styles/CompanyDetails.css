@@ -1,10 +1,16 @@
 .company-details {
-  border : solid;
+  /* border : solid; */
   display : flex;
   flex: 0 0 50em;
+  align-content: flex-start;
 }
 
 .company-info {
+  flex: 0 0 12em;
   display : flex;
-  align-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.company-info.flex-item {
 }
