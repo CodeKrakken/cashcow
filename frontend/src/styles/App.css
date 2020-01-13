@@ -17,75 +17,39 @@
   }
 }
 
-.chart-container {
-  display: flex;
-  justify-content: center;
-}
 
 .flex-item {
   flex: 1 0 auto;
 }
 
-.article-container{
+.app-container {
   display : flex;
-  flex-wrap: wrap;
-  max-height : 400px;
-  flex-direction: row;
-  overflow-y: scroll;
-}
-
-.article {
-  flex-basis: 200px;
-  max-height: 300px;;
-}
-
-.article-image {
-  display: block;
-  max-width:230px;
-  max-height:95px;
-  width: auto;
-  height: auto;
+  flex-direction: column;
 }
 
 .main-container {
   display : flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-content: flex-start;
   overflow: hidden;
 }
 
 .price-details-container {
+  border: solid red;
+  align-content : flex-start;
+  justify-content: space-between;
+  display : flex;
+  flex-direction: row;
   margin : 3px;
-  overflow : none;
-  flex-shrink: 0;
-}
-
-.article-title {
-  
 }
 
 .indent {
   margin-left: 5%;
 }
 
-.price-container {
-  border : solid;
-  width : 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.company-details {
-  height : 500px;
-  width : 800px;
-}
-
-.price-item {
-  margin : 0;
-}
+/* changes color of taxed based on positive or negative value */
 .negative {
   color : red;
 }
@@ -93,6 +57,7 @@
 .positive {
   color : green;
 }
+
 
 .App-header {
   background-color: #282c34;
@@ -120,11 +85,4 @@
 
 
 
-.chart-container {
-  background: #00151c;
-  position : relative;
-}
-#chart {
-  background: #0e3040;
-  color: #67809f;
-}
+
