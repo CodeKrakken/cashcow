@@ -11,7 +11,6 @@ class Price extends React.Component{
     Axios.get(`/api/finance/${symbol}`)
     .then(res => {
       let result = res.data
-      console.log(result)
       this.setState({
         price : parseFloat(result.price.toFixed(2)),
         open : parseFloat(result.open.toFixed(2)),
