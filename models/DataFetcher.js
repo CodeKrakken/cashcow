@@ -3,7 +3,7 @@ const axios = require('axios')
 class DataFetcher {
   static async fetchQuote(symbol) {
     try {
-      let key = this.randomKey()
+      let key = this.randomKey() || process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
       return this.parseQuote(response.data)
@@ -32,29 +32,33 @@ class DataFetcher {
     }
   }
 
-  static async fetchWeekData(symbol) {
+  static async fetchTimeSeriesDaily(symbol, size) {
     try {
-      let key = this.randomKey()
-      let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
+      let key = this.randomKey() || process.env.AV_KEY
+      let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${key}`
       let response = await axios.get(endpoint)
-      return this.parseWeekData(response.data)
+      return this.parseTimeSeriesData(response.data, size)
     } catch(err) {
       console.log(err)
     }
   }
 
   static randomKey() {
-    let keys = [process.env.AV_KEY, process.env.AV_KEY_2, process.env.AV_KEY_3]
-    return keys[Math.floor((Math.random() * (0, keys.length)) + 1)]
+    let keys = [process.env.AV_KEY, process.env.AV_KEY_2, process.env.AV_KEY_3, process.env.AV_KEY_4]
+    let index = Math.floor((Math.random() * (keys.length - 1)))
+    console.log(keys[index])
+    return keys[index]
   }
 
   // parsers could be in own class?
-  static parseWeekData(result) {
+  static parseTimeSeriesData(result, size) {
     if (result['Time Series (Daily)']) {
       let allPrices = Object.keys(result['Time Series (Daily)']).map((key) => {
         return [key, result['Time Series (Daily)'][key]]
       })
-      let weekPrices = allPrices.slice(0, 7)
+      let weekPrices = allPrices.slice(0, size)
+      // weekQuoteData is an Array of Objects
+
       let weekQuoteData = weekPrices.map((dayPriceInfo) => {
         return {
           date: new Date(dayPriceInfo[0]),
