@@ -41,7 +41,7 @@ describe("Predictor", () => {
   it('Returns 300.3 using parsedDummy and a size of 3', () => {
     let movingAvergae = Predictor.movingAverage(parsedDummy, 3)
     expect(movingAvergae).toEqual({
-      movingAverage : 300.55,
+      movingAverage : 300.3,
       size : 3
     })
   })
