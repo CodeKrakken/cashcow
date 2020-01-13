@@ -155,7 +155,7 @@ class Graph extends React.Component {
 
   render () {
     return(
-      <div className="chart-container">
+      <div className="chart-container-div">
         <div id="chart">
           <h1>Chart</h1>
         </div>

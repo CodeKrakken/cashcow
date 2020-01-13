@@ -1,14 +1,11 @@
-.chart-container {
-  background: #00151c;
-  position : relative;
-}
-
 #chart {
   background: #0e3040;
   color: #67809f;
 }
 
-.chart-container {
+.chart-container-div {
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  background: #00151c;
 }
