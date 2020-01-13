@@ -26,12 +26,16 @@ class CompanyDetails extends React.Component {
   render(){
     return(
       <div class="company-details">
-        <h1 className='company-header'><a href={this.state.website}>{this.state.companyName}</a></h1>
-        <img src={`//logo.clearbit.com/${this.state.website}`}></img>
-        <p>Exchange: {this.state.exchange}</p>
-        <p>Industry: {this.state.industry}</p>
-        <p>About The Company: </p>
-        <p><span className="indent"></span>{this.state.description}</p>
+        <div className="company-info">
+          <h1 className='company-header'><a href={this.state.website}>{this.state.companyName}</a></h1>
+          <img className="company-logo" src={`//logo.clearbit.com/${this.state.website}`}></img>
+          <p>Exchange: {this.state.exchange}</p>
+          <p>Industry: {this.state.industry}</p>
+        </div>
+        <div id="company-description">
+          <p>About The Company: </p>
+          <p><span className="indent"></span>{this.state.description}</p>
+        </div>
       </div>
     )
   }

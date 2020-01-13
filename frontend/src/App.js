@@ -5,7 +5,13 @@ import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
 import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
-import './App.css';
+import './styles/App.css';
+import './styles/CompanyDetails.css';
+import './styles/Chart.css';
+import './styles/NewsContainer.css';
+import './styles/Price.css';
+import './styles/StockForm.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -20,7 +26,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="app-container">
         <h1>Welcome To CashCow</h1>
         <div>
           < StockForm
@@ -28,7 +34,7 @@ class App extends React.Component {
             onSymbolChange={this.handleSymbolChange} />
         </div>
         <div className="main-container flex-item">
-          <div className="price-details-container flex-item">
+          <div className="price-details-container">
             <Price symbol={this.state.symbol}/>
             <CompanyDetails symbol={this.state.symbol}/>
           </div>

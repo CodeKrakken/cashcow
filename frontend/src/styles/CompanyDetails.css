@@ -1,0 +1,10 @@
+.company-details {
+  border : solid;
+  display : flex;
+  flex: 0 0 50em;
+}
+
+.company-info {
+  display : flex;
+  align-content: flex-start;
+}

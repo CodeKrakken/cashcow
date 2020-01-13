@@ -61,7 +61,7 @@ class Prediction extends React.Component{
       )
     } else {
       return (
-        <p>Cannot make prediction! Not enough data available</p>
+        <p>Cannot make prediction! Not enough data available.</p>
       )
     }
 

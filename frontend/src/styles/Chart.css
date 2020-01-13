@@ -1,0 +1,14 @@
+.chart-container {
+  background: #00151c;
+  position : relative;
+}
+
+#chart {
+  background: #0e3040;
+  color: #67809f;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+}
