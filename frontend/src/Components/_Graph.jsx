@@ -44,9 +44,9 @@ class Graph extends React.Component {
       this.handleGraphScale()
       this.generateAxes()
       this.generateCloseLine()
-      // this.state.lines.forEach((line, i) => {
-      //   this.generateLine(line, this.state.colors[i])
-      //   })
+      this.state.lines.forEach((line, i) => {
+        this.generateLine(line, this.state.colors[i])
+        })
       }
     );
   }
@@ -151,7 +151,7 @@ class Graph extends React.Component {
       .attr('stroke-width', '1.5')
       .attr('d', line);
   }
- 
+
   render () {
     return(
       <div className="chart-container">
