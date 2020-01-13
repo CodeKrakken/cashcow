@@ -24,16 +24,25 @@ describe("Predictor", () => {
         
   it('Returns the 302.71 using parsedDummy and a size of 1', () => {
     let movingAvergae = Predictor.movingAverage(parsedDummy, 1)
-    expect(movingAvergae).toEqual(302.71)
+    expect(movingAvergae).toEqual({
+      movingAverage : 302.71,
+      size : 1
+    })
   })
 
   it('Returns 300.55 using parsedDummy and a size of 2', () => {
     let movingAvergae = Predictor.movingAverage(parsedDummy, 2)
-    expect(movingAvergae).toEqual(300.55)
+    expect(movingAvergae).toEqual({
+      movingAverage : 300.55,
+      size : 2
+    })
   })
 
   it('Returns 300.3 using parsedDummy and a size of 3', () => {
-    let movingAvergae = Predictor.movingAverage(parsedDummy, 2)
-    expect(movingAvergae).toEqual(300.55)
+    let movingAvergae = Predictor.movingAverage(parsedDummy, 3)
+    expect(movingAvergae).toEqual({
+      movingAverage : 300.55,
+      size : 3
+    })
   })
 })
