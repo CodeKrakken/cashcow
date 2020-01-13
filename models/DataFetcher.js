@@ -32,24 +32,24 @@ class DataFetcher {
     }
   }
 
-  static async fetchWeekData(symbol) {
+  static async fetchTimeSeriesDaily(symbol, size) {
     try {
       let key = process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
-      return this.parseWeekData(response.data)
+      return this.parseTimeSeriesData(response.data, size)
     } catch(err) {
       console.log(err)
     }
   }
 
   // parsers could be in own class?
-  static parseWeekData(result) {
+  static parseTimeSeriesData(result, size) {
     if (result['Time Series (Daily)']) {
       let allPrices = Object.keys(result['Time Series (Daily)']).map((key) => {
         return [key, result['Time Series (Daily)'][key]]
       })
-      let weekPrices = allPrices.slice(0, 7)
+      let weekPrices = allPrices.slice(0, size)
       // weekQuoteData is an Array of Objects
       let weekQuoteData = weekPrices.map((dayPriceInfo) => {
         return {
