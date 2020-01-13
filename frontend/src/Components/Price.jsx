@@ -7,8 +7,8 @@ class Price extends React.Component{
     this.state = {}
   }
 
-  componentDidMount() {
-    Axios.get(`/api/finance/${this.props.symbol}`)
+  _fetchData(symbol) {
+    Axios.get(`/api/finance/${symbol}`)
     .then(res => {
       let result = res.data
       console.log(result)
@@ -27,7 +27,17 @@ class Price extends React.Component{
       console.log(err);
     })
   }
+  
+  componentDidMount() {
+    this._fetchData(this.props.symbol)
+  }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.symbol !== prevProps.symbol) {
+      this._fetchData(this.props.symbol)
+    }
+  }
+  
   handleChangeClass() {
     if (this.state.change < 1) {
       return "negative"
