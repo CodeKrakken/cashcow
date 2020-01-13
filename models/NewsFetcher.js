@@ -1,10 +1,10 @@
 const axios = require('axios')
 
 class NewsFetcher {
-  static async fetchArticles(symbol) {
+  static async fetchArticles(encodedName) {
     try {
       let key = process.env.NEWS_KEY
-      let endpoint = `https://newsapi.org/v2/everything?q=${symbol}&apiKey=${key}`
+      let endpoint = `https://newsapi.org/v2/everything?q=${encodedName}&apiKey=${key}`
       let response = await axios.get(endpoint)
       return response.data
     } catch(err) {
