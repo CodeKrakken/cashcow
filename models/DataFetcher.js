@@ -3,7 +3,6 @@ const axios = require('axios')
 class DataFetcher {
   static async fetchQuote(symbol) {
     try {
-      console.log("Fetching")
       let key = this.randomKey()
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)

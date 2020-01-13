@@ -50,7 +50,6 @@ app.get('/api/week/:symbol', async (req, res) => {
 app.get('/api/finance/details/:symbol', async (req, res) => { //get company details
   let symbol = req.params.symbol
   let result = await DataFetcher.fetchCompanyDetails(symbol)
-  console.log(result)
   res.status(200).send(result)
 })
 
