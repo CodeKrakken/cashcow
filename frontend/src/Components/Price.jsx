@@ -28,17 +28,22 @@ class Price extends React.Component{
     })
   }
 
+  handleChangeClass() {
+    if (this.state.change < 1) {
+      return "negative"
+    } else {
+      return "positive"
+    }
+  }
+
   render() {
     return(
-      <div>
-        <h1>{this.props.symbol} : ${this.state.price}</h1>
-        <p>Open: {this.state.open}</p>
-        <p>Close: {this.state.close}</p>
-        <p>High: {this.state.high}</p>
-        <p>Low: {this.state.low}</p>
-        <p>Volume: {this.state.volume}</p>
-        <p>Change: {this.state.change}</p>
-        <p>Percentage Change: {this.state.percentageChange}%</p>
+      <div className="price-container">
+        <h1 className='price-item price-header'>{this.props.symbol} : ${this.state.price}</h1>
+        <p className='price-item'><span>Open: {this.state.open}</span> <span>Close: {this.state.close}</span></p>
+        <p className='price-item'> <span>High: {this.state.high}  Low: {this.state.low}</span></p>
+        <p className='price-item'>Volume: {this.state.volume}</p>
+        <p className='price-item'>Change: <span className={'price-item ' + this.handleChangeClass()}>{this.state.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{this.state.percentageChange}%</span></p>
       </div>
     )
   }
