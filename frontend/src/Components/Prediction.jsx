@@ -10,8 +10,8 @@ class Prediction extends React.Component{
   async componentDidMount () {
     let movingAverage = await Axios.get(`/api/prediction/${this.props.symbol}`)
     let movingAverageSize = movingAverage.data.size
-    movingAverage = movingAverage.data.movingAverage
     let currPrice = await Axios.get(`/api/finance/${this.props.symbol}`)
+    movingAverage = movingAverage.data.movingAverage
     currPrice = currPrice.data.price
     this.setState({
       movingAverage : movingAverage,
