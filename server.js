@@ -53,7 +53,7 @@ app.get('/api/prediction/:symbol', async (req, res) => {
   let symbol = req.params.symbol
   let data = await DataFetcher.fetchTimeSeriesDaily(symbol, 50)
   let movingAverage = Predictor.movingAverage(data)
-  res.send({data : movingAverage})
+  res.send(movingAverage)
 })
 
 app.get('*', (req, res) => {

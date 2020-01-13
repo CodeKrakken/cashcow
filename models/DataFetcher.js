@@ -35,8 +35,7 @@ class DataFetcher {
   static async fetchTimeSeriesDaily(symbol, size) {
     try {
       let key = this.randomKey()
-      console.log(key)
-      let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
+      let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${key}`
       let response = await axios.get(endpoint)
       return this.parseTimeSeriesData(response.data, size)
     } catch(err) {
@@ -45,8 +44,10 @@ class DataFetcher {
   }
 
   static randomKey() {
-    let keys = [process.env.AV_KEY, process.env.AV_KEY_2, process.env.AV_KEY_3]
-    return keys[Math.floor((Math.random() * (0, keys.length)) + 1)]
+    let keys = [process.env.AV_KEY, process.env.AV_KEY_2, process.env.AV_KEY_3, process.env.AV_KEY_4]
+    let index = Math.floor((Math.random() * (keys.length - 1)))
+    console.log(keys[index])
+    return keys[index]
   }
 
   // parsers could be in own class?
@@ -77,7 +78,6 @@ class DataFetcher {
   static async fetchCompanyDetails(symbol) {
     try {
       let key = process.env.API_KEY
-      console.log(key)
       let response = await axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/company?token=${key}`)
       return response.data
     } catch (err) {
