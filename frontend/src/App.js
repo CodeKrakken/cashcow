@@ -2,6 +2,7 @@ import React from 'react';
 import Price from './Components/Price'
 import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
+import Prediction from './Components/Prediction'
 import './App.css';
 
 class App extends React.Component {
@@ -20,8 +21,9 @@ class App extends React.Component {
           {this.state.symbols.map((symbol) => (
             <div className="app">
               <Price symbol={symbol}/>
-              <Graph symbol={symbol}/>
               <NewsContainer symbol={symbol}/>
+              <Graph symbol={symbol}/>
+              <Prediction symbol={symbol}/>
             </div>
           ))}
         </div>

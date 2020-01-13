@@ -1,7 +1,7 @@
 const DataFetcher = require('./DataFetcher')
 
 class Predictor {
-  static movingAverage(data, size) {
+  static movingAverage(data, size = 100) {
     let closePrices = data.map((item) => {
       return parseFloat(item.close)
     })
