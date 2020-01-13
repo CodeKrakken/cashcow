@@ -22,9 +22,6 @@ if (process.env.NODE_ENV == 'development') {
   app.use('/', express.static(path.join(__dirname, 'frontend/build')))
 }
 
-
-
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
   if (process.env.NODE_ENV == 'development') {
@@ -53,12 +50,15 @@ app.get('/api/week/:symbol', async (req, res) => {
   res.json(await DataFetcher.fetchWeekData(symbol))
 })
 
+<<<<<<< HEAD
 // app.get('/api/finance/details/:symbol', async (req, res) => { //get company details
 //   let symbol = req.params.symbol
 //   let result = await DataFetcher.fetchCompanyDetails(symbol)
 //   res.status(200).send(result)
 // })
 
+=======
+>>>>>>> 6cee2729f616d5814c5e77c72a796e95b455cb49
 app.get('*', (req, res) => {
   if (process.env.NODE_ENV == 'development') {
     res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
