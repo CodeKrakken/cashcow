@@ -27,7 +27,7 @@ class Prediction extends React.Component{
 
   async componentDidUpdate(prevProps) {
     if (this.props.symbol !== prevProps.symbol) {
-      this.fetchData(this.props.symbol)
+      await this.fetchData(this.props.symbol)
     }
   }
 

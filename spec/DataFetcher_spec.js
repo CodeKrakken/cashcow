@@ -17,7 +17,7 @@ describe("DataFetcher", () => {
 
   describe("fetchTimeSeriesDaily", () => {
     it("check that fetchTimeSeriesDaily calls axios.get with expected endpoint", () => {
-      const expectedEndpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GOOGL&outputsize=full&apikey=${process.env.AV_KEY}`
+      const expectedEndpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GOOGL&outputsize=compact&apikey=${process.env.AV_KEY}`
       const get = sinon.stub(axios, "get")
       get.returns({ data: {} })
       DataFetcher.fetchTimeSeriesDaily("GOOGL")
