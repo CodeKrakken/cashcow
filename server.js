@@ -54,11 +54,11 @@ app.get('/api/week/:symbol', async (req, res) => {
   res.json(await DataFetcher.fetchWeekData(symbol))
 })
 
-app.get('/api/finance/details/:symbol', async (req, res) => { //get company details
-  let symbol = req.params.symbol
-  let result = await DataFetcher.fetchCompanyDetails(symbol)
-  res.status(200).send(result)
-})
+// app.get('/api/finance/details/:symbol', async (req, res) => { //get company details
+//   let symbol = req.params.symbol
+//   let result = await DataFetcher.fetchCompanyDetails(symbol)
+//   res.status(200).send(result)
+// })
 
 app.get('*', (req, res) => {
   if (process.env.NODE_ENV == 'development') {
