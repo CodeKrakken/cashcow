@@ -9,9 +9,6 @@ const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
 const fs = require("fs")
 
-console.log(process.env.NODE_ENV)
-
-
 require('dotenv').config()
 
 app.use(bodyParser.json())
@@ -21,9 +18,6 @@ if (process.env.NODE_ENV == 'development') {
 } else if (process.env.NODE_ENV == 'production') {
   app.use('/', express.static(path.join(__dirname, 'frontend/build')))
 }
-
-
-
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
@@ -44,7 +38,6 @@ app.get('/api/news/:symbol', async (req, res) => {
   let details = await DataFetcher.fetchCompanyDetails(symbol)
   let name = DataFetcher.getEncodedName(details)
   let result = await NewsFetcher.fetchArticles(name)
-  console.log("Result:", result)
   let articles = NewsFetcher.parseArticles(result.articles)
   res.status(200).send(articles)
 })
@@ -57,6 +50,7 @@ app.get('/api/week/:symbol', async (req, res) => {
 app.get('/api/finance/details/:symbol', async (req, res) => { //get company details
   let symbol = req.params.symbol
   let result = await DataFetcher.fetchCompanyDetails(symbol)
+  console.log(result)
   res.status(200).send(result)
 })
 
