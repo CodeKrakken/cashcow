@@ -35,6 +35,7 @@ class DataFetcher {
   static async fetchTimeSeriesDaily(symbol, size) {
     try {
       let key = this.randomKey()
+      console.log(key)
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
       return this.parseTimeSeriesData(response.data, size)
@@ -76,6 +77,7 @@ class DataFetcher {
   static async fetchCompanyDetails(symbol) {
     try {
       let key = process.env.API_KEY
+      console.log(key)
       let response = await axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/company?token=${key}`)
       return response.data
     } catch (err) {
