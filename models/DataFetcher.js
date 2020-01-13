@@ -54,7 +54,7 @@ class DataFetcher {
       let allPrices = Object.keys(result['Time Series (Daily)']).map((key) => {
         return [key, result['Time Series (Daily)'][key]]
       })
-      let weekPrices = allPrices //.slice(0, 7)
+      let weekPrices = allPrices.slice(0, 7)
       let weekQuoteData = weekPrices.map((dayPriceInfo) => {
         return {
           date: new Date(dayPriceInfo[0]),
