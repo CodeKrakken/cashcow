@@ -43,6 +43,26 @@
   
 }
 
+.price-container {
+  border : solid;
+  width : 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content : space-evenly;
+  align-items: center;
+}
+
+.price-item {
+  margin : 0;
+}
+.negative {
+  color : red;
+}
+
+.positive {
+  color : green;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

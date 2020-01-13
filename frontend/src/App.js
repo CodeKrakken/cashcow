@@ -15,7 +15,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>Cash Cow - Mooooo</h1>
+        <h1>Welcome To CashCow</h1>
         <div>
           {this.state.symbols.map((symbol) => (
             <div className="app">
