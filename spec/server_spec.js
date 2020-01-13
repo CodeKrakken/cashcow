@@ -79,20 +79,4 @@ describe("server routes", () => {
       expect(result.status).toEqual(200)
     });
   })
-  
-  describe("GET /api/finance/details/:symbol", () => {
-    it("calls DataFetcher.fetchCompanyDetails with the symbol given", async () => {
-      const fetchCompanyDetails = sinon.stub(DataFetcher, "fetchCompanyDetails")
-      await axios.get('http://localhost:5000/api/finance/details/GOOGL')
-      fetchCompanyDetails.restore()
-      sinon.assert.calledWith(fetchCompanyDetails, "GOOGL")
-    });
-
-    it("respond with 200 on success", async () => {
-      const fetchCompanyDetails = sinon.stub(DataFetcher, "fetchCompanyDetails")
-      const result = await axios.get('http://localhost:5000/api/finance/details/GOOGL')
-      fetchCompanyDetails.restore()
-      expect(result.status).toEqual(200)
-    });
-  });
 })
