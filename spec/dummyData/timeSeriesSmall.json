@@ -1,0 +1,7 @@
+{
+  "Meta Data":{"1. Information":"Daily Prices (open, high, low, close) and Volumes","2. Symbol":"aapl","3. Last Refreshed":"2020-01-08 14:34:59","4. Output Size":"Compact","5. Time Zone":"US/Eastern"},
+  "Time Series (Daily)":{
+    "2020-01-08":{"1. open":"297.1600","2. high":"303.2300","3. low":"297.1560","4. close":"302.7100","5. volume":"22192266"},
+    "2020-01-07":{"1. open":"299.8400","2. high":"300.9000","3. low":"297.4800","4. close":"298.3900","5. volume":"26221027"},
+    "2020-01-06":{"1. open":"293.7900","2. high":"299.9600","3. low":"292.7500","4. close":"299.8000","5. volume":"29644644"}
+}}

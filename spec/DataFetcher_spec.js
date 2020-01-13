@@ -15,12 +15,12 @@ describe("DataFetcher", () => {
     })
   })
 
-  describe("fetchWeekData", () => {
-    it("check that fetchweekdata calls axios.get with expected endpoint", () => {
-      const expectedEndpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GOOGL&apikey=${process.env.AV_KEY}`
+  describe("fetchTimeSeriesDaily", () => {
+    it("check that fetchTimeSeriesDaily calls axios.get with expected endpoint", () => {
+      const expectedEndpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GOOGL&outputsize=full&apikey=${process.env.AV_KEY}`
       const get = sinon.stub(axios, "get")
       get.returns({ data: {} })
-      DataFetcher.fetchWeekData("GOOGL")
+      DataFetcher.fetchTimeSeriesDaily("GOOGL")
       get.restore()
       sinon.assert.calledWith(get, expectedEndpoint)
     })
@@ -46,7 +46,7 @@ describe("DataFetcher", () => {
     })
   })
 
-  describe(".parseWeekData", () => {
+  describe(".parseTimeSeriesData", () => {
     let rawDummy = fs.readFileSync(`${__dirname}/dummyData/weekDummy.json`);
     let dummyData = JSON.parse(rawDummy)
 
@@ -110,7 +110,7 @@ describe("DataFetcher", () => {
           volume: '36059614',
         },
       ]
-      expect(DataFetcher.parseWeekData(dummyData, 'AAPL')).toEqual(expectedResponse);
+      expect(DataFetcher.parseTimeSeriesData(dummyData, 7)).toEqual(expectedResponse);
     })
   })
 
