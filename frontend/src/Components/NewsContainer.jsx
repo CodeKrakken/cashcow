@@ -7,13 +7,23 @@ class NewsContainer extends React.Component{
     this.state = {articles : []}
   }
 
-  componentDidMount() {
-    Axios.get(`api/news/${this.props.symbol}`)
+  _fetchData(symbol) {
+    Axios.get(`api/news/${symbol}`)
     .then(res => {
       let result = res.data
       console.log(res.data)
       this.setState({articles : result})
     })
+  }
+
+  componentDidMount() {
+    this._fetchData(this.props.symbol)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.symbol !== prevProps.symbol) {
+      this._fetchData(this.props.symbol)
+    }
   }
 
   render() {
