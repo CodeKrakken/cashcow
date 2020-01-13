@@ -12,7 +12,18 @@ class Graph extends React.Component {
   }
 
   componentDidMount() {
-    d3.json(`/api/week/${this.props.symbol}`).then(data => {
+    this._createGraph(this.props.symbol)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.symbol !== prevProps.symbol) {
+      d3.select('#chart').select('svg').remove()
+      this._createGraph(this.props.symbol)
+    }
+  }
+
+  _createGraph(symbol) {
+    d3.json(`/api/week/${symbol}`).then(data => {
       let timeseries = []
 
       for (let i = 0; i < data.length; i++) {
@@ -60,7 +71,7 @@ class Graph extends React.Component {
   }
 
 
-  handleGraphScale = () => { 
+  handleGraphScale = () => {
     const xMin = d3.min(this.state.data, d => {
       return d['date'];
     });
@@ -130,7 +141,7 @@ class Graph extends React.Component {
         .y(d => { //draw y line
           return this.state.yScale(d[metric]);
         });
-  
+
       this.state.svg
         .append('path')
         .data([this.state.data])
@@ -140,7 +151,7 @@ class Graph extends React.Component {
         .attr('stroke-width', '1.5')
         .attr('d', line);
       }
-  
+
   render () {
     return(
       <div className="chart-container">
