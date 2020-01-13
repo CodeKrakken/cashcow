@@ -2,10 +2,14 @@ const axios = require('axios')
 
 class DataFetcher {
   static async fetchQuote(symbol) {
+    let keys = [process.env.AV_KEY, process.env.AV_KEY_2]
     try {
-      let key = process.env.AV_KEY
+      console.log("Fetching")
+      let key = keys[Math.floor((Math.random() * (0, keys.length)) + 1)]
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
+      console.log(response)
+      console.log(response)
       return this.parseQuote(response.data)
     } catch(err) {
       console.log(err)
@@ -34,9 +38,8 @@ class DataFetcher {
 
   static async fetchWeekData(symbol) {
     try {
-      let key = process.env.AV_KEY
+      let key = process.env.AV_KEY_2
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
-      console.log(endpoint)
       let response = await axios.get(endpoint)
       return this.parseWeekData(response.data, symbol)
     } catch(err) {

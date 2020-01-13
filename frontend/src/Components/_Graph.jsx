@@ -32,9 +32,10 @@ class Graph extends React.Component {
       this.initializeChart()
       this.handleGraphScale()
       this.generateAxes()
-      this.state.lines.forEach((line, i) => {
-        this.generateLine(line, this.state.colors[i])
-        })
+      this.generateCloseLine()
+      // this.state.lines.forEach((line, i) => {
+      //   this.generateLine(line, this.state.colors[i])
+      //   })
       }
     );
   }
