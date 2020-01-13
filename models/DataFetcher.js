@@ -14,7 +14,7 @@ class DataFetcher {
 
   static parseQuote(result) {
     if (result['Global Quote']) {
-      let data = {
+      const data = {
         symbol : result['Global Quote']['01. symbol'],
         open : parseFloat(result['Global Quote']['02. open']),
         high : parseFloat(result['Global Quote']['03. high']),
@@ -37,7 +37,7 @@ class DataFetcher {
       let key = this.randomKey()
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
-      return this.parseWeekData(response.data, symbol)
+      return this.parseWeekData(response.data)
     } catch(err) {
       console.log(err)
     }
@@ -83,7 +83,6 @@ class DataFetcher {
 
   static getEncodedName(data) {
     let encodedName = encodeURI(data.companyName)
-    console.log(data)
     return encodedName
   }
 }
