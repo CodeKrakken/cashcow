@@ -13,14 +13,14 @@ class Price extends React.Component{
       let result = res.data
       console.log(result)
       this.setState({
-        price : result.price.toFixed(2),
-        open : result.open.toFixed(2),
-        high : result.high.toFixed(2),
-        low : result.low.toFixed(2),
-        close : result.prev_close.toFixed(2),
+        price : parseFloat(result.price.toFixed(2)),
+        open : parseFloat(result.open.toFixed(2)),
+        high : parseFloat(result.high.toFixed(2)),
+        low : parseFloat(result.low.toFixed(2)),
+        close : parseFloat(result.prev_close.toFixed(2)),
         volume : result.volume,
-        change : result.change.toFixed(2),
-        percentageChange : result.percent_change.toFixed(2)
+        change : parseFloat(result.change.toFixed(2)),
+        percentageChange : parseFloat(result.percent_change.toFixed(2))
       })
     })
     .catch((err) => {

@@ -8,17 +8,17 @@ class Prediction extends React.Component{
   }
 
   async componentDidMount () {
-    let sma = await Axios.get(`/api/prediction/${this.props.symbol}`)
-    sma = sma.data.data
+    let movingAverage = await Axios.get(`/api/prediction/${this.props.symbol}`)
+    let movingAverageSize = movingAverage.data.size
+    movingAverage = movingAverage.data.movingAverage
     let currPrice = await Axios.get(`/api/finance/${this.props.symbol}`)
     currPrice = currPrice.data.price
-    console.log(currPrice)
     this.setState({
-      movingAverage : sma,
+      movingAverage : movingAverage,
+      movingAverageSize : movingAverageSize,
       currentPrice : currPrice,
-      smaDifference : currPrice - sma
+      smaDifference : currPrice - movingAverage
     })
-    console.log(this.state)
   }
 
   handleMovingAveragePrediction () {
@@ -38,7 +38,6 @@ class Prediction extends React.Component{
   }
 
   handleSmaPriceDifference() {
-    console.log(typeof this.state.currentPrice)
     let percentageDiff = (Math.abs(this.state.smaDifference / this.state.currentPrice)) * 100
     return `${(percentageDiff).toFixed(2)}%`
   }
@@ -47,7 +46,7 @@ class Prediction extends React.Component{
     return(
       <div>
         <h1 className={this.handlePriceDifferenceText()[0]}>{this.handleMovingAveragePrediction()}</h1> 
-        <p>The current price is {this.handleSmaPriceDifference()} {this.handlePriceDifferenceText()[1]} than the 100 day moving average!</p>
+        <p>The current price is {this.handleSmaPriceDifference()} {this.handlePriceDifferenceText()[1]} than the {this.state.movingAverageSize} day moving average!</p>
       </div>
     )
   }

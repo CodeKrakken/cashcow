@@ -9,8 +9,11 @@ class Predictor {
     let sum = closePrices.reduce((acc, curr) => {
       return acc += curr
     })
-    let movingAverage = parseFloat((sum / size).toFixed(2))
-    return movingAverage
+    let movingAverage = parseFloat((sum / closePrices.length).toFixed(2))
+    return {
+      movingAverage : movingAverage,
+      size : closePrices.length
+    }
   }
 }
 
