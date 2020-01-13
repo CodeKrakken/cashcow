@@ -9,9 +9,6 @@ const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
 const fs = require("fs")
 
-console.log(process.env.NODE_ENV)
-
-
 require('dotenv').config()
 
 app.use(bodyParser.json())

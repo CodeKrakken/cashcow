@@ -32,9 +32,10 @@ class Graph extends React.Component {
       this.initializeChart()
       this.handleGraphScale()
       this.generateAxes()
-      this.state.lines.forEach((line, i) => {
-        this.generateLine(line, this.state.colors[i])
-        })
+      this.generateCloseLine()
+      // this.state.lines.forEach((line, i) => {
+      //   this.generateLine(line, this.state.colors[i])
+      //   })
       }
     );
   }
@@ -120,26 +121,26 @@ class Graph extends React.Component {
       .attr('stroke', 'steelblue')
       .attr('stroke-width', '1.5')
       .attr('d', line);
-    }
+  }
 
-    generateLine = (metric, color) => {
-      const line = d3.line()
-        .x(d => { // draw x line
-          return this.state.xScale(d['date']);
-        })
-        .y(d => { //draw y line
-          return this.state.yScale(d[metric]);
-        });
-  
-      this.state.svg
-        .append('path')
-        .data([this.state.data])
-        .style('fill', 'none')
-        .attr('id', 'priceChart')
-        .attr('stroke', color)
-        .attr('stroke-width', '1.5')
-        .attr('d', line);
-      }
+  generateLine = (metric, color) => {
+    const line = d3.line()
+      .x(d => { // draw x line
+        return this.state.xScale(d['date']);
+      })
+      .y(d => { //draw y line
+        return this.state.yScale(d[metric]);
+      });
+
+    this.state.svg
+      .append('path')
+      .data([this.state.data])
+      .style('fill', 'none')
+      .attr('id', 'priceChart')
+      .attr('stroke', color)
+      .attr('stroke-width', '1.5')
+      .attr('d', line);
+  }
   
   render () {
     return(
