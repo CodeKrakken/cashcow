@@ -3,9 +3,9 @@ const axios = require('axios')
 class DataFetcher {
   static async fetchQuote(symbol) {
     try {
-      const key = process.env.AV_KEY
-      const endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
-      const response = await axios.get(endpoint)
+      let key = this.randomKey()
+      let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
+      let response = await axios.get(endpoint)
       return this.parseQuote(response.data)
     } catch(err) {
       console.log(err)
@@ -34,13 +34,18 @@ class DataFetcher {
 
   static async fetchWeekData(symbol) {
     try {
-      let key = process.env.AV_KEY
+      let key = this.randomKey()
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
       return this.parseWeekData(response.data)
     } catch(err) {
       console.log(err)
     }
+  }
+
+  static randomKey() {
+    let keys = [process.env.AV_KEY, process.env.AV_KEY_2, process.env.AV_KEY_3]
+    return keys[Math.floor((Math.random() * (0, keys.length)) + 1)]
   }
 
   // parsers could be in own class?
@@ -50,7 +55,6 @@ class DataFetcher {
         return [key, result['Time Series (Daily)'][key]]
       })
       let weekPrices = allPrices.slice(0, 7)
-      // weekQuoteData is an Array of Objects
       let weekQuoteData = weekPrices.map((dayPriceInfo) => {
         return {
           date: new Date(dayPriceInfo[0]),
