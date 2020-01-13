@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+.html {
+  margin : 2px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -16,6 +20,10 @@
 .chart-container {
   display: flex;
   justify-content: center;
+}
+
+.flex-item {
+  flex: 1 0 auto;
 }
 
 .article-container{
@@ -39,8 +47,27 @@
   height: auto;
 }
 
+.main-container {
+  display : flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: flex-start;
+  overflow: hidden;
+}
+
+.price-details-container {
+  margin : 3px;
+  overflow : none;
+  flex-shrink: 0;
+}
+
 .article-title {
   
+}
+
+.indent {
+  margin-left: 5%;
 }
 
 .price-container {
@@ -48,8 +75,12 @@
   width : 300px;
   display: flex;
   flex-direction: column;
-  justify-content : space-evenly;
   align-items: center;
+}
+
+.company-details {
+  height : 500px;
+  width : 800px;
 }
 
 .price-item {
@@ -87,8 +118,11 @@
   }
 }
 
+
+
 .chart-container {
   background: #00151c;
+  position : relative;
 }
 #chart {
   background: #0e3040;

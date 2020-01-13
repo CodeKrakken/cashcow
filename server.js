@@ -83,7 +83,6 @@ app.get('/api/company/:symbol', async (req, res) => {
   try {
     let symbol = req.params.symbol
     let details = await DataFetcher.fetchCompanyDetails(symbol)
-    console.log(details)
     res.status(200).json(details)
   } catch (err) {
     console.log(err)
