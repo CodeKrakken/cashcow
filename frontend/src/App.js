@@ -23,18 +23,18 @@ class App extends React.Component {
       <div>
         <h1>Welcome To CashCow</h1>
         <div>
-
           < StockForm
             symbol={this.state.symbol}
             onSymbolChange={this.handleSymbolChange} />
         </div>
-        <div>
-          {/* <Price symbol={this.state.symbol}/> */}
-          {/* <NewsContainer symbol={this.state.symbol}/> */}
-          {/* <Graph symbol={this.state.symbol}/> */}
-          {/* <Prediction symbol={this.state.symbol}/> */}
-          <CompanyDetails symbol={this.state.symbol}/>
-
+        <div className="main-container flex-item">
+          <div className="price-details-container flex-item">
+            <Price symbol={this.state.symbol}/>
+            <CompanyDetails symbol={this.state.symbol}/>
+          </div>
+          <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
+          <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
+          <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
         </div>
       </div>
     );
