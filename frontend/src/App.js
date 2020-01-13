@@ -8,7 +8,12 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.handleSymbolChange = this.handleSymbolChange.bind(this);
     this.state = { symbol: "TSLA" }
+  }
+
+  handleSymbolChange(newSymbol) {
+    this.setState({symbol: newSymbol})
   }
 
   render () {
@@ -16,7 +21,9 @@ class App extends React.Component {
       <div>
         <h1>Cash Cow - Mooooo</h1>
         <div>
-          < StockForm />
+          < StockForm
+            symbol={this.state.symbol}
+            onSymbolChange={this.handleSymbolChange} />
         </div>
         <div>
           <Price symbol={this.state.symbol}/>
