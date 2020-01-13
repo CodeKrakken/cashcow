@@ -1,7 +1,20 @@
 const NewsFetcher = require('../models/NewsFetcher')
 const fs = require("fs")
+const sinon = require('sinon')
+const axios = require('axios')
 
 describe("NewsFetcher", () =>{
+  describe(".fetchArticles", () => {
+    it("calls axios.get with expected endpoint", () => {
+      const expectedEndpoint = `https://newsapi.org/v2/everything?q=Alphabet,%20Inc.&apiKey=${process.env.API_KEY}`
+      const get = sinon.stub(axios, "get")
+      get.returns({ data: {} })
+      NewsFetcher.fetchArticles("Alphabet,%20Inc.")
+      get.restore()
+      sinon.assert.calledWith(get, expectedEndpoint)
+    })
+  })
+
   describe(".parseArticle", () => {
     it("returns an object in format of {headline, body, url, image-url} from a single article", () => {
       let rawDummy = fs.readFileSync(`${__dirname}/dummyData/articleDummy.json`);
@@ -14,6 +27,9 @@ describe("NewsFetcher", () =>{
         timestamp : "2019-12-09T17:19:41Z"
       })
     })
+  })
+
+  describe(".parseArticles (plural)", () => {
     it("returns an array of two parsed articles in correct format", () => {
       let rawDummy = fs.readFileSync(`${__dirname}/dummyData/articleDummy.json`);
       let dummyData = JSON.parse(rawDummy)
@@ -33,7 +49,6 @@ describe("NewsFetcher", () =>{
           timestamp : "2019-12-09T17:19:41Z"
         }
       ])
-
     })
   })
 })
