@@ -31,7 +31,7 @@ class App extends React.Component {
           <Price symbol={this.state.symbol}/>
           <NewsContainer symbol={this.state.symbol}/>
           <Graph symbol={this.state.symbol}/>
-          <Prediction symbol={symbol}/>
+          <Prediction symbol={this.state.symbol}/>
         </div>
       </div>
     );
