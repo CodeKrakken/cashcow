@@ -13,6 +13,56 @@
   }
 }
 
+.chart-container {
+  display: flex;
+  justify-content: center;
+}
+
+.article-container{
+  display : flex;
+  flex-wrap: wrap;
+  max-height : 400px;
+  flex-direction: row;
+  overflow-y: scroll;
+}
+
+.article {
+  flex-basis: 200px;
+  max-height: 300px;;
+}
+
+.article-image {
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+.article-title {
+  
+}
+
+.price-container {
+  border : solid;
+  width : 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content : space-evenly;
+  align-items: center;
+}
+
+.price-item {
+  margin : 0;
+}
+.negative {
+  color : red;
+}
+
+.positive {
+  color : green;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
