@@ -44,9 +44,9 @@ class Graph extends React.Component {
       this.handleGraphScale()
       this.generateAxes()
       this.generateCloseLine()
-      // this.state.lines.forEach((line, i) => {
-      //   this.generateLine(line, this.state.colors[i])
-      //   })
+      this.state.lines.forEach((line, i) => {
+        this.generateLine(line, this.state.colors[i])
+        })
       }
     );
   }
