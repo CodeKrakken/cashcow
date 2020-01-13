@@ -14,7 +14,7 @@ class Price extends React.Component{
       this.setState({price : result.price.toFixed(2)})
     })
     .catch((err) => {
-      console.log('failed to fetch - may be over API limit');
+      console.log(err);
     })
   }
 
