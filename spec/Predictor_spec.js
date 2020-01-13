@@ -21,7 +21,7 @@ describe("Predictor", () => {
         open: '293.7900',
         close: '299.8000',
         volume: '29644644' } ]
-
+        
   it('Returns the 302.71 using parsedDummy and a size of 1', () => {
     let movingAvergae = Predictor.movingAverage(parsedDummy, 1)
     expect(movingAvergae).toEqual(302.71)

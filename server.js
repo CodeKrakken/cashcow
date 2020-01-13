@@ -7,6 +7,7 @@ const path = require('path');
 const axios = require('axios')
 const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
+const Predictor = require('./models/Predictor')
 const fs = require("fs")
 
 require('dotenv').config()
@@ -46,6 +47,13 @@ app.get('/api/week/:symbol', async (req, res) => {
   let symbol = req.params.symbol
   let timeSeries = await DataFetcher.fetchTimeSeriesDaily(symbol, 7)
   res.json(timeSeries)
+})
+
+app.get('/api/prediction/:symbol', async (req, res) => {
+  let symbol = req.params.symbol
+  let data = await DataFetcher.fetchTimeSeriesDaily(symbol, 50)
+  let movingAverage = Predictor.movingAverage(data)
+  res.send({data : movingAverage})
 })
 
 app.get('*', (req, res) => {
