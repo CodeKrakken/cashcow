@@ -1,7 +1,6 @@
 const express = require('express')
 const port = process.env.PORT || 5000
 const app = express()
-const server = require('http').createServer(app);
 const axios = require('axios')
 const sinon = require('sinon')
 const Server = require('../server.js')
@@ -65,17 +64,17 @@ describe("server routes", () => {
   });
 
   describe("GET /api/week/:symbol", () => {
-    it("calls Datafetcher.fetchWeekData with the expected symbol", async () => {
-      const fetchWeekData = sinon.stub(DataFetcher, "fetchWeekData")
+    it("calls Datafetcher.fetchTimeSeriesDaily with the expected symbol", async () => {
+      const fetchTimeSeriesDaily = sinon.stub(DataFetcher, "fetchTimeSeriesDaily")
       await axios.get('http://localhost:5000/api/week/GOOGL')
-      fetchWeekData.restore()
-      sinon.assert.calledWith(fetchWeekData, "GOOGL")
+      fetchTimeSeriesDaily.restore()
+      sinon.assert.calledWith(fetchTimeSeriesDaily, "GOOGL")
     })
 
     it("respond with 200 on success", async () => {
-      const fetchWeekData = sinon.stub(DataFetcher, "fetchWeekData")
+      const fetchTimeSeriesDaily = sinon.stub(DataFetcher, "fetchTimeSeriesDaily")
       const result = await axios.get('http://localhost:5000/api/week/GOOGL')
-      fetchWeekData.restore()
+      fetchTimeSeriesDaily.restore()
       expect(result.status).toEqual(200)
     });
   })

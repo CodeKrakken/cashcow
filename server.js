@@ -47,7 +47,8 @@ app.get('/api/news/:symbol', async (req, res) => {
 
 app.get('/api/week/:symbol', async (req, res) => {
   let symbol = req.params.symbol
-  res.json(await DataFetcher.fetchWeekData(symbol))
+  let timeSeries = await DataFetcher.fetchTimeSeriesDaily(symbol, 7)
+  res.json(timeSeries)
 })
 
 app.get('*', (req, res) => {
