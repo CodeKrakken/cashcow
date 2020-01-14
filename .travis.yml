@@ -16,5 +16,4 @@ before_script:
 after_script:
   - psql -c 'drop database cashcow_test;' -U postgres
 
-
 script: npm install && npm test
