@@ -34,9 +34,10 @@ app.get('/users/register', (req, res) => {
   console.log("register")
 })
 
+
+// ROOT
 app.get('/', (req, res) => {
   try {
-
     res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
     if (process.env.NODE_ENV == 'development') {
       res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
@@ -48,30 +49,28 @@ app.get('/', (req, res) => {
   }
 })
 
+app.get('*', (req, res) => {
+  try {
+    if (process.env.NODE_ENV == 'development') {
+      res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
+    } else if (process.env.NODE_ENV == 'production') {
+      res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
+    }
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+// FINANCE
 app.get('/api/finance/:symbol', async (req, res) =>{
   try {
-    console.log("session", req.session)
     let symbol = req.params.symbol
     res.json(await DataFetcher.fetchQuote(symbol))
   } catch (err) {
     console.log(err)
   }
-
 })
 
-app.get('/api/news/:symbol', async (req, res) => {
-  try {
-    let symbol = req.params.symbol
-    let details = await DataFetcher.fetchCompanyDetails(symbol)
-    let name = DataFetcher.getEncodedName(details)
-    let result = await NewsFetcher.fetchArticles(name)
-    let articles = NewsFetcher.parseArticles(result.articles)
-    res.status(200).send(articles)
-  } catch (err) {
-    console.log(err)
-    res.status(404).send(err)
-  }
-})
 
 app.get('/api/week/:symbol', async (req, res) => {
   try {
@@ -94,6 +93,7 @@ app.get('/api/prediction/:symbol', async (req, res) => {
   }
 })
 
+// IEX
 app.get('/api/company/:symbol', async (req, res) => {
   try {
     let symbol = req.params.symbol
@@ -104,16 +104,22 @@ app.get('/api/company/:symbol', async (req, res) => {
   }
 })
 
-app.get('*', (req, res) => {
+
+// NEWS
+app.get('/api/news/:symbol', async (req, res) => {
   try {
-    if (process.env.NODE_ENV == 'development') {
-      res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
-    } else if (process.env.NODE_ENV == 'production') {
-      res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
-    }
+    let symbol = req.params.symbol
+    let details = await DataFetcher.fetchCompanyDetails(symbol)
+    let name = DataFetcher.getEncodedName(details)
+    let result = await NewsFetcher.fetchArticles(name)
+    let articles = NewsFetcher.parseArticles(result.articles)
+    res.status(200).send(articles)
   } catch (err) {
     console.log(err)
+    res.status(404).send(err)
   }
 })
+
+
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
