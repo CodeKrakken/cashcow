@@ -5,7 +5,6 @@ class DataFetcher {
     try {
       let key = this.randomKey() || process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
-      console.log(endpoint)
       let response = await axios.get(endpoint)
       return this.parseQuote(response.data)
     } catch(err) {
