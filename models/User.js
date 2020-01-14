@@ -50,11 +50,13 @@ class User {
   }
 
   static async authenticate(email, password) {
+    console.log("User.authenticate args:", email, password)
     let db = new dbConnection();
     let result = await db.query(`
       SELECT * FROM users
       WHERE email='${email}' AND password='${password}';
     `);
+    console.log("User.authenticate db response: ", result.rows)
     let user = result.rows[0];
     if (user) {
       return new User(user.username, user.id, user.first, user.last);
