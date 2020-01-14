@@ -109,7 +109,8 @@ class Graph extends React.Component {
       .append('g')
       .attr('id', 'yAxis')
       .attr('transform', `translate(${this.state.width}, 0)`)
-      .call(d3.axisRight(this.state.yScale));
+      .call(d3.axisRight(this.state.yScale)
+        .tickFormat(d3.format("$")));
   }
 
   generateCloseLine = () => {
