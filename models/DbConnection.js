@@ -49,6 +49,7 @@ class dbConnection {
       return result
     } catch (err) {
       console.error(err)
+      return []
     }
   }
 }
