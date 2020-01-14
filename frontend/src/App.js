@@ -6,6 +6,11 @@ import NewsContainer from './Components/NewsContainer'
 import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+} from "react-router-dom";
 import './styles/App.css';
 import './styles/CompanyDetails.css';
 import './styles/Chart.css';
@@ -29,7 +34,18 @@ class App extends React.Component {
     sessionStorage.setItem("userId", res.user.id)
     sessionStorage.setItem("sessiondId", res.sessionId)
     sessionStorage.setItem("username", res.user.username)
+    sessionStorage.setItem("isAuthenticated,", true)
     this.setState({isRejected : false})
+  }
+
+  signupLink = () => {
+    let isAuthenticated = sessionStorage.getItem("isAuthenticated")
+    console.log("authenticated", isAuthenticated)
+    if(isAuthenticated != "true") {
+      return(
+        <Link to="/register/">SignUp</Link>
+      )
+    }
   }
 
   handleRejection = () => {
@@ -48,23 +64,33 @@ class App extends React.Component {
   render () {
     return (
       <div className="app-container">
+        { this.handleRejection() }
         <h1>Welcome To CashCow</h1>
-        {this.handleRejection()}
-        <Register authenticate={this.authenticate} reject={this.reject}/>
-        <div>
-          < StockForm
-            symbol={this.state.symbol}
-            onSymbolChange={this.handleSymbolChange} />
-        </div>
-        <div className="main-container flex-item">
-          <div className="price-details-container">
-            <Price symbol={this.state.symbol}/>
-            <CompanyDetails symbol={this.state.symbol}/>
+        <Router>
+
+          { this.signupLink() }
+          <Route path="/register" component={() => 
+            <Register 
+              authenticate={this.authenticate} 
+              reject={this.reject}
+            />}>
+          </Route> 
+          
+          <div>
+            < StockForm
+              symbol={this.state.symbol}
+              onSymbolChange={this.handleSymbolChange} />
           </div>
-          <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
-          <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
-          <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
-        </div>
+          <div className="main-container flex-item">
+            <div className="price-details-container">
+              <Price symbol={this.state.symbol}/>
+              <CompanyDetails symbol={this.state.symbol}/>
+            </div>
+            <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
+            <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
+            <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
+          </div>
+        </Router>
       </div>
     );
   }

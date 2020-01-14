@@ -27,7 +27,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "pg": "^7.17.1"
+    "pg": "^7.17.1",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "jasmine": "^3.5.0",

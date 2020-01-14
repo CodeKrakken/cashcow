@@ -56,7 +56,7 @@ class User {
       WHERE email='${email}' AND password='${password}';
     `);
     let user = result.rows[0];
-    if (user.username != null) {
+    if (user) {
       return new User(user.username, user.id, user.first, user.last);
     } else {
       return "Email or Password Incorrect";
