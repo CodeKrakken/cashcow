@@ -2,8 +2,6 @@ const DbConnection = require('../models/DbConnection')
 const fs = require('fs')
 cwd = process.cwd()
 
-process.env.NODE_ENV = 'TEST'
-
 class TestHelper {
   constructor() {
     this.createTableUsersQuery = fs.readFileSync(`${cwd}/db/migrations/02_CREATE_TABLE_USERS.sql`).toString()
