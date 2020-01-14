@@ -22,7 +22,6 @@ class DbConnection {
       this.db_ip = process.env.DB_IP;
       this.uri = process.env.DATABASE_URL;
     }
-    console.log(this.uri)
     this.client = new Client(this.uri)
   }
 
@@ -30,7 +29,7 @@ class DbConnection {
     try {
       await this.client.connect()
     } catch (err) {
-      console.error(err)
+      console.error(err.message)
     }
   }
 
@@ -38,7 +37,7 @@ class DbConnection {
     try {
       await this.client.end()
     } catch (err) {
-      console.error(err)
+      console.error(err.message)
     }
   }
 
@@ -49,7 +48,7 @@ class DbConnection {
       await this.close()
       return result
     } catch (err) {
-      console.error(err)
+      console.error(err.message)
       return []
     }
   }
