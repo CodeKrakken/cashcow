@@ -16,6 +16,8 @@ const jwt = require('jsonwebtoken')
 
 require('dotenv').config()
 
+
+
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(session({
@@ -52,17 +54,43 @@ app.post("/users/authenticate", async (req, res) => {
   let password = req.body.password;
   let user = await User.authenticate(email, password);
   if (user instanceof User) {
-    res.status(200).json({ user: user, sessionId : req.session.id });
+    // Use JWT
+    jwt.sign({user : user}, 'moolians', (err, token) => {
+      console.log(token)
+      res.status(200).json({
+        user: user, sessionId : req.session.id, token : token
+      })
+    })
   } else {
     res.status(401);
   }
-
-  // jwt.sign({user : user}, 'moolians', (err, token) => {
-  //   res.json({
-  //     token : token
-  //   })
-  // })
 });
+
+// Protected Route 
+app.post("/api/post", verifyToken, (req, res) => {
+  jwt.verify(req.token, 'moolians', (err, data) => {
+    if(err) {
+      res.sendStatus(403)
+    } else (res.json({
+      message : "This Route is rotected",
+       user : data.user,
+      }))
+  })
+})
+
+// MiddleWare for Protected Route
+function verifyToken(req, res, next) {
+  console.log("Verifying")
+  const bearerHeader = req.headers['authorization'];
+  if(bearerHeader != undefined) {
+    const bearerToken = bearerHeader.split(" ")[1]
+    req.token = bearerToken
+    next()
+  } else {
+    console.log("Sending")
+    res.sendStatus(403)
+  }
+}
 
 
 // ROOT
