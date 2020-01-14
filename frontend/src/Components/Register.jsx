@@ -35,16 +35,10 @@ class SignUp extends Component {
     
     Axios.post("/users/register", credentials)
       .then(res => {
-        console.log(res.data)
-        let user = res.data.user
-        console.log("Register, user: ", user)
-        // localStorage.setItem('isAuth', true)
-        // localStorage.setItem('userId', user.id)
-        // localStorage.setItem('userFirst', user.first)
-        // this.props.setUser(user)
-        console.log()
-        this.props.authenticate(res.data)
-        this.clearForm()
+        if (res.status == 200) {
+          this.props.authenticate(res.data)
+          this.clearForm()
+        }
       })
       .catch(err => console.log("Unauthorized", err));
   };
