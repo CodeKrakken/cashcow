@@ -6,10 +6,7 @@ const d3 = require("d3")
 class Graph extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      lines : ["high", "open", "close", "low"],
-      colors : ["steelblue", "mediumturquoise", "coral", "beige"]
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -31,7 +28,7 @@ class Graph extends React.Component {
         timeseries.push({
           //graph input array accepts array of objects in the following format
           date: new Date(data[i].date),
-          high: data[i].high,
+          high: data[i].high, // can delete high,low and open as no longer using
           low: data[i].low,
           open: data[i].open,
           close: data[i].close,
@@ -45,9 +42,6 @@ class Graph extends React.Component {
       this.handleGraphScale()
       this.generateAxes()
       this.generateCloseLine()
-      this.state.lines.forEach((line, i) => {
-        this.generateLine(line, this.state.colors[i])
-        })
       }
     );
   }
@@ -56,9 +50,11 @@ class Graph extends React.Component {
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
     const width = 800 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
+    // append an svg element to the <div id='chart'> element
     const svg = d3
       .select('#chart')
       .append('svg')
+      // assign the height and width of the svg element
       .attr('width', width + margin['left'] + margin['right'])
       .attr('height', height + margin['top'] + margin['bottom'])
       .append('g')
@@ -83,12 +79,12 @@ class Graph extends React.Component {
       return d['close'];
     });
     const yMax = d3.max(this.state.data, d => {
-      return d['high'];
+      return d['close'];
     });
 
     const xScale = d3
-      .scaleTime()
-      .domain([xMin, xMax]) // size of range of x values
+      .scalePoint()
+      .domain(this.state.data.map((d) => d['date']).reverse()) // 
       .range([0, this.state.width]); // chart width
     const yScale = d3
       .scaleLinear()
@@ -103,16 +99,19 @@ class Graph extends React.Component {
 
   generateAxes = () => {
     this.state.svg
+      // append 'g' element to 'svg' element
       .append('g')
       .attr('id', 'xAxis')
       .attr('transform', `translate(0, ${this.state.height})`)
-      .call(d3.axisBottom(this.state.xScale));
+      .call(d3.axisBottom(this.state.xScale)
+        .tickFormat(d3.timeFormat("%a %d %b")));
 
     this.state.svg
       .append('g')
       .attr('id', 'yAxis')
       .attr('transform', `translate(${this.state.width}, 0)`)
-      .call(d3.axisRight(this.state.yScale));
+      .call(d3.axisRight(this.state.yScale)
+        .tickFormat(d3.format("$")));
   }
 
   generateCloseLine = () => {
@@ -134,30 +133,11 @@ class Graph extends React.Component {
       .attr('d', line);
   }
 
-  generateLine = (metric, color) => {
-    const line = d3.line()
-      .x(d => { // draw x line
-        return this.state.xScale(d['date']);
-      })
-      .y(d => { //draw y line
-        return this.state.yScale(d[metric]);
-      });
-
-    this.state.svg
-      .append('path')
-      .data([this.state.data])
-      .style('fill', 'none')
-      .attr('id', 'priceChart')
-      .attr('stroke', color)
-      .attr('stroke-width', '1.5')
-      .attr('d', line);
-  }
-
   render () {
     return(
       <div className="chart-container-div">
         <div id="chart">
-          <h1>Chart</h1>
+          <h2>Closing price (last 7 working days)</h2>
         </div>
       </div>
     )
