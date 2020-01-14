@@ -8,6 +8,15 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-around;
+  padding: 10px;
+}
+
+.search-container {
+  margin: 10px;
+}
+
+.cashcow-logo {
+  margin: 10px;
 }
 
 .main-container {
@@ -22,6 +31,7 @@
   flex-direction: column;
   align-content: space-around;
   flex-basis: 65%;
+  padding: 10px;
 }
 
 .app-right {
@@ -29,12 +39,16 @@
   flex-direction: column;
   align-content: space-around;
   flex-basis: 35%;
+  padding: 10px;
+}
+
+.company-details-container {
+  margin : 10px;
 }
 
 .html {
   margin : 2px;
 }
-
 
 .article-title {}
 
@@ -44,7 +58,7 @@
   justify-content: space-between;
   display : flex;
   flex-direction: row;
-  margin : 3px;
+  margin : 10px;
 }
 
 .indent {
