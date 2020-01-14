@@ -49,17 +49,7 @@ app.get('/', (req, res) => {
   }
 })
 
-app.get('*', (req, res) => {
-  try {
-    if (process.env.NODE_ENV == 'development') {
-      res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
-    } else if (process.env.NODE_ENV == 'production') {
-      res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
-    }
-  } catch (err) {
-    console.log(err)
-  }
-})
+
 
 // FINANCE
 app.get('/api/finance/:symbol', async (req, res) =>{
@@ -120,6 +110,16 @@ app.get('/api/news/:symbol', async (req, res) => {
   }
 })
 
-
+app.get('*', (req, res) => {
+  try {
+    if (process.env.NODE_ENV == 'development') {
+      res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
+    } else if (process.env.NODE_ENV == 'production') {
+      res.sendFile(path.join(__dirname+'/frontend/build/index.html'))
+    }
+  } catch (err) {
+    console.log(err)
+  }
+})
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
