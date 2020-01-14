@@ -31,7 +31,7 @@ class App extends React.Component {
     this.setState({symbol: newSymbol})
   }
 
-  authenticate = (res) => {
+  authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
     sessionStorage.setItem("userId", res.user.id)
     sessionStorage.setItem("sessiondId", res.sessionId)
     sessionStorage.setItem("username", res.user.username)
