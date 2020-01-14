@@ -6,6 +6,7 @@ import NewsContainer from './Components/NewsContainer'
 import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
+import LoginForm from './Components/LoginForm'
 import {
   BrowserRouter as Router,
   Route,
@@ -36,22 +37,33 @@ class App extends React.Component {
     sessionStorage.setItem("username", res.user.username)
     sessionStorage.setItem("isAuthenticated,", true)
     this.setState({isRejected : false})
+    this.setState({message : "Login"})
+    this.setState({didLogin : true})
   }
 
   signupLink = () => {
     let isAuthenticated = sessionStorage.getItem("isAuthenticated")
+    console.log(isAuthenticated)
     console.log("authenticated", isAuthenticated)
-    if(isAuthenticated != "true") {
+    if(isAuthenticated != true) {
       return(
         <Link to="/register/">SignUp</Link>
       )
     }
   }
 
-  handleRejection = () => {
+  appendFailMessage = (event) => {
     if (this.state.isRejected) {
       return(
-        <h1>Signup / Login Failed</h1>
+        <h1>Sign Up/ Login Failed</h1>
+      )
+    }
+  }
+
+  appendSuccessMessage = (event) => {
+    if (this.state.didLogin) {
+      return(
+        <h1>${event} Succesful!</h1>
       )
     }
   }
@@ -64,17 +76,18 @@ class App extends React.Component {
   render () {
     return (
       <div className="app-container">
-        { this.handleRejection() }
+        { this.appendFailMessage(this.state.message) }
+        { this.appendSuccessMessage(this.state.message) }
+        {/* 
         <h1>Welcome To CashCow</h1>
         <Router>
-
           { this.signupLink() }
           <Route path="/register" component={() => 
             <Register 
               authenticate={this.authenticate} 
               reject={this.reject}
             />}>
-          </Route> 
+        </Route> 
           
           <div>
             < StockForm
@@ -90,7 +103,8 @@ class App extends React.Component {
             <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
             <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
           </div>
-        </Router>
+        </Router> */}
+        <LoginForm authenticate={this.authenticate} reject={this.reject}/>
       </div>
     );
   }
