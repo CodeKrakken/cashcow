@@ -28,7 +28,7 @@ class App extends React.Component {
     return (
       <div class="app-container">
         <div class="top-bar">
-          <div class="brand-container">
+          <div class="cashcow-logo">
             <h1>CashCow</h1>
           </div>
           <div class="search-container">
