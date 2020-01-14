@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const User = require('./models/User')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 require('dotenv').config()
 
 
@@ -31,38 +32,51 @@ if (process.env.NODE_ENV == 'development') {
 
 // USERS
 app.post("/users/register", async (req, res) => {
-  let username = req.body.username;
-  let firstName = req.body.firstName;
-  let lastName = req.body.lastName;
-  let email = req.body.email;
-  let password = req.body.password;
-  let user = await User.create(username, firstName, lastName, email, password);
-  if (user.username != null) {
-    req.session.user = user
-    res.status(200).json({ user : user, sessionId : req.session.id });
-  } else {
-    res.status(401).send(user);
+  try {
+    let username = req.body.username;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let email = req.body.email;
+    let password = req.body.password;
+    let hashedPassword = await bcrypt.hash(password, 10)
+    let user = await User.create(username, firstName, lastName, email, hashedPassword);
+    if (user.username != null) {
+      req.session.user = user
+      res.status(200).json({ user : user, sessionId : req.session.id });
+    } else {
+      res.status(401).send(user);
+    }
+  } catch (err) {
+
   }
+  
 });
 
 app.post("/users/authenticate", async (req, res) => { 
-  let email = req.body.email;
-  let password = req.body.password;
-  let user = await User.authenticate(email, password);
-  if (user instanceof User) {
+  let user = await User.findByEmail(req.body.email); // get user data
+  if (user) {
     // Use JWT, user must login again to get a new token
-    jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
-      console.log(token)
-      res.status(200).json({
-        user: user, sessionId : req.session.id, token : token
-      })
-    })
+    try {
+      let isPassword = await bcrypt.compare(req.body.password, user.password) // decrypt
+      if (isPassword) { // extract this if clause into function?
+        jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
+          res.status(200).json({
+            user: user, 
+            sessionId : req.session.id, 
+            token : token,
+            message : "Sign in Successful!"
+          })
+        })
+      }
+    } catch (err) {
+      res.status(500).send("Failed")
+    }
   } else {
     res.status(401);
   }
 });
 
-// Protected Route 
+// Protected Route - Replace with route for portfolio
 app.post("/api/post", verifyToken, (req, res) => {
   jwt.verify(req.token, 'moolians', (err, data) => {
     if(err) {
@@ -70,7 +84,7 @@ app.post("/api/post", verifyToken, (req, res) => {
     } else (res.json({
       message : "This Route is rotected",
        user : data.user,
-      }))
+    }))
   })
 })
 

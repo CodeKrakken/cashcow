@@ -19,7 +19,7 @@ class User {
   static async findByEmail(email) {
     let db = new dbConnection();
     let result = await db.query(`SELECT * FROM users WHERE email='${email}'`);
-    return result.rows;
+    return result.rows[0];
   }
 
   static async check_exists(email) {
