@@ -11,6 +11,7 @@ const Predictor = require('./models/Predictor')
 const cookieParser = require('cookie-parser')
 const fs = require("fs")
 const session = require('express-session')
+const User = require('./models/User')
 
 require('dotenv').config()
 
@@ -30,9 +31,21 @@ if (process.env.NODE_ENV == 'development') {
 }
 
 // USERS
-app.get('/users/register', (req, res) => {
-  console.log("register")
-})
+app.post("/users/register", async (req, res) => {
+  let username = req.body.username;
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let email = req.body.email;
+  let password = req.body.password;
+  let user = await User.create(username, firstName, lastName, email, password);
+  let authenticated = await User.authenticate(email, password);
+  if (authenticated instanceof User) {
+    req.session.user = user
+    res.status(200).json({ user : user, sessionId : req.session.id });
+  } else {
+    res.status(401);
+  }
+});
 
 
 // ROOT

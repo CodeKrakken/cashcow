@@ -5,6 +5,7 @@ import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
 import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
+import Register from './Components/Register'
 import './styles/App.css';
 import './styles/CompanyDetails.css';
 import './styles/Chart.css';
@@ -24,11 +25,18 @@ class App extends React.Component {
     this.setState({symbol: newSymbol})
   }
 
+  authenticate = (res) => {
+    sessionStorage.setItem("userId", res.user.id)
+    sessionStorage.setItem("sessiondId", res.sessionId)
+    sessionStorage.setItem("username", res.user.username)
+  }
+
   render () {
     return (
       <div className="app-container">
         <h1>Welcome To CashCow</h1>
-        <div>
+        <Register authenticate={this.authenticate}/>
+        {/* <div>
           < StockForm
             symbol={this.state.symbol}
             onSymbolChange={this.handleSymbolChange} />
@@ -41,7 +49,7 @@ class App extends React.Component {
           <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
           <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
           <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
-        </div>
+        </div> */}
       </div>
     );
   }

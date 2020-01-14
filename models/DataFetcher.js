@@ -37,9 +37,7 @@ class DataFetcher {
     try {
       let key = this.randomKey() || process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${key}`
-      console.log(endpoint)
       let response = await axios.get(endpoint)
-      console.log(response.status)
       return this.parseTimeSeriesData(response.data, size)
     } catch(err) {
       console.log(err)
@@ -57,7 +55,6 @@ class DataFetcher {
       process.env.AV_KEY_7
     ]
     let index = Math.floor((Math.random() * (keys.length - 1)))
-    console.log(keys[index])
     return keys[index]
   }
 
