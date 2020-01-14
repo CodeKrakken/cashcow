@@ -41,11 +41,7 @@ class SignUp extends Component {
           this.clearForm()
         }
       })
-      .catch(err => {
-        console.log("Failed")
-        this.props.reject(err)
-        console.log("Unauthorized", err)
-      });
+      .catch(err => this.props.reject(err));
   };
 
   render() {

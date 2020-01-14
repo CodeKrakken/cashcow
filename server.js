@@ -44,19 +44,12 @@ app.post("/users/register", async (req, res) => {
     req.session.user = user
     res.status(200).json({ user : user, sessionId : req.session.id });
   } else {
-    res.status(409).send(user);
+    res.status(401).send(user);
   }
 });
 
-app.post("/api/posts", (req, res) => {
-  let user = req.user
-  res.json({
-    message : "post created"
-  })
-})
-
-
 app.post("/users/authenticate", async (req, res) => {
+  console.log(req.body)
   let email = req.body.email;
   let password = req.body.password;
   let user = await User.authenticate(email, password);
@@ -66,6 +59,12 @@ app.post("/users/authenticate", async (req, res) => {
   } else {
     res.status(401);
   }
+
+  // jwt.sign({user : user}, 'moolians', (err, token) => {
+  //   res.json({
+  //     token : token
+  //   })
+  // })
 });
 
 
@@ -92,7 +91,6 @@ app.get('/api/finance/:symbol', async (req, res) =>{
     console.log(err)
   }
 })
-
 
 app.get('/api/week/:symbol', async (req, res) => {
   try {
