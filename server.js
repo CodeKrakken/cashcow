@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser')
 const fs = require("fs")
 const session = require('express-session')
 const User = require('./models/User')
+const jwt = require('jsonwebtoken')
 
 require('dotenv').config()
 
@@ -44,6 +45,26 @@ app.post("/users/register", async (req, res) => {
     res.status(200).json({ user : user, sessionId : req.session.id });
   } else {
     res.status(409).send(user);
+  }
+});
+
+app.post("/api/posts", (req, res) => {
+  let user = req.user
+  res.json({
+    message : "post created"
+  })
+})
+
+
+app.post("/users/authenticate", async (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  let user = await User.authenticate(email, password);
+  console.log(user)
+  if (user instanceof User) {
+    res.status(200).json({ user: user });
+  } else {
+    res.status(401);
   }
 });
 

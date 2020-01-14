@@ -21,6 +21,7 @@ class DbConnection {
       this.db_ip = process.env.DB_IP;
       this.uri = process.env.DATABASE_URL;
     }
+    console.log("DB URI: ", this.uri)
     this.client = new Client(this.uri)
   }
 
