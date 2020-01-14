@@ -29,13 +29,28 @@ class App extends React.Component {
     sessionStorage.setItem("userId", res.user.id)
     sessionStorage.setItem("sessiondId", res.sessionId)
     sessionStorage.setItem("username", res.user.username)
+    this.setState({isRejected : false})
+  }
+
+  handleRejection = () => {
+    if (this.state.isRejected) {
+      return(
+        <h1>Signup / Login Failed</h1>
+      )
+    }
+  }
+
+  reject = (res) => {
+    this.setState({isRejected : true})
+    console.log(res)
   }
 
   render () {
     return (
       <div className="app-container">
         <h1>Welcome To CashCow</h1>
-        <Register authenticate={this.authenticate}/>
+        {this.handleRejection()}
+        <Register authenticate={this.authenticate} reject={this.reject}/>
         <div>
           < StockForm
             symbol={this.state.symbol}
