@@ -39,7 +39,6 @@ app.post("/users/register", async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   let user = await User.create(username, firstName, lastName, email, password);
-  console.log(user)
   if (user.username != null) {
     req.session.user = user
     res.status(200).json({ user : user, sessionId : req.session.id });
@@ -48,14 +47,12 @@ app.post("/users/register", async (req, res) => {
   }
 });
 
-app.post("/users/authenticate", async (req, res) => {
-  console.log(req.body)
+app.post("/users/authenticate", async (req, res) => { 
   let email = req.body.email;
   let password = req.body.password;
   let user = await User.authenticate(email, password);
-  console.log(user)
   if (user instanceof User) {
-    res.status(200).json({ user: user });
+    res.status(200).json({ user: user, sessionId : req.session.id });
   } else {
     res.status(401);
   }

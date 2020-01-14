@@ -32,10 +32,12 @@ class App extends React.Component {
   }
 
   authenticate = (res) => {
+    console.log(res)
     sessionStorage.setItem("userId", res.user.id)
     sessionStorage.setItem("sessiondId", res.sessionId)
     sessionStorage.setItem("username", res.user.username)
     sessionStorage.setItem("isAuthenticated,", true)
+    console.log(sessionStorage)
     this.setState({isRejected : false})
     this.setState({message : "Login"})
     this.setState({didLogin : true})
@@ -63,7 +65,7 @@ class App extends React.Component {
   appendSuccessMessage = (event) => {
     if (this.state.didLogin) {
       return(
-        <h1>${event} Succesful!</h1>
+        <h1>{event} Succesful!</h1>
       )
     }
   }
