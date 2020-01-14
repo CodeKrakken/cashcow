@@ -49,8 +49,6 @@ app.get('/', (req, res) => {
   }
 })
 
-
-
 // FINANCE
 app.get('/api/finance/:symbol', async (req, res) =>{
   try {
@@ -109,6 +107,8 @@ app.get('/api/news/:symbol', async (req, res) => {
     res.status(404).send(err)
   }
 })
+
+// ERROR?
 
 app.get('*', (req, res) => {
   try {
