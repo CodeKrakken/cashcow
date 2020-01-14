@@ -28,7 +28,7 @@ class Graph extends React.Component {
         timeseries.push({
           //graph input array accepts array of objects in the following format
           date: new Date(data[i].date),
-          high: data[i].high,
+          high: data[i].high, // can delete high,low and open as no longer using
           low: data[i].low,
           open: data[i].open,
           close: data[i].close,
@@ -83,8 +83,8 @@ class Graph extends React.Component {
     });
 
     const xScale = d3
-      .scaleTime()
-      .domain([xMin, xMax]) // size of range of x values
+      .scalePoint()
+      .domain(this.state.data.map((d) => d['date']).reverse()) // 
       .range([0, this.state.width]); // chart width
     const yScale = d3
       .scaleLinear()
@@ -98,8 +98,6 @@ class Graph extends React.Component {
   }
 
   generateAxes = () => {
-    const dateParser = d3.timeParse("%I:%M%p");
-
     this.state.svg
       // append 'g' element to 'svg' element
       .append('g')
@@ -139,7 +137,7 @@ class Graph extends React.Component {
     return(
       <div className="chart-container-div">
         <div id="chart">
-          <h1>Chart</h1>
+          <h1>Closing price (7 working days)</h1>
         </div>
       </div>
     )
