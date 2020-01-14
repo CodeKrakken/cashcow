@@ -2,6 +2,8 @@ const DbConnection = require('../models/DbConnection')
 const fs = require('fs')
 cwd = process.cwd()
 
+process.env.NODE_ENV = 'TEST'
+
 class TestHelper {
   constructor() {
     this.createTableUsersQuery = fs.readFileSync(`${cwd}/db/migrations/02_CREATE_TABLE_USERS.sql`).toString()
@@ -14,14 +16,72 @@ class TestHelper {
   async createTableUsers() {
     try {
       let db = new DbConnection()
-      await db.start()
-      let result = await db.query(this.createTableUsers)
-      await db.close()
+      let result = await db.query(this.createTableUsersQuery)
       return result
     } catch (err) {
       console.error(err)
     }
   }
+
+  async createTableStocks() {
+    try {
+      let db = new DbConnection()
+      let result = await db.query(this.createTableStocksQuery)
+      return result
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async populateUsersTable() {
+    try {
+      let db = new DbConnection()
+      let result = await db.query(this.insertIntoUsersQuery)
+      return result
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async populateStocksTable() {
+    try {
+      let db = new DbConnection()
+      let result = await db.query(this.insertIntoStocksQuery)
+      return result
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async dropTable(tableName) {
+    try {
+      let db = new DbConnection()
+      await db.query(`DROP TABLE ${tableName};`)
+    } catch (err){
+      console.error(err)
+    }
+  }
+
+  async setupTestDb() {
+    try {
+      await this.createTableUsers()
+      await this.createTableStocks()
+      await this.populateUsersTable()
+      await this.populateStocksTable()
+      return "SETUP"
+    } catch (err) {
+      console.log(err)
+    } 
+  }
+
+  async tearDownTestDb() {
+    try {
+      await this.dropTable('stocks')
+      await this.dropTable('users')
+      return "TEAR DOWN"
+    } catch (err) {
+    }
+  }
 }
 
-helper = new TestHelper()
+module.exports = TestHelper
