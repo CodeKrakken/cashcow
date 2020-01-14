@@ -36,7 +36,7 @@ class App extends React.Component {
       <div className="app-container">
         <h1>Welcome To CashCow</h1>
         <Register authenticate={this.authenticate}/>
-        {/* <div>
+        <div>
           < StockForm
             symbol={this.state.symbol}
             onSymbolChange={this.handleSymbolChange} />
@@ -49,7 +49,7 @@ class App extends React.Component {
           <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
           <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
           <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
-        </div> */}
+        </div>
       </div>
     );
   }
