@@ -41,7 +41,12 @@ class App extends React.Component {
         <div class="main-container flex-item">
           <div class="app-left">
             <div class="price-details-container">
-              <Price symbol={this.state.symbol}/>
+              <div class="symbol">
+                {this.state.symbol}
+              </div>
+              <div class="price-details">
+                <Price symbol={this.state.symbol}/>
+              </div>
             </div>
             <div class="prediction-container flex-item">
               <Prediction symbol={this.state.symbol}/>
