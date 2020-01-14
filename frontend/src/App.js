@@ -36,6 +36,7 @@ class App extends React.Component {
     sessionStorage.setItem("userId", res.user.id)
     sessionStorage.setItem("sessiondId", res.sessionId)
     sessionStorage.setItem("username", res.user.username)
+    sessionStorage.setItem("token", res.token)
     sessionStorage.setItem("isAuthenticated,", true)
     console.log(sessionStorage)
     this.setState({isRejected : false})
@@ -45,8 +46,6 @@ class App extends React.Component {
 
   signupLink = () => {
     let isAuthenticated = sessionStorage.getItem("isAuthenticated")
-    console.log(isAuthenticated)
-    console.log("authenticated", isAuthenticated)
     if(isAuthenticated != true) {
       return(
         <Link to="/register/">SignUp</Link>
@@ -54,8 +53,26 @@ class App extends React.Component {
     }
   }
 
+  loginLink = () => {
+    let isAuthenticated = sessionStorage.getItem("isAuthenticated") // use JWT instead?
+    if(isAuthenticated != true) {
+      return(
+        <Link to="/login/">Login</Link>
+      )
+    }
+  }
+
+  logoutLink = () => {
+    let isAuthenticated = sessionStorage.getItem("isAuthenticated")
+    if(isAuthenticated) {
+      return(
+        <Link onClick={this.handleLogout}>Log Out</Link>
+      )
+    }
+  }
+
   appendFailMessage = (event) => {
-    if (this.state.isRejected) {
+    if (this.state.isRejected && !this.state.diLogin) {
       return(
         <h1>Sign Up/ Login Failed</h1>
       )
@@ -63,15 +80,18 @@ class App extends React.Component {
   }
 
   appendSuccessMessage = (event) => {
-    if (this.state.didLogin) {
+    if (this.state.didLogin && !this.state.isRejected) {
       return(
         <h1>{event} Succesful!</h1>
       )
+    } else {
+      return
     }
   }
 
   reject = (res) => {
     this.setState({isRejected : true})
+    this.setState({didLogin : false})
     console.log(res)
   }
 
@@ -80,33 +100,42 @@ class App extends React.Component {
       <div className="app-container">
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
-        {/* 
+        
         <h1>Welcome To CashCow</h1>
         <Router>
           { this.signupLink() }
+          { this.loginLink() }
+
+          <Link to="/app">Main</Link>
           <Route path="/register" component={() => 
             <Register 
               authenticate={this.authenticate} 
               reject={this.reject}
             />}>
-        </Route> 
+          </Route> 
+
+          <Route path='/login'>
+            <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+          </Route>
           
-          <div>
-            < StockForm
-              symbol={this.state.symbol}
-              onSymbolChange={this.handleSymbolChange} />
-          </div>
-          <div className="main-container flex-item">
-            <div className="price-details-container">
-              <Price symbol={this.state.symbol}/>
-              <CompanyDetails symbol={this.state.symbol}/>
+          <Route path="/app">
+            <div>
+              < StockForm
+                symbol={this.state.symbol}
+                onSymbolChange={this.handleSymbolChange} />
             </div>
-            <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
-            <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
-            <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
-          </div>
-        </Router> */}
-        <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+            <div className="main-container flex-item">
+              <div className="price-details-container">
+                <Price symbol={this.state.symbol}/>
+                <CompanyDetails symbol={this.state.symbol}/>
+              </div>
+              <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
+              <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
+              <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
+            </div>
+          </Route>
+        </Router>
+        
       </div>
     );
   }

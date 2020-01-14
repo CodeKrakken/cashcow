@@ -4,18 +4,14 @@ const bodyParser = require('body-parser')
 const app = express()
 const server = require('http').createServer(app);
 const path = require('path');
-const axios = require('axios')
 const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
 const Predictor = require('./models/Predictor')
 const cookieParser = require('cookie-parser')
-const fs = require("fs")
 const session = require('express-session')
 const User = require('./models/User')
 const jwt = require('jsonwebtoken')
-
 require('dotenv').config()
-
 
 
 app.use(bodyParser.json())
@@ -54,8 +50,8 @@ app.post("/users/authenticate", async (req, res) => {
   let password = req.body.password;
   let user = await User.authenticate(email, password);
   if (user instanceof User) {
-    // Use JWT
-    jwt.sign({user : user}, 'moolians', (err, token) => {
+    // Use JWT, user must login again to get a new token
+    jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
       console.log(token)
       res.status(200).json({
         user: user, sessionId : req.session.id, token : token
