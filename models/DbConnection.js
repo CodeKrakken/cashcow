@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const { Client } = require('pg')
 
 class DbConnection {
@@ -7,17 +6,17 @@ class DbConnection {
     this.port = process.env.DB_PORT;
 
     if (process.env.NODE_ENV == 'TEST'){
-      this.user = process.env.DB_USER_LOCAL;
+      this.user = process.env.DB_USER_LOCAL || "postgres";
       this.db_name = process.env.TEST_DB_NAME;
       this.db_ip = 'localhost'
       this.uri = `postgres://${this.user}@${this.db_ip}:${this.port}/${this.db_name}`;
     } else if (process.env.NODE_ENV == 'DEVELOPMENT') {
-      this.user = process.env.DB_USER_LOCAL;
+      this.user = process.env.DB_USER_LOCAL || "postgres";
       this.db_name = process.env.DB_NAME;
       this.db_ip = 'localhost'
       this.uri = `postgres://${this.user}@${this.db_ip}:${this.port}/${this.db_name}`;
     } else if (process.env.NODE_ENV == 'PRODUCTION') {
-      this.user = process.env.DB_USER;
+      this.user = process.env.DB_USER || "postgres";
       this.db_name = process.env.DB_NAME;
       this.db_ip = process.env.DB_IP;
       this.uri = process.env.DATABASE_URL;
