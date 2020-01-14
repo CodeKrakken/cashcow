@@ -32,7 +32,7 @@ class NewsContainer extends React.Component{
           <div className="article">
             <img className="article-image" src={article.image_url}></img>
             <a className="article-title" href={article.url}><p>{article.title}</p></a>
-            <p className="article-body">{article.body}</p>
+            {/* <p className="article-body">{article.body}</p> */}
           </div>
         ))}
       </div>

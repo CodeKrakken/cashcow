@@ -7,54 +7,44 @@
   pointer-events: none;
 }
 
+.html {
+  margin : 2px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.chart-container {
-  display: flex;
-  justify-content: center;
-}
-
-.article-container{
+.app-container {
   display : flex;
-  flex-wrap: wrap;
-  max-height : 400px;
-  flex-direction: row;
-  overflow-y: scroll;
-}
-
-.article {
-  flex-basis: 200px;
-  max-height: 300px;;
-}
-
-.article-image {
-  display: block;
-  max-width:230px;
-  max-height:95px;
-  width: auto;
-  height: auto;
-}
-
-.article-title {
-  
-}
-
-.price-container {
-  border : solid;
-  width : 300px;
-  display: flex;
   flex-direction: column;
-  justify-content : space-evenly;
-  align-items: center;
 }
 
-.price-item {
-  margin : 0;
+.main-container {
+  display : flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  overflow: hidden;
 }
+
+.price-details-container {
+  /* border: solid red; */
+  align-content : flex-start;
+  justify-content: space-between;
+  display : flex;
+  flex-direction: row;
+  margin : 3px;
+}
+
+.indent {
+  margin-left: 5%;
+}
+
+/* changes color of taxed based on positive or negative value */
 .negative {
   color : red;
 }
@@ -62,6 +52,7 @@
 .positive {
   color : green;
 }
+
 
 .App-header {
   background-color: #282c34;
@@ -87,10 +78,6 @@
   }
 }
 
-.chart-container {
-  background: #00151c;
-}
-#chart {
-  background: #0e3040;
-  color: #67809f;
-}
+
+
+
