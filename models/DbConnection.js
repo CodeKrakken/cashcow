@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { Client } = require('pg')
 
-class dbConnection {
+class DbConnection {
   constructor() {
     this.port = process.env.DB_PORT;
 
@@ -54,4 +54,4 @@ class dbConnection {
   }
 }
 
-module.exports = dbConnection;
+module.exports = DbConnection;
