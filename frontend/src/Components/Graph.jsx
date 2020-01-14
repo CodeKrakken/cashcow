@@ -98,12 +98,15 @@ class Graph extends React.Component {
   }
 
   generateAxes = () => {
+    const dateParser = d3.timeParse("%I:%M%p");
+
     this.state.svg
       // append 'g' element to 'svg' element
       .append('g')
       .attr('id', 'xAxis')
       .attr('transform', `translate(0, ${this.state.height})`)
-      .call(d3.axisBottom(this.state.xScale));
+      .call(d3.axisBottom(this.state.xScale)
+        .tickFormat(d3.timeFormat("%a %d %b")));
 
     this.state.svg
       .append('g')
