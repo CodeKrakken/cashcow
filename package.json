@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/CodeKrakken/cash-cow#readme",
   "dependencies": {
+    "@material-ui/core": "^4.8.3",
+    "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
