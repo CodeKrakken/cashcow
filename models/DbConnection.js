@@ -15,7 +15,7 @@ class DbConnection {
       this.db_name = process.env.DB_NAME;
       this.db_ip = 'localhost'
       this.uri = `postgres://${this.user}@${this.db_ip}:${this.port}/${this.db_name}`;
-    } else if (process.env.NODE_ENV == 'PRODUCTION') {
+    } else if (process.env.NODE_ENV == 'production') {
       this.user = process.env.DB_USER || "postgres";
       this.db_name = process.env.DB_NAME;
       this.db_ip = process.env.DB_IP;
