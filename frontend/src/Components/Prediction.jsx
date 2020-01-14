@@ -8,9 +8,13 @@ class Prediction extends React.Component{
   }
 
   async componentDidMount () {
-    let movingAverage = await Axios.get(`/api/prediction/${this.props.symbol}`)
+    await this.fetchData(this.props.symbol)
+  }
+
+  async fetchData(symbol) {
+    let movingAverage = await Axios.get(`/api/prediction/${symbol}`)
     let movingAverageSize = movingAverage.data.size
-    let currPrice = await Axios.get(`/api/finance/${this.props.symbol}`)
+    let currPrice = await Axios.get(`/api/finance/${symbol}`)
     movingAverage = movingAverage.data.movingAverage
     currPrice = currPrice.data.price
     this.setState({
@@ -21,19 +25,27 @@ class Prediction extends React.Component{
     })
   }
 
-  handleMovingAveragePrediction () {
-    if (this.state.currentPrice > this.state.movingAverage) {
-      return(<p>Sell!</p>)
-    } else {
-      return(<p>Buy!</p>)
+  async componentDidUpdate(prevProps) {
+    if (this.props.symbol !== prevProps.symbol) {
+      await this.fetchData(this.props.symbol)
     }
   }
 
-  handlePriceDifferenceText() {
-    if (this.state.smaDifference < 1) {
-      return ["negative", "lower"]
+  handleMovingAveragePrediction () {
+    if (this.state.currentPrice > this.state.movingAverage) {
+      return("Sell!")
+    } else if (this.state.currentPrice < this.state.movingAverage) {
+      return("Buy!")
     } else {
-      return ["positive", "higher"]
+      return ("Stick!")
+    }
+  }
+
+  handlePriceDifferenceText() { // not working as expected
+    if (this.state.currentPrice < this.state.movingAverage) {
+      return ["positive", "lower"]
+    } else {
+      return ["negative", "higher"]
     }
   }
 
@@ -42,11 +54,24 @@ class Prediction extends React.Component{
     return `${(percentageDiff).toFixed(2)}%`
   }
 
+  handlePredictionText() {
+    if (this.handleMovingAveragePrediction() != "Stick!") {
+      return (
+        <p>The current price is {this.handleSmaPriceDifference()} {this.handlePriceDifferenceText()[1]} than the {this.state.movingAverageSize} day moving average!</p>
+      )
+    } else {
+      return (
+        <p>Cannot make prediction! Not enough data available.</p>
+      )
+    }
+
+  }
+
   render() {
     return(
       <div>
         <h1 className={this.handlePriceDifferenceText()[0]}>{this.handleMovingAveragePrediction()}</h1> 
-        <p>The current price is {this.handleSmaPriceDifference()} {this.handlePriceDifferenceText()[1]} than the {this.state.movingAverageSize} day moving average!</p>
+        {this.handlePredictionText()}
       </div>
     )
   }

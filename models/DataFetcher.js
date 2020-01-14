@@ -5,6 +5,7 @@ class DataFetcher {
     try {
       let key = this.randomKey() || process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
+      console.log(endpoint)
       let response = await axios.get(endpoint)
       return this.parseQuote(response.data)
     } catch(err) {
@@ -35,8 +36,10 @@ class DataFetcher {
   static async fetchTimeSeriesDaily(symbol, size) {
     try {
       let key = this.randomKey() || process.env.AV_KEY
-      let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${key}`
+      let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${key}`
+      console.log(endpoint)
       let response = await axios.get(endpoint)
+      console.log(response.status)
       return this.parseTimeSeriesData(response.data, size)
     } catch(err) {
       console.log(err)
@@ -44,7 +47,15 @@ class DataFetcher {
   }
 
   static randomKey() {
-    let keys = [process.env.AV_KEY, process.env.AV_KEY_2, process.env.AV_KEY_3, process.env.AV_KEY_4]
+    let keys = [
+      process.env.AV_KEY, 
+      process.env.AV_KEY_2, 
+      process.env.AV_KEY_3, 
+      process.env.AV_KEY_4, 
+      process.env.AV_KEY_5, 
+      process.env.AV_KEY_6,
+      process.env.AV_KEY_7
+    ]
     let index = Math.floor((Math.random() * (keys.length - 1)))
     console.log(keys[index])
     return keys[index]
