@@ -1,9 +1,17 @@
 import React from 'react';
 import StockForm from './Components/StockForm'
 import Price from './Components/Price'
-import Graph from './Components/_Graph'
+import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
-import './App.css';
+import Prediction from './Components/Prediction'
+import CompanyDetails from './Components/CompanyDetails'
+import './styles/App.css';
+import './styles/CompanyDetails.css';
+import './styles/Chart.css';
+import './styles/NewsContainer.css';
+import './styles/Price.css';
+import './styles/StockForm.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -30,13 +38,25 @@ class App extends React.Component {
           </div>
         </div>
 
-        <div class="main-container">
+        <div class="main-container flex-item">
           <div class="app-left">
-            <Price symbol={this.state.symbol}/>
-            <Graph symbol={this.state.symbol}/>
+            <div class="price-details-container">
+              <Price symbol={this.state.symbol}/>
+            </div>
+            <div class="prediction-container flex-item">
+              <Prediction symbol={this.state.symbol}/>
+            </div>
+            <div class="graph flex-item">
+              <Graph symbol={this.state.symbol}/>
+            </div>
           </div>
           <div class="app-right">
-            <NewsContainer symbol={this.state.symbol}/>
+            <div class="company-details-container">
+              <CompanyDetails symbol={this.state.symbol}/>
+            </div>
+            <div class="news flex-item">
+              <NewsContainer symbol={this.state.symbol}/>
+            </div>
           </div>
         </div>
       </div>

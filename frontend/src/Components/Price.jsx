@@ -11,16 +11,15 @@ class Price extends React.Component{
     Axios.get(`/api/finance/${symbol}`)
     .then(res => {
       let result = res.data
-      console.log(result)
       this.setState({
-        price : result.price.toFixed(2),
-        open : result.open.toFixed(2),
-        high : result.high.toFixed(2),
-        low : result.low.toFixed(2),
-        close : result.prev_close.toFixed(2),
+        price : parseFloat(result.price.toFixed(2)),
+        open : parseFloat(result.open.toFixed(2)),
+        high : parseFloat(result.high.toFixed(2)),
+        low : parseFloat(result.low.toFixed(2)),
+        close : parseFloat(result.prev_close.toFixed(2)),
         volume : result.volume,
-        change : result.change.toFixed(2),
-        percentageChange : result.percent_change.toFixed(2)
+        change : parseFloat(result.change.toFixed(2)),
+        percentageChange : parseFloat(result.percent_change.toFixed(2))
       })
     })
     .catch((err) => {
@@ -49,11 +48,13 @@ class Price extends React.Component{
   render() {
     return(
       <div className="price-container">
-        <h1 className='price-item price-header'>{this.props.symbol} : ${this.state.price}</h1>
-        <p className='price-item'><span>Open: {this.state.open}</span> <span>Close: {this.state.close}</span></p>
-        <p className='price-item'> <span>High: {this.state.high}  Low: {this.state.low}</span></p>
-        <p className='price-item'>Volume: {this.state.volume}</p>
-        <p className='price-item'>Change: <span className={'price-item ' + this.handleChangeClass()}>{this.state.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{this.state.percentageChange}%</span></p>
+        <div className="price-items">
+          <h1 className='price-item price-header'>{this.props.symbol} : ${this.state.price}</h1>
+          <p className='price-item'><span>Open: {this.state.open}</span> <span>Close: {this.state.close}</span></p>
+          <p className='price-item'> <span>High: {this.state.high}  Low: {this.state.low}</span></p>
+          <p className='price-item'>Volume: {this.state.volume}</p>
+          <p className='price-item'>Change: <span className={'price-item ' + this.handleChangeClass()}>{this.state.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{this.state.percentageChange}%</span></p>
+        </div>
       </div>
     )
   }
