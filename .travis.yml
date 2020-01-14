@@ -11,9 +11,7 @@ services:
   - postgresql
 
 env:
-  - TEST_DB_NAME=cashcow_test
-  - DB_PORT=5432
-  - DB_NAME=cashcow
+  - TEST_DB_NAME=cashcow_test DB_PORT=5432 DB_NAME=cashcow
 
 before_script:
   - psql -c 'create database cashcow_test;' -U postgres
