@@ -8,11 +8,20 @@ const axios = require('axios')
 const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
 const Predictor = require('./models/Predictor')
+const cookieParser = require('cookie-parser')
 const fs = require("fs")
+const session = require('express-session')
 
 require('dotenv').config()
 
 app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(session({
+  secret : 'moolians',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {maxAge : 60000}
+}))
 
 if (process.env.NODE_ENV == 'development') {
   app.use('/', express.static(path.join(__dirname, 'frontend/public')))
@@ -20,8 +29,14 @@ if (process.env.NODE_ENV == 'development') {
   app.use('/', express.static(path.join(__dirname, 'frontend/build')))
 }
 
+// USERS
+app.get('/users/register', (req, res) => {
+  console.log("register")
+})
+
 app.get('/', (req, res) => {
   try {
+
     res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
     if (process.env.NODE_ENV == 'development') {
       res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
@@ -35,6 +50,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/finance/:symbol', async (req, res) =>{
   try {
+    console.log("session", req.session)
     let symbol = req.params.symbol
     res.json(await DataFetcher.fetchQuote(symbol))
   } catch (err) {
@@ -55,7 +71,6 @@ app.get('/api/news/:symbol', async (req, res) => {
     console.log(err)
     res.status(404).send(err)
   }
-
 })
 
 app.get('/api/week/:symbol', async (req, res) => {
