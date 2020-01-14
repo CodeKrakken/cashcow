@@ -25,8 +25,9 @@ class LoginForm extends Component {
     Axios.post('/users/authenticate', credentials)
       .then(res => {
         let user = res.data.user
+        let sessionId = res.data.sessionId
         if (user) {
-          this.props.authenticate()
+          this.props.authenticate({user : user, sessionId : sessionId})
           this.clearForm()
         }
       })
