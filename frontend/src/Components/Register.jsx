@@ -35,12 +35,17 @@ class SignUp extends Component {
     
     Axios.post("/users/register", credentials)
       .then(res => {
+        console.log(res)
         if (res.status == 200) {
           this.props.authenticate(res.data)
           this.clearForm()
         }
       })
-      .catch(err => console.log("Unauthorized", err));
+      .catch(err => {
+        console.log("Failed")
+        this.props.reject(err)
+        console.log("Unauthorized", err)
+      });
   };
 
   render() {
