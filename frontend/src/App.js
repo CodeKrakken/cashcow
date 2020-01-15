@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from "axios";
 import StockForm from './Components/StockForm'
 import Price from './Components/Price'
 import Graph from './Components/Graph'
@@ -6,7 +7,6 @@ import NewsContainer from './Components/NewsContainer'
 import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
-import SymbolValidator from './symbolValidator.js'
 import {
   BrowserRouter as Router,
   Route,
@@ -28,11 +28,15 @@ class App extends React.Component {
   }
 
   handleSymbolChange(newSymbol) {
-    if (SymbolValidator.validate(newSymbol).valid) {
-      this.setState({symbol: newSymbol})
-    } else {
-      alert(`Sorry, ${newSymbol} is not a valid symbol`)
-    }
+    Axios.get(`/api/finance/${newSymbol}`)
+    .then(res => {
+      const result = res.data
+      if (result['symbol']) {
+        this.setState({symbol: newSymbol})
+      } else {
+        alert(`Sorry, ${newSymbol} is not a valid symbol`)
+      }
+    })
   }
 
   authenticate = (res) => {
