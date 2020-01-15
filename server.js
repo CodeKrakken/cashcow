@@ -59,10 +59,9 @@ app.post("/users/register", async (req, res) => {
 });
 
 app.post("/users/authenticate", async (req, res) => { 
-  let user = User.authenticate(req.body.email, req.body.password)
-  if (user) {
+  let user = await User.authenticate(req.body.email, req.body.password)
+  if (user instanceof User) {
     try {
-      if (isPassword) { // extract this if clause into function?
         jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
           res.status(200).json({
             user: user, 
@@ -71,7 +70,6 @@ app.post("/users/authenticate", async (req, res) => {
             message : "Sign in Successful!"
           })
         })
-      }
     } catch (err) {
       res.status(500).send("Failed")
     }
