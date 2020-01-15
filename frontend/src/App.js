@@ -1,5 +1,7 @@
 import React from 'react';
+import Axios from "axios";
 import StockForm from './Components/StockForm'
+import InvalidMessage from './Components/InvalidMessage'
 import Price from './Components/Price'
 import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
@@ -28,7 +30,16 @@ class App extends React.Component {
   }
 
   handleSymbolChange(newSymbol) {
-    this.setState({symbol: newSymbol})
+    Axios.get(`/api/finance/${newSymbol}`)
+    .then(res => {
+      const result = res.data
+      if (result['symbol']) {
+        this.setState({invalidFlag: 0});
+        this.setState({symbol: newSymbol})
+      } else {
+        this.setState({invalidFlag: 1});
+      }
+    })
   }
 
   authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
@@ -122,6 +133,10 @@ class App extends React.Component {
             />}>
           </Route> 
 
+          <div className="main-container flex-item">
+            <div className="price-details-container">
+              <Price symbol={this.state.symbol}/>
+              <CompanyDetails symbol={this.state.symbol}/>
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
           </Route>
@@ -131,6 +146,7 @@ class App extends React.Component {
               < StockForm
                 symbol={this.state.symbol}
                 onSymbolChange={this.handleSymbolChange} />
+              < InvalidMessage flag={this.state.invalidFlag}/>
             </div>
             <div className="main-container flex-item">
               <div className="price-details-container">
@@ -140,6 +156,7 @@ class App extends React.Component {
               <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
               <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
               <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
+
             </div>
           </Route>
         </Router>
