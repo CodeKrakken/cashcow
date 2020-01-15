@@ -40,7 +40,14 @@ describe('Stock', () => {
 
   describe('.update', () => {
     it('changes a record in the database', async() => {
-      let record = await Stock.update("MSFT", )
+      let newAmount = 3
+      Stock.update("MSFT", 2, newAmount).then( async res => {
+        let newRecord = await Stock.findByUserId(2) 
+        expect(newRecord.amount).toEqual(3)
+        expect(res.command).toEqual("UPDATE")
+        // console.log(newRecord)
+      })
     })
   })
+  
 })
