@@ -7,6 +7,7 @@ import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
 import LoginForm from './Components/LoginForm'
+import Portfolio from './Components/Portfolio'
 import {
   BrowserRouter as Router,
   Route,
@@ -18,6 +19,7 @@ import './styles/Chart.css';
 import './styles/NewsContainer.css';
 import './styles/Price.css';
 import './styles/StockForm.css';
+import './styles/PortfolioItem.css';
 
 
 class App extends React.Component {
@@ -32,6 +34,7 @@ class App extends React.Component {
   }
 
   authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
+    console.log("res", res)
     sessionStorage.setItem("userId", res.user.id)
     sessionStorage.setItem("sessiondId", res.sessionId)
     sessionStorage.setItem("username", res.user.username)
@@ -65,14 +68,14 @@ class App extends React.Component {
   }
 
   logoutLink = () => {
-    let isAuthenticated = sessionStorage.getItem("isAuthenticated") // doesnt work! NB Session storage clears on close tab
-    console.log(sessionStorage)
-    console.log(isAuthenticated)
-    if(isAuthenticated == "true") {
-      return(
-        <Link onClick={this.handleLogout}>Log Out</Link>
-      )
-    }
+    // let isAuthenticated = sessionStorage.getItem("isAuthenticated") // doesnt work! NB Session storage clears on close tab
+    // console.log(sessionStorage)
+    // console.log(isAuthenticated)
+    // if(isAuthenticated == "true") {
+    //   return(
+    //     <Link onClick={this.handleLogout}>Log Out</Link>
+    //   )
+    // }
   }
 
   handleLogout = () => {
@@ -108,12 +111,14 @@ class App extends React.Component {
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
         
-    <h1>Welcome To CashCow {this.state.username}</h1>
+        <h1>Welcome To CashCow {this.state.username}</h1>
+        
         <Router>
           { this.signupLink() }
           { this.loginLink() }
           { this.logoutLink() }
 
+          <Link to="/portfolio">Portfolio</Link>
           <Link to="/app">Main</Link>
           <Route path="/register" component={() => 
             <Register 
@@ -124,6 +129,13 @@ class App extends React.Component {
 
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+          </Route>
+
+          <Route 
+            path='/portfolio' 
+            component={() => 
+              <Portfolio userId={sessionStorage.userId}></Portfolio>
+            }>
           </Route>
           
           <Route path="/app">
@@ -143,7 +155,6 @@ class App extends React.Component {
             </div>
           </Route>
         </Router>
-        
       </div>
     );
   }

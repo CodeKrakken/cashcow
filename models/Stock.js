@@ -9,7 +9,9 @@ class Stock {
 
   static async findAll() {
     let db = new dbConnection();
-    return await db.query(`SELECT * FROM stocks;`)
+    let result = await db.query(`SELECT * FROM stocks;`)
+    console.log(resul)
+    return result.rows
   }
 
   static async create(symbol, userId, amount) {
@@ -46,7 +48,7 @@ class Stock {
   static async update(symbol, userId, amount) {
     let db = new dbConnection()
     let result = await db.query(`
-      UPDATE users
+      UPDATE stocks
       SET symbol = '${symbol}', amount= '${amount}'
       WHERE symbol = '${symbol}' AND user_id = ${userId};
     `)
