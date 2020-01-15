@@ -31,26 +31,8 @@ class App extends React.Component {
     if (SymbolValidator.validate(newSymbol).valid) {
       this.setState({symbol: newSymbol})
     } else {
-      alert(newSymbol)
+      alert(`Sorry, ${newSymbol} is not a valid symbol`)
     }
-    // if (this.handleSymbolValidation(newSymbol)) {
-    // } else {
-      // alert(this.state.error);
-    // }
-  }
-
-  handleSymbolValidation(symbol) {
-    let symbolIsValid;
-    let error;
-    if(symbol === "MSFT") {
-      symbolIsValid = true;
-      error = false;
-    } else {
-      symbolIsValid = false;
-      error = 'invalid symbol';
-    }
-    this.setState({error: error});
-    return symbolIsValid;
   }
 
   authenticate = (res) => {
