@@ -38,26 +38,30 @@ app.post("/users/register", async (req, res) => {
     let lastName = req.body.lastName;
     let email = req.body.email;
     let password = req.body.password;
-    let hashedPassword = await bcrypt.hash(password, 10)
-    let user = await User.create(username, firstName, lastName, email, hashedPassword);
+    let user = await User.create(username, firstName, lastName, email, password);
     if (user.username != null) {
       req.session.user = user
-      res.status(200).json({ user : user, sessionId : req.session.id });
+      jwt.sign({user : user}, 'moolians', {expiresIn: '30m'}, (err, token) => {
+        res.status(200).json({ // return authentication object back to client
+          user : user, 
+          sessionId : req.session.id,
+          token: token,
+          message : "Sign Up Successfull!"
+        });
+      })
     } else {
       res.status(401).send(user);
     }
   } catch (err) {
-
+    res.status(401).send()
   }
   
 });
 
 app.post("/users/authenticate", async (req, res) => { 
-  let user = await User.findByEmail(req.body.email); // get user data
+  let user = User.authenticate(req.body.email, req.body.password)
   if (user) {
-    // Use JWT, user must login again to get a new token
     try {
-      let isPassword = await bcrypt.compare(req.body.password, user.password) // decrypt
       if (isPassword) { // extract this if clause into function?
         jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
           res.status(200).json({
