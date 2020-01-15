@@ -6,7 +6,7 @@ import NewsContainer from './Components/NewsContainer'
 import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
-// import SymbolValidator from './symbolValidator.js'
+import SymbolValidator from './symbolValidator.js'
 import {
   BrowserRouter as Router,
   Route,
@@ -28,11 +28,15 @@ class App extends React.Component {
   }
 
   handleSymbolChange(newSymbol) {
-    if (this.handleSymbolValidation(newSymbol)) {
+    if (SymbolValidator.validate(newSymbol).valid) {
       this.setState({symbol: newSymbol})
     } else {
-      alert(this.state.error);
+      alert(newSymbol)
     }
+    // if (this.handleSymbolValidation(newSymbol)) {
+    // } else {
+      // alert(this.state.error);
+    // }
   }
 
   handleSymbolValidation(symbol) {
@@ -94,7 +98,6 @@ class App extends React.Component {
               reject={this.reject}
             />}>
           </Route> 
-          
           <div>
             < StockForm
               symbol={this.state.symbol}
