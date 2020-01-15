@@ -1,0 +1,14 @@
+.portfolio-logo {
+  display: inline-block;
+  width : 100px;
+  height : 100px;
+}
+
+.portfolio-item-price {
+  display : inline-block;
+}
+
+.portfolio-item {
+  display : flex;
+  border : solid;
+}

@@ -33,7 +33,7 @@ class User {
       return "user already exists";
     } else {
       let db = new dbConnection();
-      let hashedPassword = await bcrypt.hash(password, 10) // extract to user model
+      let hashedPassword = await bcrypt.hash(password, 10)
       let result = await db.query(`
         INSERT INTO 
         users (username, first, last, email, password) 

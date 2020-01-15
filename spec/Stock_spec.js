@@ -42,7 +42,8 @@ describe('Stock', () => {
     it('changes a record in the database', async() => {
       let newAmount = 3
       Stock.update("MSFT", 2, newAmount).then( async res => {
-        let newRecord = await Stock.findByUserId(2) 
+        let newRecord = await Stock.findByUserId(2)
+        console.log(newRecord)
         expect(newRecord.amount).toEqual(3)
         expect(res.command).toEqual("UPDATE")
         // console.log(newRecord)
