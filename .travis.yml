@@ -16,5 +16,5 @@ env:
 before_script:
   - psql -c 'create database cashcow_test;' -U postgres
 
-script: npm install && npm test
+# script: npm install && npm test
 
