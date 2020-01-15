@@ -9,9 +9,6 @@ stocks (symbol, user_id, amount)
 VALUES ('AAPL', '1', '3');
 INSERT INTO 
 stocks (symbol, user_id, amount) 
-VALUES ('GOOGL', '2', '4');
-INSERT INTO 
-stocks (symbol, user_id, amount) 
 VALUES ('MSFT', '2', '2');
 INSERT INTO 
 stocks (symbol, user_id, amount) 

@@ -40,16 +40,15 @@ class Stock {
       DELETE FROM stocks
       WHERE symbol='${symbol}' AND user_id=${userId};
     `)
-    console.log(result.command)
     return result.command
   }
 
-  static async update(symbol, amount, userId) {
+  static async update(symbol, userId, amount) {
     let db = new dbConnection()
     let result = await db.query(`
-      UPDATE stocks
-      SET symbol='${symbol}', amount=${amount}
-      WHERE symbol='${symbol} AND user_id=${userId}';
+      UPDATE users
+      SET symbol = '${symbol}', amount= '${amount}'
+      WHERE symbol = '${symbol}' AND user_id = ${userId};
     `)
     console.log(result)
     return result
