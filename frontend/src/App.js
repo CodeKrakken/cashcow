@@ -6,6 +6,7 @@ import NewsContainer from './Components/NewsContainer'
 import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
+// import SymbolValidator from './symbolValidator.js'
 import {
   BrowserRouter as Router,
   Route,
