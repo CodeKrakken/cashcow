@@ -25,7 +25,7 @@ class CompanyDetails extends React.Component {
 
   render(){
     return(
-      <div class="company-details">
+      <div className="company-details">
         <div className="company-info">
           <h1 className='company-header flex-item'><a href={this.state.website}>{this.state.companyName}</a></h1>
           <img className="company-logo flex-item" src={`//logo.clearbit.com/${this.state.website}`}></img>
