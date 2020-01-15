@@ -33,22 +33,25 @@ describe('Stock', () => {
 
   describe('.delete', () => {
     it('deletes a stock from stocks', async () => {
-      let command =  await Stock.delete('AAPL', 1)
-      expect(command).toEqual("DELETE")
-    })
-  })
-
-  describe('.update', () => {
-    it('changes a record in the database', async() => {
-      let newAmount = 3
-      Stock.update("MSFT", 2, newAmount).then( async res => {
-        let newRecord = await Stock.findByUserId(2)
-        console.log(newRecord)
-        expect(newRecord.amount).toEqual(3)
-        expect(res.command).toEqual("UPDATE")
-        // console.log(newRecord)
+      let stocks = await Stock.findByUserId(1)
+      console.log("before: ", stocks)
+      await Stock.delete('AAPL', 1).then( async res => {
+        let stocks = await Stock.findByUserId(1)
+        console.log("after: ", stocks)
+        expect(stocks).not.toContain({ symbol: 'AAPL', amount: 3 })
       })
     })
   })
-  
+
+  // describe('.update', () => {
+  //   it('changes a record in the database', async() => {
+  //     let newAmount = 3
+  //     Stock.update("MSFT", 2, newAmount).then( async res => {
+  //       let newRecord = await Stock.findByUserId(2)
+  //       expect(newRecord.amount).toEqual(3)
+  //       console.log(newRecord.amount)
+  //       expect(res.command).toEqual("UPDATE")
+  //     })
+  //   })
+  // })
 })

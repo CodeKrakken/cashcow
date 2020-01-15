@@ -67,7 +67,6 @@ describe('User', () => {
   describe('.authenticate', () => {
     it('returns the user after successful authentication', async () => {
       let user = await User.create('Joe_G','Joe', 'Griffith', 'joe@gmail.com', 'testpass')
-      console.log(user)
       let results = await User.authenticate('joe@gmail.com', 'tespass')
       expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
     })
