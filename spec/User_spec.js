@@ -65,15 +65,15 @@ describe('User', () => {
   })
 
   describe('.authenticate', () => {
-    // it('returns the user after successful authentication', async () => {
-    //   let user = await User.create('Joe_G','Joe', 'Griffith', 'joe@gmail.com', 'testpass')
-    //   let results = await User.authenticate('joe@gmail.com', 'tespass')
-    //   expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
-    // })
+    it('returns the user after successful authentication', async () => {
+      let user = await User.create('Joe_G','Joe', 'Griffith', 'joe@gmail.com', 'testpass')
+      let results = await User.authenticate('joe@gmail.com', 'tespass')
+      expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
+    })
 
     it('returns "Email or Password Incorrect" if the password is incorrect', async () => {
-      let user = await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
-      let message = await User.authenticate('joe@gmail.com', 'wrongpass')
+      let user = await User.create('Joey_G','Joe', 'Griffith', 'joeyG@gmail.com', 'testpass')
+      let message = await User.authenticate('joeyG@gmail.com', 'wrongpass')
       expect(message).toEqual("Email or Password Incorrect")
     })
   })
