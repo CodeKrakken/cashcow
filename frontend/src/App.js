@@ -118,8 +118,7 @@ class App extends React.Component {
       <div className="app-container">
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
-        
-    <h1>Welcome To CashCow {this.state.username}</h1>
+      <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
           { this.signupLink() }
           { this.loginLink() }
@@ -133,10 +132,6 @@ class App extends React.Component {
             />}>
           </Route> 
 
-          <div className="main-container flex-item">
-            <div className="price-details-container">
-              <Price symbol={this.state.symbol}/>
-              <CompanyDetails symbol={this.state.symbol}/>
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
           </Route>
@@ -156,11 +151,9 @@ class App extends React.Component {
               <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
               <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
               <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
-
             </div>
           </Route>
         </Router>
-        
       </div>
     );
   }
