@@ -35,20 +35,21 @@ class App extends React.Component {
 
 
       <Navbar className="color-nav" variant="light">
-        <Navbar.Brand className="nav-link" href="#home">Home</Navbar.Brand>
-        <Navbar.Brand className="nav-link" href="#home">Sign up</Navbar.Brand>
-        <Navbar.Brand className="nav-link" href="#home">Log in</Navbar.Brand>
+        <a href="#home" className="nav-link">Home</a>
+        <a href="#home" className="nav-link">Sign up</a>
+        <a href="#home" className="nav-link">Log in</a>
       </Navbar>
 
 
         <div className="top-bar">
-          <div className="cashcow-logo">
-            <h1>CashCow</h1>
-          </div>
           <div className="search-container">
             < StockForm
               symbol={this.state.symbol}
               onSymbolChange={this.handleSymbolChange} />
+          </div>
+          <div className="cashcow-logo">
+          <img src={'../cashcowlogosmall.jpg'}/>
+            CashCow
           </div>
         </div>
 
