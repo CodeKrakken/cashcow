@@ -54,8 +54,6 @@ class User {
 
   static async authenticate(email, password) {
     let user = await this.findByEmail(email); // get user data
-    console.log(password)
-    console.log("user", user.password)
     if (user) {
       let isPassword = await bcrypt.compare(password, user.password)
       if (isPassword) {
