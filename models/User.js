@@ -41,6 +41,7 @@ class User {
         RETURNING *;
       `);
       let rows = result.rows;
+      
       return new User(
         rows[0].username,
         rows[0].id,

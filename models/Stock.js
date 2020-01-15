@@ -10,7 +10,6 @@ class Stock {
   static async findAll() {
     let db = new dbConnection();
     let result = await db.query(`SELECT * FROM stocks;`)
-    console.log(resul)
     return result.rows
   }
 
@@ -37,22 +36,21 @@ class Stock {
 
   static async delete(symbol, userId) {
     let db = new dbConnection();
-    let db2 = new dbConnection();
     let result = await db.query(`
       DELETE FROM stocks
       WHERE symbol='${symbol}' AND user_id=${userId};
     `)
-    return result.command
+    return result
   }
 
   static async update(symbol, userId, amount) {
     let db = new dbConnection()
+    let stocks = await db.query('SELECT * FROM stocks')
     let result = await db.query(`
       UPDATE stocks
-      SET symbol = '${symbol}', amount= '${amount}'
+      SET symbol = '${symbol}', amount = ${amount}
       WHERE symbol = '${symbol}' AND user_id = ${userId};
     `)
-    console.log(result)
     return result
   }
 }
