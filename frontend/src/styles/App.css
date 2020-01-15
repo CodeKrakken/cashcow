@@ -1,11 +1,9 @@
-.center-navbar {
-  text-align: center;
+.color-nav {
+  background-color: slategray;
 }
-.center-navbar .navbar {
-  display: inline-block;
-}
-.center-navbar .navbar .container {
-  width: 100%;
+
+.nav-link {
+  
 }
 
 .app-container {

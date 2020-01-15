@@ -34,11 +34,10 @@ class App extends React.Component {
       <div className="app-container">
 
 
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Welcome to CashCow</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-        </Navbar.Collapse>
+      <Navbar className="color-nav" variant="light">
+        <Navbar.Brand className="nav-link" href="#home">Home</Navbar.Brand>
+        <Navbar.Brand className="nav-link" href="#home">Sign up</Navbar.Brand>
+        <Navbar.Brand className="nav-link" href="#home">Log in</Navbar.Brand>
       </Navbar>
 
 
