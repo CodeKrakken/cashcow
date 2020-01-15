@@ -25,10 +25,7 @@ class NewsFetcher {
   }
 
   static parseArticles(arrayOfArticles) {
-    let articles = []
-    for (let i = 0; i < arrayOfArticles.length; i++) {
-      articles.push(this.parseArticle(arrayOfArticles[i]))
-    }
+    const articles = arrayOfArticles.map(a => this.parseArticle(a))
     return articles;
   }
 }
