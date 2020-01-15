@@ -4,7 +4,7 @@ class StockForm extends React.Component{
   constructor(props) {
     super(props)
     this.state = {localSymbol: "TSLA"}
-    
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
