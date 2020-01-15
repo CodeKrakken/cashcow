@@ -3,9 +3,11 @@ const axios = require('axios')
 class NewsFetcher {
   static async fetchArticles(encodedName) {
     try {
-      let key = process.env.NEWS_KEY
-      let endpoint = `https://newsapi.org/v2/everything?q=${encodedName}&apiKey=${key}`
-      let response = await axios.get(endpoint)
+      const key = process.env.NEWS_KEY
+      const language = 'en'
+      const startDate = new Date(Date.now() - 12096e5) // 14 days in milliseconds
+      const endpoint = `https://newsapi.org/v2/everything?q=${encodedName}&apiKey=${key}&from=${startDate}&language=${language}`
+      const response = await axios.get(endpoint)
       return response.data
     } catch(err) {
       console.log(err)
