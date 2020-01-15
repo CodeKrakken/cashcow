@@ -37,9 +37,10 @@ class App extends React.Component {
     sessionStorage.setItem("username", res.user.username)
     sessionStorage.setItem("token", res.token)
     sessionStorage.setItem("isAuthenticated,", true)
-    console.log(sessionStorage)
+    this.setState({user : res.user.username})
+    console.log(res)
     this.setState({isRejected : false})
-    this.setState({message : "Login"})
+    this.setState({message : res.message})
     this.setState({didLogin : true})
   }
 
@@ -79,17 +80,17 @@ class App extends React.Component {
   }
 
   appendFailMessage = (event) => {
-    if (this.state.isRejected && !this.state.diLogin) {
+    if (this.state.isRejected && !this.state.didLogin) {
       return(
         <h1>Sign Up/ Login Failed</h1>
       )
     }
   }
 
-  appendSuccessMessage = (event) => {
+  appendSuccessMessage = (message) => {
     if (this.state.didLogin && !this.state.isRejected) {
       return(
-        <h1>{event} Succesful!</h1>
+        <h1>{message}</h1>
       )
     } else {
       return
@@ -99,7 +100,6 @@ class App extends React.Component {
   reject = (res) => {
     this.setState({isRejected : true})
     this.setState({didLogin : false})
-    console.log(res)
   }
 
   render () {
@@ -108,7 +108,7 @@ class App extends React.Component {
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
         
-        <h1>Welcome To CashCow</h1>
+    <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
           { this.signupLink() }
           { this.loginLink() }

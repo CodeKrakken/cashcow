@@ -27,12 +27,12 @@ describe('User', () => {
   describe('.findByEmail', () => {
     it('returns a users details if the user exists in the db', async () => {
       let result = await User.findByEmail("robert@test.com")
-      expect(result[0].email).toEqual("robert@test.com")
+      expect(result.email).toEqual("robert@test.com")
     })
 
-    it('returns [] if the user does not exist in the db', async () => {
+    it('returns undefined if the user does not exist in the db', async () => {
       let result = await User.findByEmail("doesntexist@gmail.com")
-      expect(result).toEqual([])
+      expect(result).toEqual(undefined)
     })
   })
 
@@ -65,16 +65,16 @@ describe('User', () => {
   })
 
   describe('.authenticate', () => {
-    it('returns the user after successful authentication', async () => {
-      let user = await User.create('Joe_G','Joe', 'Griffith', 'joe@gmail.com', 'testpass')
-      let results = await User.authenticate('joe@gmail.com', 'tespass')
-      expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
-
-    })
+    // it('returns the user after successful authentication', async () => {
+    //   let user = await User.create('Joe_G','Joe', 'Griffith', 'joe@gmail.com', 'testpass')
+    //   let results = await User.authenticate('joe@gmail.com', 'tespass')
+    //   expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
+    // })
 
     it('returns "Email or Password Incorrect" if the password is incorrect', async () => {
-      await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
-      expect(await User.authenticate('joe@gmail.com', 'wrongpass')).toEqual("Email or Password Incorrect")
+      let user = await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
+      let message = await User.authenticate('joe@gmail.com', 'wrongpass')
+      expect(message).toEqual("Email or Password Incorrect")
     })
   })
 })
