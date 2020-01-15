@@ -1,5 +1,7 @@
 import React from 'react';
+import Axios from "axios";
 import StockForm from './Components/StockForm'
+import InvalidMessage from './Components/InvalidMessage'
 import Price from './Components/Price'
 import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
@@ -30,7 +32,16 @@ class App extends React.Component {
   }
 
   handleSymbolChange(newSymbol) {
-    this.setState({symbol: newSymbol})
+    Axios.get(`/api/finance/${newSymbol}`)
+    .then(res => {
+      const result = res.data
+      if (result['symbol']) {
+        this.setState({invalidFlag: 0});
+        this.setState({symbol: newSymbol})
+      } else {
+        this.setState({invalidFlag: 1});
+      }
+    })
   }
 
   authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
@@ -110,9 +121,7 @@ class App extends React.Component {
       <div className="app-container">
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
-        
-        <h1>Welcome To CashCow {this.state.username}</h1>
-        
+      <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
           { this.signupLink() }
           { this.loginLink() }
@@ -143,6 +152,7 @@ class App extends React.Component {
               < StockForm
                 symbol={this.state.symbol}
                 onSymbolChange={this.handleSymbolChange} />
+              < InvalidMessage flag={this.state.invalidFlag}/>
             </div>
             <div className="main-container flex-item">
               <div className="price-details-container">

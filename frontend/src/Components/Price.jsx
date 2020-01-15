@@ -11,22 +11,24 @@ class Price extends React.Component{
     Axios.get(`/api/finance/${symbol}`)
     .then(res => {
       let result = res.data
-      this.setState({
-        price : parseFloat(result.price.toFixed(2)),
-        open : parseFloat(result.open.toFixed(2)),
-        high : parseFloat(result.high.toFixed(2)),
-        low : parseFloat(result.low.toFixed(2)),
-        close : parseFloat(result.prev_close.toFixed(2)),
-        volume : result.volume,
-        change : parseFloat(result.change.toFixed(2)),
-        percentageChange : parseFloat(result.percent_change.toFixed(2))
-      })
+      if (result['symbol']) {
+        this.setState({
+          price : parseFloat(result.price.toFixed(2)),
+          open : parseFloat(result.open.toFixed(2)),
+          high : parseFloat(result.high.toFixed(2)),
+          low : parseFloat(result.low.toFixed(2)),
+          close : parseFloat(result.prev_close.toFixed(2)),
+          volume : result.volume,
+          change : parseFloat(result.change.toFixed(2)),
+          percentageChange : parseFloat(result.percent_change.toFixed(2))
+        })
+      }
     })
     .catch((err) => {
       console.log(err);
     })
   }
-  
+
   componentDidMount() {
     this._fetchData(this.props.symbol)
   }
