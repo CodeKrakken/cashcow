@@ -23,4 +23,24 @@ describe('Stock', () => {
       ])
     })
   })
+
+  describe('.create', () => {
+    it('adds returns an instance of stock', async () => {
+      let stock = await Stock.create('AAPL', 1, 2)
+      expect(stock instanceof Stock).toBe(true)
+    })
+  })
+
+  describe('.delete', () => {
+    it('deletes a stock from stocks', async () => {
+      let command =  await Stock.delete('AAPL', 1)
+      expect(command).toEqual("DELETE")
+    })
+  })
+
+  describe('.update', () => {
+    it('changes a record in the database', async() => {
+      let record = await Stock.update("MSFT", )
+    })
+  })
 })
