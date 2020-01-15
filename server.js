@@ -178,7 +178,6 @@ app.get('/api/news/:symbol', async (req, res) => {
 })
 
 // ERROR?
-
 app.get('*', (req, res) => {
   try {
     if (process.env.NODE_ENV == 'development') {
