@@ -4,7 +4,7 @@ class StockForm extends React.Component{
   constructor(props) {
     super(props)
     this.state = {localSymbol: "TSLA"}
-    
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -14,7 +14,7 @@ class StockForm extends React.Component{
   }
 
   handleSubmit(event) {
-    this.props.onSymbolChange(this.state.localSymbol);
+    this.props.onSymbolChange(this.state.localSymbol.toUpperCase());
     this.setState({localSymbol : ""}) // clears form
     event.preventDefault();
   }
@@ -24,7 +24,7 @@ class StockForm extends React.Component{
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Symbol (e.g. TSLA):
+            Enter a symbol
             <input type="text" value={this.state.localSymbol} onChange={this.handleChange} />
           </label>
           <input type="submit" value="OK" />
