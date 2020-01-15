@@ -1,4 +1,5 @@
 const dbConnection = require("./DbConnection");
+const bcrypt = require('bcrypt')
 
 class User {
   constructor(username, id, first, last) {
@@ -19,12 +20,13 @@ class User {
   static async findByEmail(email) {
     let db = new dbConnection();
     let result = await db.query(`SELECT * FROM users WHERE email='${email}'`);
-    return result.rows;
+    // console.log(result.rows)
+    return result.rows[0];
   }
 
   static async check_exists(email) {
     let user = await this.findByEmail(email);
-    return !!user[0];
+    return !!user;
   }
 
   static async create(username, first, last, email, password) {
@@ -33,11 +35,12 @@ class User {
       return "user already exists";
     } else {
       let db = new dbConnection();
+      let hashedPassword = await bcrypt.hash(password, 10) // extract to user model
       let result = await db.query(`
-      INSERT INTO 
-      users (username, first, last, email, password) 
-      VALUES ('${username}', '${first}', '${last}', '${email}', '${password}')
-      RETURNING *;
+        INSERT INTO 
+        users (username, first, last, email, password) 
+        VALUES ('${username}', '${first}', '${last}', '${email}', '${hashedPassword}')
+        RETURNING *;
       `);
       let rows = result.rows;
       return new User(
@@ -50,19 +53,16 @@ class User {
   }
 
   static async authenticate(email, password) {
-    let db = new dbConnection();
-    let result = await db.query(`
-      SELECT * FROM users
-      WHERE email='${email}' AND password='${password}';
-    `);
-    let user = result.rows[0];
+    let user = await this.findByEmail(email); // get user data
     if (user) {
-      return new User(user.username, user.id, user.first, user.last);
-    } else {
-      return "Email or Password Incorrect";
+      let isPassword = await bcrypt.compare(password, user.password)
+      if (isPassword) {
+        return new User(user.username, user.id, user.first, user.last);
+      } else {
+        return "Email or Password Incorrect";
+      }
     }
   }
 }
-
 
 module.exports = User;
