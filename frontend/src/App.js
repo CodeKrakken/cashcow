@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from "axios";
 import StockForm from './Components/StockForm'
+import InvalidMessage from './Components/InvalidMessage'
 import Price from './Components/Price'
 import Graph from './Components/Graph'
 import NewsContainer from './Components/NewsContainer'
@@ -32,9 +33,10 @@ class App extends React.Component {
     .then(res => {
       const result = res.data
       if (result['symbol']) {
+        this.setState({invalidFlag: 0});
         this.setState({symbol: newSymbol})
       } else {
-        alert(`Sorry, ${newSymbol} is not a valid symbol`)
+        this.setState({invalidFlag: 1});
       }
     })
   }
@@ -76,7 +78,6 @@ class App extends React.Component {
         { this.handleRejection() }
         <h1>Welcome To CashCow</h1>
         <Router>
-
           { this.signupLink() }
           <Route path="/register" component={() => 
             <Register 
@@ -88,6 +89,7 @@ class App extends React.Component {
             < StockForm
               symbol={this.state.symbol}
               onSymbolChange={this.handleSymbolChange} />
+            < InvalidMessage flag={this.state.invalidFlag}/>
           </div>
           <div className="main-container flex-item">
             <div className="price-details-container">
