@@ -64,7 +64,6 @@ class Prediction extends React.Component{
         <p>Cannot make prediction! Not enough data available.</p>
       )
     }
-
   }
 
   render() {
