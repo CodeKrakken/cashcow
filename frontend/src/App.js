@@ -147,7 +147,7 @@ class App extends React.Component {
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
           </Route>
 
-          <Route path="/app">
+          <Route path="/">
 
           <div className="top-bar">
             <div className="search-container">
