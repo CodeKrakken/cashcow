@@ -12,7 +12,7 @@
   display : flex;
   align-items: flex-start;
   flex-direction: row;
-  padding: 20px;
+  justify-content: space-between;
 
 }
 
