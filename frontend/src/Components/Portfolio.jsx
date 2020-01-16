@@ -50,6 +50,7 @@ class Portfolio extends React.Component {
           stocksPrices.push(formatted)
         }
         this.setState({stocksWithPrices : stocksPrices})
+        this.handleTotal()
         console.log(this.state.stocksWithPrices)
       })
     } catch (err) {
@@ -93,6 +94,17 @@ class Portfolio extends React.Component {
         <div>No Stocks Yet!</div>
       )
     }
+  }
+
+  handleTotal = () => {
+    let sum = 0
+    let stocks = this.state.stocksWithPrices
+    for(let i =0; i < stocks.length; i++) {
+      console.log(stocks[i])
+      sum += stocks[i].total
+    }
+    console.log("sum : ", sum)
+    this.setState({totalValue : sum})
   }
 
   handleChangeClass = () => {
