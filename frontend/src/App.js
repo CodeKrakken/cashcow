@@ -14,6 +14,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
+  Redirect
 } from "react-router-dom";
 import './styles/App.css';
 import './styles/CompanyDetails.css';
@@ -22,13 +23,19 @@ import './styles/NewsContainer.css';
 import './styles/Price.css';
 import './styles/StockForm.css';
 import './styles/PortfolioItem.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from 'react-bootstrap/Navbar';
+import { local } from 'd3';
 
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.handleSymbolChange = this.handleSymbolChange.bind(this);
-    this.state = { symbol: "TSLA" }
+    this.state = { 
+      symbol: "TSLA",
+      isAuth: localStorage.getItem("isAuth")
+    }
   }
 
   handleSymbolChange(newSymbol) {
@@ -46,13 +53,13 @@ class App extends React.Component {
 
   authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
     console.log("res", res)
-    sessionStorage.setItem("userId", res.user.id)
-    sessionStorage.setItem("sessiondId", res.sessionId)
-    sessionStorage.setItem("username", res.user.username)
-    sessionStorage.setItem("token", res.token)
-    sessionStorage.setItem("isAuthenticated,", true)
+    localStorage.setItem("userId", res.user.id)
+    localStorage.setItem("sessiondId", res.sessionId)
+    localStorage.setItem("username", res.user.username)
+    localStorage.setItem("token", res.token)
+    localStorage.setItem("isAuth,", true)
+    this.setState({isAuth : true})
     this.setState({user : res.user.username})
-    console.log(res)
     this.setState({isRejected : false})
     this.setState({message : res.message})
     this.setState({didLogin : true})
@@ -60,43 +67,43 @@ class App extends React.Component {
 
   // render links based on login
   signupLink = () => {
-    let isAuthenticated = sessionStorage.getItem("isAuthenticated")
-    if(isAuthenticated != true) {
+    let isAuth = localStorage.getItem("isAuth")
+    if(isAuth != true) {
       return(
-        <Link to="/register/">SignUp</Link>
+        <Link className="nav-link" to="/register/">SignUp</Link>
       )
     }
   }
 
   loginLink = () => {
-    let isAuthenticated = sessionStorage.getItem("isAuthenticated") // use JWT instead?
-    console.log(isAuthenticated)
-    if(isAuthenticated != true) {
+    let isAuth = this.state.isAuth
+    if(isAuth != true) {
       return(
-        <Link to="/login/">Login</Link>
+        <Link className="nav-link" to="/login/">Login</Link>
       )
     }
   }
 
   logoutLink = () => {
-    // let isAuthenticated = sessionStorage.getItem("isAuthenticated") // doesnt work! NB Session storage clears on close tab
-    // console.log(sessionStorage)
-    // console.log(isAuthenticated)
-    // if(isAuthenticated == "true") {
-    //   return(
-    //     <Link onClick={this.handleLogout}>Log Out</Link>
-    //   )
-    // }
+    let isAuth = localStorage.getItem("isAuth")
+    if(5) {
+      // this.setState({message : "You Have succesfully signed out out"})
+      return(
+        <Link className="nav-link" onClick={this.handleLogout} to="/app">Log Out</Link>
+      )
+    }
   }
 
   handleLogout = () => {
-    sessionStorage.clear()
+    localStorage.clear()
+    this.setState({redirect : true})
+    this.setState({isAuth : false})
   }
 
   appendFailMessage = (event) => {
     if (this.state.isRejected && !this.state.didLogin) {
       return(
-        <h1>Sign Up/ Login Failed</h1>
+        <h1>Sign Up / Login Failed</h1>
       )
     }
   }
@@ -123,18 +130,20 @@ class App extends React.Component {
         { this.appendSuccessMessage(this.state.message) }
       <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
-          { this.signupLink() }
-          { this.loginLink() }
-          { this.logoutLink() }
 
-          <Link to="/portfolio">Portfolio</Link>
-          <Link to="/app">Main</Link>
-          <Route path="/register" component={() => 
-            <Register 
-              authenticate={this.authenticate} 
+        <Navbar className="color-nav" variant="light">
+            { this.signupLink() }
+            { this.loginLink() }
+            { this.logoutLink() }
+            <Link className="nav-link" to="/app">Main</Link>
+            <Link className="nav-link" to="/portfolio">Portfolio</Link>
+        </Navbar>
+          <Route path="/register" component={() =>
+            <Register
+              authenticate={this.authenticate}
               reject={this.reject}
             />}>
-          </Route> 
+          </Route>
 
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
@@ -143,25 +152,49 @@ class App extends React.Component {
           <Route 
             path='/portfolio' 
             component={() => 
-              <Portfolio userId={sessionStorage.userId}></Portfolio>
+              <Portfolio userId={localStorage.userId}></Portfolio>
             }>
           </Route>
           
           <Route path="/app">
-            <div>
+
+          <div className="top-bar">
+            <div className="search-container">
               < StockForm
                 symbol={this.state.symbol}
                 onSymbolChange={this.handleSymbolChange} />
               < InvalidMessage flag={this.state.invalidFlag}/>
             </div>
+            <div className="cashcow-logo">
+            <img src={'../cashcowlogosmall.jpg'}/>
+              CashCow
+            </div>
+            </div>
             <div className="main-container flex-item">
+            <div className="app-left">
               <div className="price-details-container">
-                <Price symbol={this.state.symbol}/>
+                <div className="symbol">
+                  {this.state.symbol}
+                </div>
+                <div className="price-details">
+                  <Price symbol={this.state.symbol}/>
+                </div>
+              </div>
+              <div className="prediction-container flex-item">
+                <Prediction symbol={this.state.symbol}/>
+              </div>
+              <div className="graph flex-item">
+                <Graph symbol={this.state.symbol}/>
+              </div>
+            </div>
+            <div className="app-right">
+              <div className="company-details-container">
                 <CompanyDetails symbol={this.state.symbol}/>
               </div>
-              <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
-              <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
-              <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
+              <div className="news flex-item">
+                <NewsContainer symbol={this.state.symbol}/>
+              </div>
+            </div>
             </div>
           </Route>
         </Router>

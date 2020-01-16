@@ -10,7 +10,7 @@
 
 .portfolio-item {
   display : flex;
-  justify-content: center;
+  /* justify-content: center; */
   /* flex-direction: row; */
   /* border : solid; */
   max-width: 60%;

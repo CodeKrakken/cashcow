@@ -18,7 +18,7 @@ class Stock {
     let result = await db.query(`
       INSERT INTO 
       stocks (symbol, user_id, amount) 
-      VALUES ('${symbol}', '${userId}', '${amount}')
+      VALUES ('${symbol}', ${userId}, ${amount})
       RETURNING *;
     `)
     result = result.rows[0]
@@ -45,12 +45,14 @@ class Stock {
 
   static async update(symbol, userId, amount) {
     let db = new dbConnection()
-    let stocks = await db.query('SELECT * FROM stocks')
+    console.log("UPDATE")
+    // let stocks = await db.query('SELECT * FROM stocks;')
     let result = await db.query(`
       UPDATE stocks
       SET symbol = '${symbol}', amount = ${amount}
       WHERE symbol = '${symbol}' AND user_id = ${userId};
     `)
+    // console.log(result);
     return result
   }
 }
