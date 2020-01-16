@@ -60,13 +60,12 @@ class PortfolioItem extends React.Component{
       <div className="">
         <div className="portfolio-item">
           <img className="portfolio-logo" src={`//logo.clearbit.com/${this.state.imgUrl}`}></img>
-        <div>
-          <p className='portfolio-item-price'>{this.props.symbol} : ${this.state.price}</p>
-          <p className='portfolio-item-price'>Number of Stocks : {this.props.amount} </p>
-          <p className='portfolio-item-price'>Total Value : {this.props.amount * this.state.price}</p>
-          <p className='portfolio-item-change'> Change: <span className={'price-item ' + this.handleChangeClass()}>{this.state.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{this.state.percentageChange}%</span></p>
+        <div className="portfolio-item-details">
+          <p className='portfolio-item-detail'>{this.props.symbol} : ${this.state.price}</p>
+          <p className='portfolio-item-detail'>Number of Stocks : {this.props.amount} </p>
+          <p className='portfolio-item-detail'>Total Value : {this.props.amount * this.state.price}</p>
+          <p className='portfolio-item-detail'> Change: <span className={'price-item ' + this.handleChangeClass()}>{this.state.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{this.state.percentageChange}%</span></p>
         </div>
-          
         </div>
       </div>
     )
