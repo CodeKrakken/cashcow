@@ -1,6 +1,7 @@
 .company-details {
   /* border : solid; */
   display : flex;
+  flex-direction: column;
   flex: 0 0 50em;
   align-content: flex-start;
   padding: 20px;
@@ -10,10 +11,17 @@
   flex: 0 0 12em;
   display : flex;
   align-items: flex-start;
-  flex-direction: column;
+  flex-direction: row;
   padding: 20px;
 
 }
 
-.company-info.flex-item {
+.company-header flex-item {
+  display : flex;
+  flex-direction: column;
+}
+
+.company-logo flex-item {
+  display : flex;
+  flex-direction: column;
 }

@@ -26,10 +26,15 @@ class CompanyDetails extends React.Component {
     return(
       <div className="company-details">
         <div className="company-info">
-          <h1 className='company-header flex-item'><a href={this.state.website}>{this.state.companyName}</a></h1>
+
           <img className="company-logo flex-item" src={`//logo.clearbit.com/${this.state.website}`}></img>
-          <p className="flex-item">Exchange: {this.state.exchange}</p>
-          <p className="flex-item">Industry: {this.state.industry}</p>
+            <h3 className='company-header flex-item'>
+
+            <p><a href={this.state.website}>{this.state.companyName}</a></p>
+            <p>Industry: {this.state.industry}</p>
+            <p>Exchange: {this.state.exchange}</p>
+            </h3>
+
         </div>
         <div id="company-description">
           <p>About The Company: </p>

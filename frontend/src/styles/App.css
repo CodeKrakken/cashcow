@@ -63,6 +63,8 @@
 }
 
 .company-details-container {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   flex-basis: 50%;
   text-align: justify;
