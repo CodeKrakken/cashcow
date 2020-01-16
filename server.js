@@ -85,7 +85,7 @@ app.post("/api/post", verifyToken, (req, res) => {
     if(err) {
       res.sendStatus(403)
     } else (res.json({
-      message : "This Route is rotected",
+      message : "This Route is protected",
        user : data.user,
     }))
   })
