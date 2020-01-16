@@ -52,7 +52,7 @@ describe('User', () => {
       expect(user instanceof User).toBe(true)
     })
 
-    it('adds a user to the database', async () => {
+    it('adds a user to the database', async () => { // doesnt test if user has beem added to DB!!
       let user = await User.create('RobertR', 'Robert', 'Rosiji', 'bibbyCodes@test.com', 'secret')
       expect(user.first).toEqual('Robert')
       expect(user.last).toEqual('Rosiji')

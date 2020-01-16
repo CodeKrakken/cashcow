@@ -11,9 +11,7 @@ class User {
 
   static async find(id) {
     let db = new dbConnection();
-    await db.start();
     let result = await db.query(`SELECT * FROM users WHERE id=${id}`);
-    await db.close();
     return result.rows;
   }
 
@@ -35,7 +33,7 @@ class User {
       return "user already exists";
     } else {
       let db = new dbConnection();
-      let hashedPassword = await bcrypt.hash(password, 10) // extract to user model
+      let hashedPassword = await bcrypt.hash(password, 10)
       let result = await db.query(`
         INSERT INTO 
         users (username, first, last, email, password) 
@@ -43,6 +41,7 @@ class User {
         RETURNING *;
       `);
       let rows = result.rows;
+      
       return new User(
         rows[0].username,
         rows[0].id,

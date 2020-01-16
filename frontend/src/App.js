@@ -9,11 +9,13 @@ import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
 import LoginForm from './Components/LoginForm'
+import Portfolio from './Components/Portfolio'
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Switch,
+  Redirect
 } from "react-router-dom";
 import './styles/App.css';
 import './styles/CompanyDetails.css';
@@ -21,15 +23,20 @@ import './styles/Chart.css';
 import './styles/NewsContainer.css';
 import './styles/Price.css';
 import './styles/StockForm.css';
+import './styles/PortfolioItem.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
+import { local } from 'd3';
 
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.handleSymbolChange = this.handleSymbolChange.bind(this);
-    this.state = { symbol: "TSLA" }
+    this.state = { 
+      symbol: "TSLA",
+      isAuth: localStorage.getItem("isAuth")
+    }
   }
 
   handleSymbolChange(newSymbol) {
@@ -46,13 +53,14 @@ class App extends React.Component {
   }
 
   authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
-    sessionStorage.setItem("userId", res.user.id)
-    sessionStorage.setItem("sessiondId", res.sessionId)
-    sessionStorage.setItem("username", res.user.username)
-    sessionStorage.setItem("token", res.token)
-    sessionStorage.setItem("isAuthenticated,", true)
+    console.log("res", res)
+    localStorage.setItem("userId", res.user.id)
+    localStorage.setItem("sessiondId", res.sessionId)
+    localStorage.setItem("username", res.user.username)
+    localStorage.setItem("token", res.token)
+    localStorage.setItem("isAuth,", true)
+    this.setState({isAuth : true})
     this.setState({user : res.user.username})
-    console.log(res)
     this.setState({isRejected : false})
     this.setState({message : res.message})
     this.setState({didLogin : true})
@@ -60,8 +68,8 @@ class App extends React.Component {
 
   // render links based on login
   signupLink = () => {
-    let isAuthenticated = sessionStorage.getItem("isAuthenticated")
-    if(isAuthenticated != true) {
+    let isAuth = localStorage.getItem("isAuth")
+    if(isAuth != true) {
       return(
         <Link className="nav-link" to="/register/">SignUp</Link>
       )
@@ -69,9 +77,8 @@ class App extends React.Component {
   }
 
   loginLink = () => {
-    let isAuthenticated = sessionStorage.getItem("isAuthenticated") // use JWT instead?
-    console.log(isAuthenticated)
-    if(isAuthenticated != true) {
+    let isAuth = this.state.isAuth
+    if(isAuth != true) {
       return(
         <Link className="nav-link" to="/login/">Login</Link>
       )
@@ -79,24 +86,25 @@ class App extends React.Component {
   }
 
   logoutLink = () => {
-    let isAuthenticated = sessionStorage.getItem("isAuthenticated") // doesnt work! NB Session storage clears on close tab
-    console.log(sessionStorage)
-    console.log(isAuthenticated)
-    if(isAuthenticated == "true") {
+    let isAuth = localStorage.getItem("isAuth")
+    if(5) {
+      // this.setState({message : "You Have succesfully signed out out"})
       return(
-        <Link className="nav-link" onClick={this.handleLogout}>Log Out</Link>
+        <Link className="nav-link" onClick={this.handleLogout} to="/app">Log Out</Link>
       )
     }
   }
 
   handleLogout = () => {
-    sessionStorage.clear()
+    localStorage.clear()
+    this.setState({redirect : true})
+    this.setState({isAuth : false})
   }
 
   appendFailMessage = (event) => {
     if (this.state.isRejected && !this.state.didLogin) {
       return(
-        <h1>Sign Up/ Login Failed</h1>
+        <h1>Sign Up / Login Failed</h1>
       )
     }
   }
@@ -127,6 +135,7 @@ class App extends React.Component {
               { this.loginLink() }
               { this.logoutLink() }
               <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/portfolio">Portfolio</Link>
           </Navbar>
 
           <Route path="/register" component={() =>
@@ -138,6 +147,13 @@ class App extends React.Component {
 
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+          </Route>
+
+          <Route 
+            path='/portfolio' 
+            component={() => 
+              <Portfolio userId={localStorage.userId}></Portfolio>
+            }>
           </Route>
 
           <Switch>
