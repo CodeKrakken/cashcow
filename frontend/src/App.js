@@ -117,13 +117,9 @@ class App extends React.Component {
 
   render () {
     return (
-
-
-
       <div className="app-container">
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
-      <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
 
         <Navbar className="color-nav" variant="light">
@@ -131,11 +127,8 @@ class App extends React.Component {
             { this.signupLink() }
             { this.loginLink() }
             { this.logoutLink() }
-            <Link className="nav-link" to="/app">Main</Link>
+            <Link className="nav-link" to="/">Home</Link>
         </Navbar>
-
-
-
           <Route path="/register" component={() =>
             <Register
               authenticate={this.authenticate}
@@ -147,7 +140,7 @@ class App extends React.Component {
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
           </Route>
 
-          <Route path="/app">
+          <Route path="/">
 
           <div className="top-bar">
             <div className="search-container">
