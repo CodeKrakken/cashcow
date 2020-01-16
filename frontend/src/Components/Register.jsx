@@ -46,7 +46,10 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div>
+      <div className="register-form-container-outer">
+      <div className="register-form-container">
+      <img className = "image-logo-container" src="/cashcowlogosmall.jpg"></img>
+        <h2>Sign Up</h2>
         <form onSubmit={this.handleSignup}>
           <label>
             UserName
@@ -87,7 +90,7 @@ class SignUp extends Component {
           <label>
             Email Address
             <input
-              type="text"
+              type="email"
               placeholder="Email Address"
               onChange={(event) =>
                 this.setState({ email: event.target.value })
@@ -108,8 +111,9 @@ class SignUp extends Component {
             />
           </label>
 
-          <input type="submit" value="Sign Up" />
+          <button className="btn btn-lg btn-secondary text-center sign-up-button" type="submit">Sign up</button>
         </form>
+      </div>
       </div>
     );
   }

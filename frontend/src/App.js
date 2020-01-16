@@ -24,6 +24,7 @@ import './styles/NewsContainer.css';
 import './styles/Price.css';
 import './styles/StockForm.css';
 import './styles/PortfolioItem.css';
+import './styles/Register.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import { local } from 'd3';
@@ -37,6 +38,13 @@ class App extends React.Component {
       symbol: "TSLA",
       isAuth: localStorage.getItem("isAuth")
     }
+  }
+
+  componentDidMount() {
+    console.log(localStorage)
+    const isAuth = localStorage.getItem("isAuth")
+    console.log(isAuth)
+    this.setState({isAuth: (localStorage.getItem('isAuth') == 'true')})
   }
 
   handleSymbolChange(newSymbol) {
@@ -53,12 +61,11 @@ class App extends React.Component {
   }
 
   authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
-    console.log("res", res)
     localStorage.setItem("userId", res.user.id)
     localStorage.setItem("sessiondId", res.sessionId)
     localStorage.setItem("username", res.user.username)
     localStorage.setItem("token", res.token)
-    localStorage.setItem("isAuth,", true)
+    localStorage.setItem("isAuth", true)
     this.setState({isAuth : true})
     this.setState({user : res.user.username})
     this.setState({isRejected : false})
@@ -68,8 +75,9 @@ class App extends React.Component {
 
   // render links based on login
   signupLink = () => {
-    let isAuth = localStorage.getItem("isAuth")
-    if(isAuth != true) {
+    let isAuth = this.state.isAuth
+    console.log("signUp:",isAuth)
+    if(!isAuth) {
       return(
         <Link className="nav-link" to="/register/">Sign Up</Link>
       )
@@ -86,24 +94,34 @@ class App extends React.Component {
   }
 
   logoutLink = () => {
-    let isAuth = localStorage.getItem("isAuth")
-    if(5) {
-      // this.setState({message : "You Have succesfully signed out out"})
+    let isAuth = this.state.isAuth
+    if(isAuth) {
       return(
         <Link className="nav-link" onClick={this.handleLogout} to="/">Log Out</Link>
       )
     }
   }
 
+  portfolioLink = () => {
+    let isAuth = this.state.isAuth
+    if(isAuth) {
+      return(
+        <Link className="nav-link" to="/portfolio">Portfolio</Link>
+      )
+    }
+  }
+
   handleLogout = () => {
     localStorage.clear()
-    this.setState({redirect : true})
+    localStorage.setItem('isAuth', false)
     this.setState({isAuth : false})
   }
 
   reject = (res) => {
+    console.log(res)
     this.setState({isRejected : true})
     this.setState({didLogin : false})
+    this.setState({message : res.message})
   }
 
   render () {
@@ -115,7 +133,7 @@ class App extends React.Component {
               { this.signupLink() }
               { this.loginLink() }
               { this.logoutLink() }
-              <Link className="nav-link" to="/portfolio">Portfolio</Link>
+              { this.portfolioLink() }
           </Navbar>
 
           <Route path="/register" component={() =>

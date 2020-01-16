@@ -1,0 +1,44 @@
+.login-form-container, .register-form-container {
+  display : flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  max-width : 230px;
+  border-width: 2px;
+  border-radius: 2%;
+  margin-top: 100px;
+}
+
+.register-form-container {
+  margin : 20px;
+}
+
+.login-button {
+  display : block;
+  /* width: 100px !important; */
+  text-align: center;
+}
+
+.register-form-container-outer {
+  margin-top : 100px;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.outer-container {
+  display : flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+  width : 100%;
+}
+
+.sign-up-button {
+  margin-top : 10px;
+  width : 100%;
+}
