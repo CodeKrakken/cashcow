@@ -57,15 +57,24 @@
   font-weight: 600;
 }
 
+.logo {
+  border: dotted #bdbdbd;
+}
+
 .price-details-container {
   border: dotted #bdbdbd;
-  align-content : flex-start;
+  /* align-content : flex-start;
   justify-content: center;
   align-items: center;
   display : flex;
   flex-direction: column;
-  margin : 10px;
+  margin : 10px; */
   text-align: center;
+}
+
+.price-details {
+  justify-content: center;
+  margin-right: 0px !important;
 }
 
 .row2 {

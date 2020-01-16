@@ -124,6 +124,10 @@ class App extends React.Component {
     this.setState({message : res.message})
   }
 
+  setWebsite = (url) => {
+    this.setState({url:url})
+  }
+
   render () {
     return (
       <div className="app-container">
@@ -184,28 +188,31 @@ class App extends React.Component {
                 </div>
               </div>*/}
 
+              <div className="row">
 
-              <div className="container">
+                <div className="logo col-sm-6">
+                  <img className="company-logo flex-item" src={`//logo.clearbit.com/${this.state.url}`}></img>
+                </div>
 
-                <div className="price-details-container">
-
+                <div className="price-details-container col-sm-6">
                   <div className="price-details">
                     <h1>{this.state.symbol}:</h1> <Price symbol={this.state.symbol}/>
                   </div>
+
                   <div className="prediction-container flex-item">
                     <Prediction symbol={this.state.symbol}/>
                   </div>
-                </div>
 
+                </div>
               </div>
 
 
 
               <div className="row news-details">
-                <div className="company-details-container col-6">
-                  <CompanyDetails symbol={this.state.symbol}/>
+                <div className="company-details-container col-sm-6">
+                  <CompanyDetails setWebsite={this.setWebsite} symbol={this.state.symbol}/>
                 </div>
-                <div className="news col-6">
+                <div className="news col-sm-6">
                   <NewsContainer symbol={this.state.symbol}/>
                 </div>
               </div>
