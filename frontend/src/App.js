@@ -23,6 +23,7 @@ import './styles/Chart.css';
 import './styles/NewsContainer.css';
 import './styles/Price.css';
 import './styles/StockForm.css';
+import './styles/Portfolio.css';
 import './styles/PortfolioItem.css';
 import './styles/Register.css'
 import 'bootstrap/dist/css/bootstrap.min.css';

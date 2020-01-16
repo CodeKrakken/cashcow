@@ -83,27 +83,34 @@ class Portfolio extends React.Component {
         { this.handleNoStocks() }
 
         <div className="portfolio-header">
-
-          <div className="addStockForm">
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                <h1>Add Stock</h1>
-              </label>
-              <label>
-                Symbol:
-                <input type="text" value={this.state.symbolText} onChange={this.handleSymbolTextChange} />
-              </label>
-              <label>
-                Number of Stocks:
-                <input type="text" value={this.state.amountText} onChange={this.handleAmountTextChange} />
-              </label>
-              <input type="submit" value="OK"/>
-            </form>
+          <div className="totalValue">
+            <h2>Total: ${this.state.totalValue}</h2>
           </div>
 
-          <div className="totalValue">
-            <h2>Total</h2>
-            <h3>${this.state.totalValue}</h3>
+          <div className="add-stock-form">
+            <form onSubmit={this.handleSubmit}>
+              <ul>
+                <li className="add-info-container">
+                  <input
+                    type="text"
+                    placeholder="Symbol"
+                    value={this.state.symbolText}
+                    onChange={this.handleSymbolTextChange}
+                  />
+                </li>
+                <li className="add-info-container">
+                  <input type="text"
+                    placeholder="Number of stocks"
+                    value={this.state.amountText}
+                    onChange={this.handleAmountTextChange}
+                   />
+                </li>
+                <li>
+                  <button className="btn btn-secondary"
+ type="submit">Add</button>
+                </li>
+              </ul>
+            </form>
           </div>
         </div>
 
