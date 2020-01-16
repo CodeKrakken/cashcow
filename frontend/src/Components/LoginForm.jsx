@@ -18,7 +18,7 @@ class LoginForm extends Component {
 
   handleLogin = event => {
     event.preventDefault()
-    let credentials = { email : this.state.email, password : this.state.password }
+    const credentials = { email : this.state.email, password : this.state.password }
     Axios.post('/users/authenticate', credentials)
       .then(res => {
         let token = res.data.token
