@@ -10,6 +10,7 @@ const Predictor = require('./models/Predictor')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const User = require('./models/User')
+const Stock = require('./models/Stock')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
@@ -177,8 +178,31 @@ app.get('/api/news/:symbol', async (req, res) => {
   }
 })
 
-// ERROR?
+// STOCKS
+app.get('/api/stocks/:user', async (req, res) => {
+  try {
+    let userId = req.params.user
+    console.log(req.params)
+    let result = await Stock.findByUserId(userId)
+    console.log("result :",result)
+    res.status(200).send(result)
+  } catch (err) {
+    res.statusCode(400)
+  }
+})
 
+app.post('/api/stocks/new', async(req, res) => {
+  try {
+    let symbol = req.body.symbol
+    let amount = parseInt(req.body.amount)
+    let userId = parseInt(req.body.userId)
+    Stock.create(symbol, userId, amount)
+  } catch (err) {
+    console.log("Cannot Add")
+  }
+})
+
+// ERROR?
 app.get('*', (req, res) => {
   try {
     if (process.env.NODE_ENV == 'development') {
@@ -190,5 +214,9 @@ app.get('*', (req, res) => {
     console.log(err)
   }
 })
+
+// STOCKS
+
+
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))

@@ -1,0 +1,27 @@
+.portfolio-logo {
+  display: inline-block;
+  width : 50px;
+  height : 50px;
+}
+
+.portfolio-item-price {
+  display : inline-flexbox;
+}
+
+.portfolio-item {
+  display : flex;
+  /* justify-content: center; */
+  /* flex-direction: row; */
+  /* border : solid; */
+  max-width: 60%;
+  margin : 2px;
+}
+
+.portfolio-item-details {
+  display : flex;
+  flex-direction: row;
+}
+
+.portfolio-item-detail {
+  margin-left: 2px;
+}
