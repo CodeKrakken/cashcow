@@ -13,6 +13,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
+  Switch,
 } from "react-router-dom";
 import './styles/App.css';
 import './styles/CompanyDetails.css';
@@ -121,14 +122,13 @@ class App extends React.Component {
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
         <Router>
+          <Navbar className="color-nav" variant="light">
+              { this.signupLink() }
+              { this.loginLink() }
+              { this.logoutLink() }
+              <Link className="nav-link" to="/">Home</Link>
+          </Navbar>
 
-        <Navbar className="color-nav" variant="light">
-
-            { this.signupLink() }
-            { this.loginLink() }
-            { this.logoutLink() }
-            <Link className="nav-link" to="/">Home</Link>
-        </Navbar>
           <Route path="/register" component={() =>
             <Register
               authenticate={this.authenticate}
@@ -140,52 +140,50 @@ class App extends React.Component {
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
           </Route>
 
-          <Route path="/">
-
-          <div className="top-bar">
-            <div className="search-container">
-              < StockForm
-                symbol={this.state.symbol}
-                onSymbolChange={this.handleSymbolChange} />
-              < InvalidMessage flag={this.state.invalidFlag}/>
-            </div>
-            <div className="cashcow-logo">
-            <img src={'../cashcowlogosmall.jpg'}/>
-              CashCow
-            </div>
-            </div>
-
-            <div className="main-container flex-item">
-            <div className="app-left">
-
-              <div className="price-details-container">
-                <div className="symbol">
-                  {this.state.symbol}
+          <Switch>
+            <Route exact path="/">
+              <div className="top-bar">
+                <div className="search-container">
+                  < StockForm
+                    symbol={this.state.symbol}
+                    onSymbolChange={this.handleSymbolChange} />
+                  < InvalidMessage flag={this.state.invalidFlag}/>
                 </div>
-                <div className="price-details">
-                  <Price symbol={this.state.symbol}/>
+                <div className="cashcow-logo">
+                  <img src={'../cashcowlogosmall.jpg'}/>
+                  CashCow
                 </div>
               </div>
-              <div className="prediction-container flex-item">
-                <Prediction symbol={this.state.symbol}/>
-              </div>
-              <div className="graph flex-item">
-                <Graph symbol={this.state.symbol}/>
-              </div>
-            </div>
 
-            <div className="app-right">
-              <div className="company-details-container">
-                <CompanyDetails symbol={this.state.symbol}/>
-              </div>
-              <div className="news flex-item">
-                <NewsContainer symbol={this.state.symbol}/>
-              </div>
-            </div>
+              <div className="main-container flex-item">
+                <div className="app-left">
+                  <div className="price-details-container">
+                    <div className="symbol">
+                      {this.state.symbol}
+                    </div>
+                    <div className="price-details">
+                      <Price symbol={this.state.symbol}/>
+                    </div>
+                  </div>
+                  <div className="prediction-container flex-item">
+                    <Prediction symbol={this.state.symbol}/>
+                  </div>
+                  <div className="graph flex-item">
+                    <Graph symbol={this.state.symbol}/>
+                  </div>
+                </div>
 
-
-            </div>
-          </Route>
+                <div className="app-right">
+                  <div className="company-details-container">
+                    <CompanyDetails symbol={this.state.symbol}/>
+                  </div>
+                  <div className="news flex-item">
+                    <NewsContainer symbol={this.state.symbol}/>
+                  </div>
+                </div>
+              </div>
+            </Route>
+          </Switch>
         </Router>
       </div>
     );
