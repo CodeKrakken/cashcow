@@ -121,8 +121,10 @@ class App extends React.Component {
   }
 
   reject = (res) => {
+    console.log(res)
     this.setState({isRejected : true})
     this.setState({didLogin : false})
+    this.setState({message : res.message})
   }
 
   render () {

@@ -4,7 +4,14 @@
   justify-content: center;
   align-items: center;
   height: 400px;
-  width : 100px;
+  max-width : 230px;
+  border-width: 2px;
+  border-radius: 2%;
+  margin-top: 100px;
+}
+
+.register-form-container {
+  margin : 20px;
 }
 
 .login-button {
@@ -13,7 +20,25 @@
   text-align: center;
 }
 
+.register-form-container-outer {
+  margin-top : 100px;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .outer-container {
   display : flex;
   justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+  width : 100%;
+}
+
+.sign-up-button {
+  margin-top : 10px;
+  width : 100%;
 }
