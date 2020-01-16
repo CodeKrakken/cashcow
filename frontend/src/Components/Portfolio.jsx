@@ -44,6 +44,7 @@ class Portfolio extends React.Component {
             website : details.data.website,
             companyName : details.data.companyName,
             exchange : details.data.exchange,
+            total : parseInt((res.data[i].amount * stock.price).toFixed(2))
           }
           console.log(formatted)
           stocksPrices.push(formatted)
@@ -129,11 +130,12 @@ class Portfolio extends React.Component {
           {this.state.stocksWithPrices.map((stock, index) => (
            <div className="portfolio-item">
            <img className="portfolio-logo" src={`//logo.clearbit.com/${stock.website}`}></img>
-           <div className="portfolio-item-details">
-             <p className='portfolio-item-detail'>{stock.symbol} : ${stock.price}</p>
-             <p className='portfolio-item-detail'>Number of Stocks : {stock.amount} </p>
-             <p className='portfolio-item-detail'>Total Value : {(stock.amount * stock.price).toFixed(2)}</p>
-             <p className='portfolio-item-detail'> Change: <span className={'price-item ' + this.handleChangeClass()}>{stock.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{stock.percentageChange}%</span></p>
+           <div key={index}className="portfolio-item-details">
+             <p className='portfolio-item-detail'>{stock.symbol}</p>
+             <p className='portfolio-item-detail'>${stock.price}</p>
+             <p className='portfolio-item-detail'>{stock.amount} </p>
+             <p className='portfolio-item-detail'>{stock.total}</p>
+             <p className='portfolio-item-detail'><span className={'price-item ' + this.handleChangeClass()}>{stock.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{stock.percentageChange}%</span></p>
            </div>
          </div>
           ))}
