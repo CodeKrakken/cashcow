@@ -1,6 +1,19 @@
-.loginForm {
+.login-form-container, .register-form-container {
   display : flex;
   flex-direction: column;
   justify-content: center;
-  max-width : 100px;
+  align-items: center;
+  height: 400px;
+  width : 100px;
+}
+
+.login-button {
+  display : block;
+  /* width: 100px !important; */
+  text-align: center;
+}
+
+.outer-container {
+  display : flex;
+  justify-content: center;
 }
