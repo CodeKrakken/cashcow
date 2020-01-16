@@ -1,3 +1,9 @@
+.app-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
 .color-nav {
   background-color: #bdbdbd;
 }
@@ -9,16 +15,11 @@
   font-weight: 600;
 }
 
-.app-container {
-  text-align: center;
+.row1 {
   display: flex;
-  flex-direction: column;
-}
-
-.top-bar {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   color: black;
@@ -28,20 +29,28 @@
   background-color:
 }
 
-.symbol {
-  font-size: 26px;
-  font-weight: 800;
+.cashcow-logo {
+  margin: 10px;
+  font-size: 50px;
+  font-weight: 600;
 }
 
 .search-container {
   margin: 10px;
 }
 
-.cashcow-logo {
-  margin: 10px;
-  font-size: 50px;
-  font-weight: 600;
+
+
+
+
+.symbol {
+  font-size: 26px;
+  font-weight: 800;
 }
+
+
+
+
 
 .main-container {
   display: flex;

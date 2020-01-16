@@ -124,10 +124,11 @@ class App extends React.Component {
 
         <Navbar className="color-nav" variant="light">
 
+            <Link className="nav-link" to="/">Home</Link>
             { this.signupLink() }
             { this.loginLink() }
             { this.logoutLink() }
-            <Link className="nav-link" to="/">Home</Link>
+
         </Navbar>
           <Route path="/register" component={() =>
             <Register
@@ -142,49 +143,53 @@ class App extends React.Component {
 
           <Route path="/">
 
-          <div className="top-bar">
+          <div className="row1">
+            <div className="cashcow-logo">
+              <img src={'../cashcowlogosmall.jpg'}/>
+              CashCow
+            </div>
+            <div className="price-details-container">
+              <div className="symbol">
+                {this.state.symbol}
+              </div>
+              <div className="price-details">
+                <Price symbol={this.state.symbol}/>
+              </div>
+            </div>
             <div className="search-container">
               < StockForm
                 symbol={this.state.symbol}
                 onSymbolChange={this.handleSymbolChange} />
               < InvalidMessage flag={this.state.invalidFlag}/>
             </div>
-            <div className="cashcow-logo">
-            <img src={'../cashcowlogosmall.jpg'}/>
-              CashCow
-            </div>
-            </div>
+          </div>
 
-            <div className="main-container flex-item">
-            <div className="app-left">
+          <div className="row2">
 
-              <div className="price-details-container">
-                <div className="symbol">
-                  {this.state.symbol}
-                </div>
-                <div className="price-details">
-                  <Price symbol={this.state.symbol}/>
-                </div>
-              </div>
+            <div className="summary">
+
               <div className="prediction-container flex-item">
                 <Prediction symbol={this.state.symbol}/>
               </div>
-              <div className="graph flex-item">
-                <Graph symbol={this.state.symbol}/>
-              </div>
             </div>
 
-            <div className="app-right">
-              <div className="company-details-container">
-                <CompanyDetails symbol={this.state.symbol}/>
-              </div>
-              <div className="news flex-item">
-                <NewsContainer symbol={this.state.symbol}/>
-              </div>
+            <div className="company-details-container">
+              <CompanyDetails symbol={this.state.symbol}/>
             </div>
+          </div>
 
 
+          <div className="row3">
+
+            <div className="graph flex-item">
+              <Graph symbol={this.state.symbol}/>
             </div>
+            <div className="news flex-item">
+              <NewsContainer symbol={this.state.symbol}/>
+            </div>
+
+          </div>
+
           </Route>
         </Router>
       </div>
