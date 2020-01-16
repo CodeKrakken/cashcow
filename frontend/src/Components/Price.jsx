@@ -51,7 +51,6 @@ class Price extends React.Component{
     return(
       <div className="price-container">
         <div className="price-items">
-
           <h1 className='price-item price-header'>${this.state.price}</h1>
           <p className='price-item'><span>Open: {this.state.open}</span> <span>Close: {this.state.close}</span></p>
           <p className='price-item'> <span>High: {this.state.high}  Low: {this.state.low}</span></p>

@@ -46,10 +46,11 @@ class LoginForm extends Component {
       <div className="outer-container">
       <div className="login-form-container row">
         <div className="">
-        <h2>Please Sign In</h2>
+        <img src="/cashcowlogosmall.jpg"></img>
+        <h2>Sign In</h2>
         <form className="flex-column" onSubmit={this.handleLogin}>
           <label>
-            Email
+            Email Address
             <input
               type="email"
               placeholder="Email"
@@ -70,7 +71,7 @@ class LoginForm extends Component {
               value={this.state.password}
             />
           </label>
-          <button className="btn btn-lg btn-primary text-center btn-block login-button" type="submit">Sign in</button>
+          <button className="btn btn-lg btn-secondary text-center login-button" type="submit">Sign in</button>
         </form>
         </div>
       </div>
