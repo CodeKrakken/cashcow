@@ -150,10 +150,14 @@ class App extends React.Component {
             </div>
             <div className="price-details-container">
               <div className="symbol">
-                {this.state.symbol}
+
               </div>
               <div className="price-details">
+              {this.state.symbol}
                 <Price symbol={this.state.symbol}/>
+              </div>
+              <div className="prediction-container flex-item">
+                <Prediction symbol={this.state.symbol}/>
               </div>
             </div>
             <div className="search-container">
@@ -165,25 +169,20 @@ class App extends React.Component {
           </div>
 
           <div className="row2">
+          <div className="graph flex-item">
+            <Graph symbol={this.state.symbol}/>
+          </div>
+          <div className="company-details-container">
+            <CompanyDetails symbol={this.state.symbol}/>
+          </div>
 
-            <div className="summary">
 
-              <div className="prediction-container flex-item">
-                <Prediction symbol={this.state.symbol}/>
-              </div>
-            </div>
-
-            <div className="company-details-container">
-              <CompanyDetails symbol={this.state.symbol}/>
-            </div>
           </div>
 
 
           <div className="row3">
 
-            <div className="graph flex-item">
-              <Graph symbol={this.state.symbol}/>
-            </div>
+
             <div className="news flex-item">
               <NewsContainer symbol={this.state.symbol}/>
             </div>
