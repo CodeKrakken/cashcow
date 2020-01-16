@@ -6,11 +6,12 @@ class Portfolio extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      totalValue : 0,
+      totalValue : sessionStorage.getItem("portfolioValue"),
       stocks : [],
       stocksWithPrices : [],
       symbolText : "",
-      amountText : ""
+      amountText : "",
+      prices : []
     }
   }
 
@@ -26,29 +27,6 @@ class Portfolio extends React.Component {
           this.setState({stocks : stocks})
           return res
         }
-      }).then(async res => {
-        let stocksPrices = []
-        for(let i = 0; i < res.data.length; i++) {
-          let stock = await this.getPrice(res.data[i].symbol)
-          // let details = await Axios.get(`/api/company/${stock.symbol}`)
-          let formatted = {
-            price : stock.price,
-            open : stock.open,
-            close : stock.prev_close,
-            high : stock.high,
-            low : stock.low,
-            amount: res.data[i].amount,
-            symbol : stock.symbol,
-            percentageChange : stock.percent_change,
-            // website : details.data.website,
-            // companyName : details.data.companyName,
-            // exchange : details.data.exchange,
-            total : parseInt((res.data[i].amount * stock.price).toFixed(2))
-          }
-          stocksPrices.push(formatted)
-        }
-        this.setState({stocksWithPrices : stocksPrices})
-        this.handleTotal()
       })
     } catch (err) {
       console.log(err)
@@ -60,10 +38,11 @@ class Portfolio extends React.Component {
     return stock.data
   }
 
-  updateTotalValue = (amount) => {
-    let totalValue = this.state.totalValue
-    let newValue = totalValue + amount
-    this.setState({totalValue : newValue})
+  updatePrices = (amount) => {
+    let stocks = this.state.prices
+    stocks.push(amount)
+    this.setState({prices : stocks})
+    this.handleTotal()
   }
 
   handleSymbolTextChange = (event) => {
@@ -83,7 +62,6 @@ class Portfolio extends React.Component {
 
   handleNoStocks = () => {
     if (this.state.noStocks ==  true) {
-      console.log("hello")
       return(
         <div>No Stocks Yet!</div>
       )
@@ -92,17 +70,16 @@ class Portfolio extends React.Component {
 
   handleTotal = () => {
     let sum = 0
-    let stocks = this.state.stocksWithPrices
-    for(let i =0; i < stocks.length; i++) {
-      console.log(stocks[i])
-      sum += stocks[i].total
+    let prices = this.state.prices
+    for(let i = 0; i < prices.length; i++) {
+      sum += prices[i]
     }
-    console.log("sum : ", sum)
-    this.setState({totalValue : sum})
+    sessionStorage.setItem("portfolioValue", sum)
+    this.setState({totalValue : sum.toFixed(2)})
   }
 
-  handleChangeClass = () => {
-    if (this.state.change < 1) {
+  handleChangeClass = (price) => {
+    if (price < 0) {
       return "negative"
     } else {
       return "positive"
@@ -111,6 +88,7 @@ class Portfolio extends React.Component {
 
   async componentDidMount() {
     this.getStocks()
+    this.handleTotal()
   }
 
   render() {
@@ -133,17 +111,8 @@ class Portfolio extends React.Component {
           <input type="submit" value="OK"/>
         </form>
         <div>
-          {this.state.stocksWithPrices.map((stock, index) => (
-           <div className="portfolio-item">
-           {/* <img className="portfolio-logo" src={`//logo.clearbit.com/${stock.website}`}></img> */}
-           <div key={index}className="portfolio-item-details">
-             <p className='portfolio-item-detail'>{stock.symbol}</p>
-             <p className='portfolio-item-detail'>${stock.price}</p>
-             <p className='portfolio-item-detail'>{stock.amount} </p>
-             <p className='portfolio-item-detail'>{stock.total}</p>
-             <p className='portfolio-item-detail'><span className={'price-item ' + this.handleChangeClass()}>{stock.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{stock.percentageChange}%</span></p>
-           </div>
-         </div>
+          {this.state.stocks.map((stock, index) => (
+            <PortfolioItem updatePrices={this.updatePrices} key={index} symbol={stock.symbol} amount={stock.amount}></PortfolioItem>
           ))}
         </div>
           <div>Total Portfolio Value : ${this.state.totalValue}</div>
