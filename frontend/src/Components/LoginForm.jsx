@@ -11,9 +11,6 @@ class LoginForm extends Component {
     };
   }
 
-  componentDidMount() {
-  }
-
   clearForm = () => {
     this.setState({email : ""})
     this.setState({password : ""})
