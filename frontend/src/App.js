@@ -15,8 +15,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  Redirect
+  Switch
 } from "react-router-dom";
 import './styles/App.css';
 import './styles/CompanyDetails.css';
@@ -148,9 +147,12 @@ class App extends React.Component {
           }>
           </Route>
 
-          <Route path='/login'>
-            <LoginForm authenticate={this.authenticate} reject={this.reject}/>
-            <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+          <Route path='/login' component={() => 
+            <div>
+              <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+              <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+            </div>
+          }>
           </Route>
 
           <Route 
