@@ -143,17 +143,37 @@ class Portfolio extends React.Component {
           </div>
         </div>
 
-        <div className="portfolio-items-container">
-          {this.state.stocksWithPrices.map((stock, index) => (
-           <div className="portfolio-item">
-             <img className="portfolio-logo" src={`//logo.clearbit.com/${stock.website}`}></img>
-             <div key={index}className="portfolio-item-details">
-               <p className='portfolio-item-detail'>{stock.symbol}</p>
-               <p className='portfolio-item-detail'>${stock.price}</p>
-               <p className='portfolio-item-detail'>{stock.amount} </p>
-               <p className='portfolio-item-detail'>{stock.total}</p>
-               <p className='portfolio-item-detail'><span className={'price-item ' + this.handleChangeClass()}>{stock.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{stock.percentageChange}%</span></p>
+        <div className="flex-grid portfolio-items-container">
+          <div className="grid-row portfolio-item">
+            <p className='grid-cell heading'></p>
+            <div className="grid-cell grid-col-headings">
+              <p className='grid-cell heading'>Symbol</p>
+              <p className='grid-cell heading'>Price</p>
+              <p className='grid-cell heading'>Quantity</p>
+              <p className='grid-cell heading'>Total</p>
+              <p className='grid-cell heading'>Change</p>
              </div>
+           </div>
+          {this.state.stocksWithPrices.map((stock, index) => (
+           <div className="grid-row portfolio-item">
+            <div className="portfolio-logo-container">
+               <img className="portfolio-logo" src={`//logo.clearbit.com/${stock.website}`}></img>
+            </div>
+           <div key={index}className="grid-cell portfolio-item-details">
+             <p className='grid-cell portfolio-item-detail'>{stock.symbol}</p>
+             <p className='grid-cell portfolio-item-detail'>${stock.price}</p>
+             <p className='grid-cell portfolio-item-detail'>{stock.amount} </p>
+             <p className='grid-cell portfolio-item-detail'>{stock.total}</p>
+             <p className='grid-cell portfolio-item-detail'>
+              <span className={'price-item ' + this.handleChangeClass()}>
+                {stock.change}
+              </span>
+              / 
+              <span className={'price-item ' + this.handleChangeClass()}>
+                {stock.percentageChange}%
+              </span>
+            </p>
+           </div>
          </div>
           ))}
         </div>
