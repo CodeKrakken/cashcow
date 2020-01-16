@@ -27,11 +27,10 @@ class Portfolio extends React.Component {
           return res
         }
       }).then(async res => {
-        console.log(res)
         let stocksPrices = []
         for(let i = 0; i < res.data.length; i++) {
           let stock = await this.getPrice(res.data[i].symbol)
-          let details = await Axios.get(`/api/company/${stock.symbol}`)
+          // let details = await Axios.get(`/api/company/${stock.symbol}`)
           let formatted = {
             price : stock.price,
             open : stock.open,
@@ -41,23 +40,20 @@ class Portfolio extends React.Component {
             amount: res.data[i].amount,
             symbol : stock.symbol,
             percentageChange : stock.percent_change,
-            website : details.data.website,
-            companyName : details.data.companyName,
-            exchange : details.data.exchange,
+            // website : details.data.website,
+            // companyName : details.data.companyName,
+            // exchange : details.data.exchange,
             total : parseInt((res.data[i].amount * stock.price).toFixed(2))
           }
-          console.log(formatted)
           stocksPrices.push(formatted)
         }
         this.setState({stocksWithPrices : stocksPrices})
         this.handleTotal()
-        console.log(this.state.stocksWithPrices)
       })
     } catch (err) {
       console.log(err)
     }
   }
-
 
   getPrice = async (symbol) => {
     let stock = await Axios.get(`/api/finance/${symbol}`)
@@ -67,10 +63,8 @@ class Portfolio extends React.Component {
   updateTotalValue = (amount) => {
     let totalValue = this.state.totalValue
     let newValue = totalValue + amount
-    console.log(newValue)
     this.setState({totalValue : newValue})
   }
-
 
   handleSymbolTextChange = (event) => {
     this.setState({symbolText: event.target.value});
@@ -141,7 +135,7 @@ class Portfolio extends React.Component {
         <div>
           {this.state.stocksWithPrices.map((stock, index) => (
            <div className="portfolio-item">
-           <img className="portfolio-logo" src={`//logo.clearbit.com/${stock.website}`}></img>
+           {/* <img className="portfolio-logo" src={`//logo.clearbit.com/${stock.website}`}></img> */}
            <div key={index}className="portfolio-item-details">
              <p className='portfolio-item-detail'>{stock.symbol}</p>
              <p className='portfolio-item-detail'>${stock.price}</p>
