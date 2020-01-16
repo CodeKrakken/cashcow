@@ -26,11 +26,17 @@ class NewsContainer extends React.Component{
   }
 
   render() {
+    const formatDate = (UTCString) => {
+      const date = new Date(UTCString);
+      return date.toLocaleDateString(); // alternative format: toDateString() 
+    }
+
     return(
       <div className="article-container">
         {this.state.articles.map((article) => (
           <div className="article">
             <img className="article-image" src={article.image_url}></img>
+            <p className="article-date">{formatDate(article.timestamp)}</p>
             <a className="article-title" href={article.url}><p>{article.title}</p></a>
             {/* <p className="article-body">{article.body}</p> */}
           </div>

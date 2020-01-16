@@ -6,7 +6,10 @@ const axios = require('axios')
 describe("NewsFetcher", () =>{
   describe(".fetchArticles", () => {
     it("calls axios.get with expected endpoint", () => {
-      const expectedEndpoint = `https://newsapi.org/v2/everything?q=Alphabet,%20Inc.&apiKey=${process.env.NEWS_KEY}`
+      const dateNow = sinon.stub(Date, "now")
+      dateNow.returns(new Date("2020-01-15T03:24:00"))
+      const expectedDate = "2020-01-01T03:24:00.000Z"
+      const expectedEndpoint = `https://newsapi.org/v2/everything?q=Alphabet,%20Inc.&apiKey=${process.env.NEWS_KEY}&from=${expectedDate}&language=en`
       const get = sinon.stub(axios, "get")
       get.returns({ data: {} })
       NewsFetcher.fetchArticles("Alphabet,%20Inc.")

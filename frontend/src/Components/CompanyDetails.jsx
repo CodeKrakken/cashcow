@@ -20,7 +20,6 @@ class CompanyDetails extends React.Component {
   async fetchData(symbol) {
     let data = await Axios.get(`/api/company/${this.props.symbol}`)
     this.setState(data.data)
-    console.log(this.state)
   }
 
   render(){
