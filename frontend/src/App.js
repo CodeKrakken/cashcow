@@ -71,7 +71,7 @@ class App extends React.Component {
     let isAuth = localStorage.getItem("isAuth")
     if(isAuth != true) {
       return(
-        <Link className="nav-link" to="/register/">SignUp</Link>
+        <Link className="nav-link" to="/register/">Sign Up</Link>
       )
     }
   }
@@ -101,24 +101,6 @@ class App extends React.Component {
     this.setState({isAuth : false})
   }
 
-  appendFailMessage = (event) => {
-    if (this.state.isRejected && !this.state.didLogin) {
-      return(
-        <h1>Sign Up / Login Failed</h1>
-      )
-    }
-  }
-
-  appendSuccessMessage = (message) => {
-    if (this.state.didLogin && !this.state.isRejected) {
-      return(
-        <h1>{message}</h1>
-      )
-    } else {
-      return
-    }
-  }
-
   reject = (res) => {
     this.setState({isRejected : true})
     this.setState({didLogin : false})
@@ -129,10 +111,10 @@ class App extends React.Component {
       <div className="app-container">
         <Router>
           <Navbar className="color-nav" variant="light">
+              <Link className="nav-link" to="/">Home</Link>
               { this.signupLink() }
               { this.loginLink() }
               { this.logoutLink() }
-              <Link className="nav-link" to="/">Home</Link>
               <Link className="nav-link" to="/portfolio">Portfolio</Link>
           </Navbar>
 

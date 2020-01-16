@@ -32,7 +32,7 @@ class SignUp extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    
+
     Axios.post("/users/register", credentials)
       .then(res => {
         if (res.status == 200) {
@@ -99,7 +99,7 @@ class SignUp extends Component {
           <label>
             Password
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               onChange={(event) =>
                 this.setState({ password: event.target.value })
