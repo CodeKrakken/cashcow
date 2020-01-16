@@ -10,6 +10,7 @@ const Predictor = require('./models/Predictor')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const User = require('./models/User')
+const Stock = require('./models/Stock')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
@@ -46,7 +47,7 @@ app.post("/users/register", async (req, res) => {
           user : user, 
           sessionId : req.session.id,
           token: token,
-          message : "Sign Up Successfull!"
+          message : "Sign Up Successful!"
         });
       })
     } else {
@@ -59,9 +60,9 @@ app.post("/users/register", async (req, res) => {
 });
 
 app.post("/users/authenticate", async (req, res) => { 
-  let user = await User.authenticate(req.body.email, req.body.password)
-  if (user instanceof User) {
-    try {
+  try {
+    let user = await User.authenticate(req.body.email, req.body.password)
+    if (user instanceof User) {
         jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
           res.status(200).json({
             user: user, 
@@ -70,11 +71,11 @@ app.post("/users/authenticate", async (req, res) => {
             message : "Sign in Successful!"
           })
         })
-    } catch (err) {
-      res.status(500).send("Failed")
-    }
-  } else {
-    res.status(401);
+    } else { 
+      res.status(401).send('failed')
+    } 
+  } catch (err) {
+      res.status(500).send("not a valid user")
   }
 });
 
@@ -84,7 +85,7 @@ app.post("/api/post", verifyToken, (req, res) => {
     if(err) {
       res.sendStatus(403)
     } else (res.json({
-      message : "This Route is rotected",
+      message : "This Route is protected",
        user : data.user,
     }))
   })
@@ -177,8 +178,31 @@ app.get('/api/news/:symbol', async (req, res) => {
   }
 })
 
-// ERROR?
+// STOCKS
+app.get('/api/stocks/:user', async (req, res) => {
+  try {
+    let userId = req.params.user
+    console.log(req.params)
+    let result = await Stock.findByUserId(userId)
+    console.log("result :",result)
+    res.status(200).send(result)
+  } catch (err) {
+    res.statusCode(400)
+  }
+})
 
+app.post('/api/stocks/new', async(req, res) => {
+  try {
+    let symbol = req.body.symbol
+    let amount = parseInt(req.body.amount)
+    let userId = parseInt(req.body.userId)
+    Stock.create(symbol, userId, amount)
+  } catch (err) {
+    console.log("Cannot Add")
+  }
+})
+
+// ERROR?
 app.get('*', (req, res) => {
   try {
     if (process.env.NODE_ENV == 'development') {
@@ -190,5 +214,9 @@ app.get('*', (req, res) => {
     console.log(err)
   }
 })
+
+// STOCKS
+
+
 
 server.listen(port, () => console.log(`Listening on port: ${port}`))
