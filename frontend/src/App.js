@@ -71,7 +71,7 @@ class App extends React.Component {
     let isAuth = localStorage.getItem("isAuth")
     if(isAuth != true) {
       return(
-        <Link className="nav-link" to="/register/">SignUp</Link>
+        <Link className="nav-link" to="/register/">Sign Up</Link>
       )
     }
   }
@@ -131,6 +131,7 @@ class App extends React.Component {
           <Navbar className="color-nav" variant="light">
               <Link className="nav-link" to="/">Home</Link>
               { this.signupLink() }
+              <Link className="nav-link" to="/">Home</Link>
               { this.loginLink() }
               { this.logoutLink() }
               <Link className="nav-link" to="/portfolio">Portfolio</Link>
