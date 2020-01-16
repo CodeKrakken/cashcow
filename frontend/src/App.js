@@ -129,10 +129,10 @@ class App extends React.Component {
       <div className="app-container">
         <Router>
           <Navbar className="color-nav" variant="light">
+              <Link className="nav-link" to="/">Home</Link>
               { this.signupLink() }
               { this.loginLink() }
               { this.logoutLink() }
-              <Link className="nav-link" to="/">Home</Link>
               <Link className="nav-link" to="/portfolio">Portfolio</Link>
           </Navbar>
 
