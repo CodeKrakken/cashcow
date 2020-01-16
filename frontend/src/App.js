@@ -101,24 +101,6 @@ class App extends React.Component {
     this.setState({isAuth : false})
   }
 
-  appendFailMessage = (event) => {
-    if (this.state.isRejected && !this.state.didLogin) {
-      return(
-        <h1>Sign Up / Login Failed</h1>
-      )
-    }
-  }
-
-  appendSuccessMessage = (message) => {
-    if (this.state.didLogin && !this.state.isRejected) {
-      return(
-        <h1>{message}</h1>
-      )
-    } else {
-      return
-    }
-  }
-
   reject = (res) => {
     this.setState({isRejected : true})
     this.setState({didLogin : false})
