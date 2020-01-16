@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 class LoginMessage extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class LoginMessage extends React.Component {
       )
     } else if (this.props.didLogin && !this.props.isRejected) {
       return(
-        <h1>{this.props.message}</h1>
+        <Redirect to='/portfolio' />
       )
     } else {
       return null;
