@@ -9,6 +9,7 @@ import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
 import LoginForm from './Components/LoginForm'
+import LoginMessage from './Components/LoginMessage'
 import Portfolio from './Components/Portfolio'
 import {
   BrowserRouter as Router,
@@ -127,8 +128,6 @@ class App extends React.Component {
   render () {
     return (
       <div className="app-container">
-        { this.appendFailMessage(this.state.message) }
-        { this.appendSuccessMessage(this.state.message) }
         <Router>
           <Navbar className="color-nav" variant="light">
               { this.signupLink() }
@@ -139,14 +138,19 @@ class App extends React.Component {
           </Navbar>
 
           <Route path="/register" component={() =>
-            <Register
-              authenticate={this.authenticate}
-              reject={this.reject}
-            />}>
+            <div>
+              <Register
+                authenticate={this.authenticate}
+                reject={this.reject}
+              />
+              <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+            </div>
+          }>
           </Route>
 
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+            <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
           </Route>
 
           <Route 
