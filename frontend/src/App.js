@@ -20,6 +20,8 @@ import './styles/Chart.css';
 import './styles/NewsContainer.css';
 import './styles/Price.css';
 import './styles/StockForm.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from 'react-bootstrap/Navbar';
 
 
 class App extends React.Component {
@@ -60,7 +62,7 @@ class App extends React.Component {
     let isAuthenticated = sessionStorage.getItem("isAuthenticated")
     if(isAuthenticated != true) {
       return(
-        <Link to="/register/">SignUp</Link>
+        <Link className="nav-link" to="/register/">SignUp</Link>
       )
     }
   }
@@ -70,7 +72,7 @@ class App extends React.Component {
     console.log(isAuthenticated)
     if(isAuthenticated != true) {
       return(
-        <Link to="/login/">Login</Link>
+        <Link className="nav-link" to="/login/">Login</Link>
       )
     }
   }
@@ -81,7 +83,7 @@ class App extends React.Component {
     console.log(isAuthenticated)
     if(isAuthenticated == "true") {
       return(
-        <Link onClick={this.handleLogout}>Log Out</Link>
+        <Link className="nav-link" onClick={this.handleLogout}>Log Out</Link>
       )
     }
   }
@@ -115,42 +117,80 @@ class App extends React.Component {
 
   render () {
     return (
+
+
+
       <div className="app-container">
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
       <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
-          { this.signupLink() }
-          { this.loginLink() }
-          { this.logoutLink() }
 
-          <Link to="/app">Main</Link>
-          <Route path="/register" component={() => 
-            <Register 
-              authenticate={this.authenticate} 
+        <Navbar className="color-nav" variant="light">
+
+            { this.signupLink() }
+            { this.loginLink() }
+            { this.logoutLink() }
+            <Link className="nav-link" to="/app">Main</Link>
+        </Navbar>
+
+
+
+          <Route path="/register" component={() =>
+            <Register
+              authenticate={this.authenticate}
               reject={this.reject}
             />}>
-          </Route> 
+          </Route>
 
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
           </Route>
-          
+
           <Route path="/app">
-            <div>
+
+          <div className="top-bar">
+            <div className="search-container">
               < StockForm
                 symbol={this.state.symbol}
                 onSymbolChange={this.handleSymbolChange} />
               < InvalidMessage flag={this.state.invalidFlag}/>
             </div>
+            <div className="cashcow-logo">
+            <img src={'../cashcowlogosmall.jpg'}/>
+              CashCow
+            </div>
+            </div>
+
             <div className="main-container flex-item">
+            <div className="app-left">
+
               <div className="price-details-container">
-                <Price symbol={this.state.symbol}/>
+                <div className="symbol">
+                  {this.state.symbol}
+                </div>
+                <div className="price-details">
+                  <Price symbol={this.state.symbol}/>
+                </div>
+              </div>
+              <div className="prediction-container flex-item">
+                <Prediction symbol={this.state.symbol}/>
+              </div>
+              <div className="graph flex-item">
+                <Graph symbol={this.state.symbol}/>
+              </div>
+            </div>
+
+            <div className="app-right">
+              <div className="company-details-container">
                 <CompanyDetails symbol={this.state.symbol}/>
               </div>
-              <div className="news flex-item"><NewsContainer symbol={this.state.symbol}/></div>
-              <div className="graph flex-item"><Graph symbol={this.state.symbol}/></div>
-              <div className="prediction-container flex-item"><Prediction symbol={this.state.symbol}/></div>
+              <div className="news flex-item">
+                <NewsContainer symbol={this.state.symbol}/>
+              </div>
+            </div>
+
+
             </div>
           </Route>
         </Router>
