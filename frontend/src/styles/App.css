@@ -26,7 +26,6 @@
   text-decoration: none;
   font-size: 15px;
   font-weight: 600;
-  background-color:
 }
 
 .cashcow-logo {
@@ -128,7 +127,7 @@
   margin-left: 5%;
 }
 
-/* changes color of taxed based on positive or negative value */
+
 .negative {
   color : red;
 }
