@@ -1,11 +1,13 @@
 #chart {
   background: #0e3040;
   color: #67809f;
+  font-size: 16px;
+  margin: 10px;
 }
 
 .chart-container-div {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background: #00151c;
+  background: white;
 }

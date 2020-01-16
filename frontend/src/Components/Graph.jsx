@@ -37,11 +37,15 @@ class Graph extends React.Component {
       }
 
       // graph is drawn with the following functions
-      this.setState({ data : timeseries });
-      this.initializeChart()
-      this.handleGraphScale()
-      this.generateAxes()
-      this.generateCloseLine()
+      try {
+        this.setState({ data : timeseries });
+        this.initializeChart()
+        this.handleGraphScale()
+        this.generateAxes()
+        this.generateCloseLine()
+      } catch (err) {
+        console.log(err)
+      }
       }
     );
   }

@@ -3,6 +3,7 @@
   display : flex;
   flex: 0 0 50em;
   align-content: flex-start;
+  padding: 20px;
 }
 
 .company-info {
@@ -10,6 +11,8 @@
   display : flex;
   align-items: flex-start;
   flex-direction: column;
+  padding: 20px;
+
 }
 
 .company-info.flex-item {

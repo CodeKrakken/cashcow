@@ -97,7 +97,7 @@ class Portfolio extends React.Component {
           <label>
             <h1>Add Stock</h1>
           </label>
-          <br></br>
+
           <label>
             Symbol:
             <input type="text" value={this.state.symbolText} onChange={this.handleSymbolTextChange} />

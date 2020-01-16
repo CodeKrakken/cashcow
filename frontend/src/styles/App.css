@@ -1,43 +1,102 @@
-.App {
-  text-align: center;
+.color-nav {
+  background-color: #bdbdbd;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.app-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  background-color:
+}
+
+.symbol {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.search-container {
+  margin: 10px;
+}
+
+.cashcow-logo {
+  margin: 10px;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: space-around;
+}
+
+.app-left {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  flex-basis: 55%;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.app-right {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: center;
+  flex-basis: 45%;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.company-details-container {
+  justify-content: center;
+  text-align: justify;
+}
+
+.news flex-item {
+  text-align: justify;
+  margin : 10px;
 }
 
 .html {
   margin : 2px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.app-container {
-  display : flex;
-  flex-direction: column;
-}
-
-.main-container {
-  display : flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-  overflow: hidden;
-}
+.article-title {}
 
 .price-details-container {
-  /* border: solid red; */
+  border: dotted #bdbdbd;
   align-content : flex-start;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   display : flex;
   flex-direction: row;
-  margin : 3px;
+  margin : 10px;
 }
 
 .indent {
@@ -53,31 +112,11 @@
   color : green;
 }
 
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.chart-container {
+  background: white;
 }
 
-.App-link {
-  color: #61dafb;
+#chart {
+  background: white;
+
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-
-

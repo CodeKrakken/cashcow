@@ -33,12 +33,11 @@ class NewsContainer extends React.Component{
 
     return(
       <div className="article-container">
-        {this.state.articles.map((article) => (
-          <div className="article">
-            <img className="article-image" src={article.image_url}></img>
-            <p className="article-date">{formatDate(article.timestamp)}</p>
-            <a className="article-title" href={article.url}><p>{article.title}</p></a>
-            {/* <p className="article-body">{article.body}</p> */}
+        {this.state.articles.map((article, index) => (
+            <div key={index}className="article">
+            <img key={index/2}className="article-image" src={article.image_url}></img>
+            <p key={index/3}className="article-date">{formatDate(article.timestamp)}</p>
+            <a key={index/4}className="article-title" href={article.url}><p>{article.title}</p></a>
           </div>
         ))}
       </div>
