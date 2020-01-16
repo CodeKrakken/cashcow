@@ -44,7 +44,7 @@ li {
   display: flex;
   justify-content: flex-start;
   width: 80%;
-  margin: 10px auto;
+  margin: 15px auto;
 }
 
 .grid-cell {
@@ -70,4 +70,8 @@ li {
 .portfolio-logo {
   max-width: 100%;
   height: auto;
+}
+
+.grid-cell .heading {
+  font-weight: bold;
 }
