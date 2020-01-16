@@ -24,6 +24,7 @@ import './styles/NewsContainer.css';
 import './styles/Price.css';
 import './styles/StockForm.css';
 import './styles/PortfolioItem.css';
+import './styles/Register.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import { local } from 'd3';
@@ -146,7 +147,7 @@ class App extends React.Component {
           </Route>
 
           <Route path='/login'>
-            <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+            <LoginForm className="text-center" authenticate={this.authenticate} reject={this.reject}/>
           </Route>
 
           <Route 
