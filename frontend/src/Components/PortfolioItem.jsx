@@ -4,7 +4,10 @@ import Axios from "axios";
 class PortfolioItem extends React.Component{
   constructor(props) {
     super(props)
-    this.state = {price : 0}
+    this.state = {
+      price : 0,
+      total : 0
+    }
   }
 
   _fetchData = (symbol) => {
@@ -31,7 +34,8 @@ class PortfolioItem extends React.Component{
   componentDidMount() {
     this._fetchData(this.props.symbol)
     this.fetchDetails(this.props.symbol)
-    this.props.updateTotal(this.props.amount * this.state.price)
+    this.setState({total : parseFloat((this.props.amount * this.state.price).toFixed(2))})
+    this.props.updateTotal(this.state.total)
   }
 
 
@@ -58,15 +62,7 @@ class PortfolioItem extends React.Component{
   render() {
     return(
       <div className="">
-        <div className="portfolio-item">
-          <img className="portfolio-logo" src={`//logo.clearbit.com/${this.state.imgUrl}`}></img>
-        <div className="portfolio-item-details">
-          <p className='portfolio-item-detail'>{this.props.symbol} : ${this.state.price}</p>
-          <p className='portfolio-item-detail'>Number of Stocks : {this.props.amount} </p>
-          <p className='portfolio-item-detail'>Total Value : {this.props.amount * this.state.price}</p>
-          <p className='portfolio-item-detail'> Change: <span className={'price-item ' + this.handleChangeClass()}>{this.state.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{this.state.percentageChange}%</span></p>
-        </div>
-        </div>
+        
       </div>
     )
   }

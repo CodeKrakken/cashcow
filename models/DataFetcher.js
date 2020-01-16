@@ -3,7 +3,7 @@ const axios = require('axios')
 class DataFetcher {
   static async fetchQuote(symbol) {
     try {
-      let key = this.randomKey() || process.env.AV_KEY
+      let key = process.env.PREMIUM_KEY || process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${key}`
       let response = await axios.get(endpoint)
       return this.parseQuote(response.data)
@@ -34,7 +34,7 @@ class DataFetcher {
 
   static async fetchTimeSeriesDaily(symbol, size) {
     try {
-      let key = this.randomKey() || process.env.AV_KEY
+      let key = process.env.PREMIUM_KEY || process.env.AV_KEY
       let endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${key}`
       let response = await axios.get(endpoint)
       return this.parseTimeSeriesData(response.data, size)
