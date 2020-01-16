@@ -1,0 +1,35 @@
+.portfolio-header {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.add-stock-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 18px auto;
+}
+
+.totalValue {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  margin: auto;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  max-width : 230px;
+  border-width: 2px;
+  border-radius: 2%;
+  margin: 5px;
+}
