@@ -37,8 +37,7 @@ class CompanyDetails extends React.Component {
 
         </div>
         <div id="company-description">
-          <p>About The Company: </p>
-          <p><span className="indent"></span>{this.state.description}</p>
+          <p>{this.state.description}</p>
         </div>
       </div>
     )
