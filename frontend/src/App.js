@@ -119,8 +119,6 @@ class App extends React.Component {
   render () {
     return (
       <div className="app-container">
-        { this.appendFailMessage(this.state.message) }
-        { this.appendSuccessMessage(this.state.message) }
         <Router>
           <Navbar className="color-nav" variant="light">
               { this.signupLink() }
@@ -139,6 +137,9 @@ class App extends React.Component {
           <Route path='/login'>
             <LoginForm authenticate={this.authenticate} reject={this.reject}/>
           </Route>
+
+          { this.appendFailMessage(this.state.message) }
+          { this.appendSuccessMessage(this.state.message) }
 
           <Switch>
             <Route exact path="/">
