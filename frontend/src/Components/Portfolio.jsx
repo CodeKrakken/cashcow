@@ -79,35 +79,45 @@ class Portfolio extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="portfolio-container">
         { this.handleNoStocks() }
-        <div>
-          {this.state.stocks.map((stock, index) => (
-            <PortfolioItem 
-              key={index} 
-              symbol={stock.symbol}
-              amount={stock.amount}
-              updateTotal={this.updateTotalValue}>
-            </PortfolioItem>
-          ))}
-        </div>
-          <div>Total Portfolio Value : ${this.state.totalValue}</div>
-        <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <h1>Add Stock</h1>
-          </label>
 
-          <label>
-            Symbol:
-            <input type="text" value={this.state.symbolText} onChange={this.handleSymbolTextChange} />
-          </label>
-          <label>
-            Number of Stocks:
-            <input type="text" value={this.state.amountText} onChange={this.handleAmountTextChange} />
-          </label>
-          <input type="submit" value="OK"/>
-        </form>
+        <div className="portfolio-header">
+
+          <div className="addStockForm">
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                <h1>Add Stock</h1>
+              </label>
+              <label>
+                Symbol:
+                <input type="text" value={this.state.symbolText} onChange={this.handleSymbolTextChange} />
+              </label>
+              <label>
+                Number of Stocks:
+                <input type="text" value={this.state.amountText} onChange={this.handleAmountTextChange} />
+              </label>
+              <input type="submit" value="OK"/>
+            </form>
+          </div>
+
+          <div className="totalValue">
+            <h2>Total</h2>
+            <h3>${this.state.totalValue}</h3>
+          </div>
+        </div>
+
+        <div className="portfolio-items-container">
+          {this.state.stocks.map((stock, index) => (
+            <div className="portfolio-item">
+              <PortfolioItem 
+                key={index} 
+                symbol={stock.symbol}
+                amount={stock.amount}
+                updateTotal={this.updateTotalValue}>
+              </PortfolioItem>
+            </div>
+          ))}
         </div>
       </div>
     )
