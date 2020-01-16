@@ -91,7 +91,7 @@ class App extends React.Component {
     if(5) {
       // this.setState({message : "You Have succesfully signed out out"})
       return(
-        <Link className="nav-link" onClick={this.handleLogout} to="/app">Log Out</Link>
+        <Link className="nav-link" onClick={this.handleLogout} to="/">Log Out</Link>
       )
     }
   }

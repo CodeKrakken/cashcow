@@ -46,7 +46,8 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div>
+      <div className="outer-container">
+      <div className="register-form-container">
         <form onSubmit={this.handleSignup}>
           <label>
             UserName
@@ -87,7 +88,7 @@ class SignUp extends Component {
           <label>
             Email Address
             <input
-              type="text"
+              type="email"
               placeholder="Email Address"
               onChange={(event) =>
                 this.setState({ email: event.target.value })
@@ -99,7 +100,7 @@ class SignUp extends Component {
           <label>
             Password
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               onChange={(event) =>
                 this.setState({ password: event.target.value })
@@ -110,6 +111,7 @@ class SignUp extends Component {
 
           <input type="submit" value="Sign Up" />
         </form>
+      </div>
       </div>
     );
   }
