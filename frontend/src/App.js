@@ -14,6 +14,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
+  Switch,
   Redirect
 } from "react-router-dom";
 import './styles/App.css';
@@ -128,16 +129,15 @@ class App extends React.Component {
       <div className="app-container">
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
-      <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
+          <Navbar className="color-nav" variant="light">
+              { this.signupLink() }
+              { this.loginLink() }
+              { this.logoutLink() }
+              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/portfolio">Portfolio</Link>
+          </Navbar>
 
-        <Navbar className="color-nav" variant="light">
-            { this.signupLink() }
-            { this.loginLink() }
-            { this.logoutLink() }
-            <Link className="nav-link" to="/app">Main</Link>
-            <Link className="nav-link" to="/portfolio">Portfolio</Link>
-        </Navbar>
           <Route path="/register" component={() =>
             <Register
               authenticate={this.authenticate}
@@ -155,48 +155,51 @@ class App extends React.Component {
               <Portfolio userId={localStorage.userId}></Portfolio>
             }>
           </Route>
-          
-          <Route path="/app">
 
-          <div className="top-bar">
-            <div className="search-container">
-              < StockForm
-                symbol={this.state.symbol}
-                onSymbolChange={this.handleSymbolChange} />
-              < InvalidMessage flag={this.state.invalidFlag}/>
-            </div>
-            <div className="cashcow-logo">
-            <img src={'../cashcowlogosmall.jpg'}/>
-              CashCow
-            </div>
-            </div>
-            <div className="main-container flex-item">
-            <div className="app-left">
-              <div className="price-details-container">
-                <div className="symbol">
-                  {this.state.symbol}
+          <Switch>
+            <Route exact path="/">
+              <div className="top-bar">
+                <div className="search-container">
+                  < StockForm
+                    symbol={this.state.symbol}
+                    onSymbolChange={this.handleSymbolChange} />
+                  < InvalidMessage flag={this.state.invalidFlag}/>
                 </div>
-                <div className="price-details">
-                  <Price symbol={this.state.symbol}/>
+                <div className="cashcow-logo">
+                  <img src={'../cashcowlogosmall.jpg'}/>
+                  CashCow
                 </div>
               </div>
-              <div className="prediction-container flex-item">
-                <Prediction symbol={this.state.symbol}/>
+
+              <div className="main-container flex-item">
+                <div className="app-left">
+                  <div className="price-details-container">
+                    <div className="symbol">
+                      {this.state.symbol}
+                    </div>
+                    <div className="price-details">
+                      <Price symbol={this.state.symbol}/>
+                    </div>
+                  </div>
+                  <div className="prediction-container flex-item">
+                    <Prediction symbol={this.state.symbol}/>
+                  </div>
+                  <div className="graph flex-item">
+                    <Graph symbol={this.state.symbol}/>
+                  </div>
+                </div>
+
+                <div className="app-right">
+                  <div className="company-details-container">
+                    <CompanyDetails symbol={this.state.symbol}/>
+                  </div>
+                  <div className="news flex-item">
+                    <NewsContainer symbol={this.state.symbol}/>
+                  </div>
+                </div>
               </div>
-              <div className="graph flex-item">
-                <Graph symbol={this.state.symbol}/>
-              </div>
-            </div>
-            <div className="app-right">
-              <div className="company-details-container">
-                <CompanyDetails symbol={this.state.symbol}/>
-              </div>
-              <div className="news flex-item">
-                <NewsContainer symbol={this.state.symbol}/>
-              </div>
-            </div>
-            </div>
-          </Route>
+            </Route>
+          </Switch>
         </Router>
       </div>
     );
