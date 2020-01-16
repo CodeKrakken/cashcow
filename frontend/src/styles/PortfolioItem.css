@@ -10,6 +10,18 @@
 
 .portfolio-item {
   display : flex;
-  border : solid;
+  justify-content: center;
+  /* flex-direction: row; */
+  /* border : solid; */
+  max-width: 60%;
   margin : 2px;
+}
+
+.portfolio-item-details {
+  display : flex;
+  flex-direction: row;
+}
+
+.portfolio-item-detail {
+  margin-left: 2px;
 }
