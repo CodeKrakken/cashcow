@@ -40,6 +40,13 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log(localStorage)
+    const isAuth = localStorage.getItem("isAuth")
+    console.log(isAuth)
+    this.setState({isAuth: (localStorage.getItem('isAuth') == 'true')})
+  }
+
   handleSymbolChange(newSymbol) {
     Axios.get(`/api/finance/${newSymbol}`)
     .then(res => {
@@ -54,12 +61,11 @@ class App extends React.Component {
   }
 
   authenticate = (res) => { // check how to set multiple items at once .. Destructuring?
-    console.log("res", res)
     localStorage.setItem("userId", res.user.id)
     localStorage.setItem("sessiondId", res.sessionId)
     localStorage.setItem("username", res.user.username)
     localStorage.setItem("token", res.token)
-    localStorage.setItem("isAuth,", true)
+    localStorage.setItem("isAuth", true)
     this.setState({isAuth : true})
     this.setState({user : res.user.username})
     this.setState({isRejected : false})
@@ -69,8 +75,9 @@ class App extends React.Component {
 
   // render links based on login
   signupLink = () => {
-    let isAuth = localStorage.getItem("isAuth")
-    if(isAuth != true) {
+    let isAuth = this.state.isAuth
+    console.log("signUp:",isAuth)
+    if(!isAuth) {
       return(
         <Link className="nav-link" to="/register/">SignUp</Link>
       )
@@ -87,18 +94,26 @@ class App extends React.Component {
   }
 
   logoutLink = () => {
-    let isAuth = localStorage.getItem("isAuth")
-    if(5) {
-      // this.setState({message : "You Have succesfully signed out out"})
+    let isAuth = this.state.isAuth
+    if(isAuth) {
       return(
         <Link className="nav-link" onClick={this.handleLogout} to="/">Log Out</Link>
       )
     }
   }
 
+  portfolioLink = () => {
+    let isAuth = this.state.isAuth
+    if(isAuth) {
+      return(
+        <Link className="nav-link" to="/portfolio">Portfolio</Link>
+      )
+    }
+  }
+
   handleLogout = () => {
     localStorage.clear()
-    this.setState({redirect : true})
+    localStorage.setItem('isAuth', false)
     this.setState({isAuth : false})
   }
 
@@ -137,8 +152,9 @@ class App extends React.Component {
               { this.signupLink() }
               { this.loginLink() }
               { this.logoutLink() }
+              { this.portfolioLink() }
               <Link className="nav-link" to="/">Home</Link>
-              <Link className="nav-link" to="/portfolio">Portfolio</Link>
+              
           </Navbar>
 
           <Route path="/register" component={() =>
