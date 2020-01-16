@@ -32,7 +32,7 @@ class SignUp extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    
+
     Axios.post("/users/register", credentials)
       .then(res => {
         if (res.status == 200) {

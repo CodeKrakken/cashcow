@@ -47,7 +47,7 @@ app.post("/users/register", async (req, res) => {
           user : user, 
           sessionId : req.session.id,
           token: token,
-          message : "Sign Up Successfull!"
+          message : "Sign Up Successful!"
         });
       })
     } else {
@@ -60,9 +60,9 @@ app.post("/users/register", async (req, res) => {
 });
 
 app.post("/users/authenticate", async (req, res) => { 
-  let user = await User.authenticate(req.body.email, req.body.password)
-  if (user instanceof User) {
-    try {
+  try {
+    let user = await User.authenticate(req.body.email, req.body.password)
+    if (user instanceof User) {
         jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
           res.status(200).json({
             user: user, 
@@ -71,11 +71,11 @@ app.post("/users/authenticate", async (req, res) => {
             message : "Sign in Successful!"
           })
         })
-    } catch (err) {
-      res.status(500).send("Failed")
-    }
-  } else {
-    res.status(401);
+    } else { 
+      res.status(401).send('failed')
+    } 
+  } catch (err) {
+      res.status(500).send("not a valid user")
   }
 });
 
@@ -85,7 +85,7 @@ app.post("/api/post", verifyToken, (req, res) => {
     if(err) {
       res.sendStatus(403)
     } else (res.json({
-      message : "This Route is rotected",
+      message : "This Route is protected",
        user : data.user,
     }))
   })

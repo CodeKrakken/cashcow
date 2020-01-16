@@ -9,13 +9,13 @@ import Prediction from './Components/Prediction'
 import CompanyDetails from './Components/CompanyDetails'
 import Register from './Components/Register'
 import LoginForm from './Components/LoginForm'
+import LoginMessage from './Components/LoginMessage'
 import Portfolio from './Components/Portfolio'
 import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  Redirect
+  Switch
 } from "react-router-dom";
 import './styles/App.css';
 import './styles/CompanyDetails.css';
@@ -79,7 +79,7 @@ class App extends React.Component {
     console.log("signUp:",isAuth)
     if(!isAuth) {
       return(
-        <Link className="nav-link" to="/register/">SignUp</Link>
+        <Link className="nav-link" to="/register/">Sign Up</Link>
       )
     }
   }
@@ -117,24 +117,6 @@ class App extends React.Component {
     this.setState({isAuth : false})
   }
 
-  appendFailMessage = (event) => {
-    if (this.state.isRejected && !this.state.didLogin) {
-      return(
-        <h1>Sign Up / Login Failed</h1>
-      )
-    }
-  }
-
-  appendSuccessMessage = (message) => {
-    if (this.state.didLogin && !this.state.isRejected) {
-      return(
-        <h1>{message}</h1>
-      )
-    } else {
-      return
-    }
-  }
-
   reject = (res) => {
     console.log(res)
     this.setState({isRejected : true})
@@ -145,27 +127,32 @@ class App extends React.Component {
   render () {
     return (
       <div className="app-container">
-        { this.appendFailMessage(this.state.message) }
-        { this.appendSuccessMessage(this.state.message) }
         <Router>
           <Navbar className="color-nav" variant="light">
+              <Link className="nav-link" to="/">Home</Link>
               { this.signupLink() }
               { this.loginLink() }
               { this.logoutLink() }
               { this.portfolioLink() }
-              <Link className="nav-link" to="/">Home</Link>
-              
           </Navbar>
 
           <Route path="/register" component={() =>
-            <Register
-              authenticate={this.authenticate}
-              reject={this.reject}
-            />}>
+            <div>
+              <Register
+                authenticate={this.authenticate}
+                reject={this.reject}
+              />
+              <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+            </div>
+          }>
           </Route>
 
-          <Route path='/login'>
-            <LoginForm className="text-center" authenticate={this.authenticate} reject={this.reject}/>
+          <Route path='/login' component={() => 
+            <div>
+              <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+              <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+            </div>
+          }>
           </Route>
 
           <Route 
