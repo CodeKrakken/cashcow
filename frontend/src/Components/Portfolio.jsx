@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import PortfolioItem from './PortfolioItem'
 
 class Portfolio extends React.Component {
   constructor(props) {
