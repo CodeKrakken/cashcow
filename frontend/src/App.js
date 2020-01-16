@@ -15,8 +15,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  Redirect
+  Switch
 } from "react-router-dom";
 import './styles/App.css';
 import './styles/CompanyDetails.css';
@@ -91,7 +90,7 @@ class App extends React.Component {
     if(5) {
       // this.setState({message : "You Have succesfully signed out out"})
       return(
-        <Link className="nav-link" onClick={this.handleLogout} to="/app">Log Out</Link>
+        <Link className="nav-link" onClick={this.handleLogout} to="/">Log Out</Link>
       )
     }
   }
@@ -148,9 +147,12 @@ class App extends React.Component {
           }>
           </Route>
 
-          <Route path='/login'>
-            <LoginForm authenticate={this.authenticate} reject={this.reject}/>
-            <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+          <Route path='/login' component={() => 
+            <div>
+              <LoginForm authenticate={this.authenticate} reject={this.reject}/>
+              <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+            </div>
+          }>
           </Route>
 
           <Route 
