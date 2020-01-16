@@ -117,13 +117,9 @@ class App extends React.Component {
 
   render () {
     return (
-
-
-
       <div className="app-container">
         { this.appendFailMessage(this.state.message) }
         { this.appendSuccessMessage(this.state.message) }
-      <h1>Welcome To CashCow {this.state.username}</h1>
         <Router>
 
         <Navbar className="color-nav" variant="light">
