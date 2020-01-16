@@ -4,15 +4,25 @@ const bodyParser = require('body-parser')
 const app = express()
 const server = require('http').createServer(app);
 const path = require('path');
-const axios = require('axios')
 const DataFetcher = require('./models/DataFetcher')
 const NewsFetcher = require('./models/NewsFetcher')
 const Predictor = require('./models/Predictor')
-const fs = require("fs")
-
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const User = require('./models/User')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 require('dotenv').config()
 
+
 app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(session({
+  secret : 'moolians',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {maxAge : 60000}
+}))
 
 if (process.env.NODE_ENV == 'development') {
   app.use('/', express.static(path.join(__dirname, 'frontend/public')))
@@ -20,6 +30,82 @@ if (process.env.NODE_ENV == 'development') {
   app.use('/', express.static(path.join(__dirname, 'frontend/build')))
 }
 
+// USERS
+app.post("/users/register", async (req, res) => {
+  try {
+    let username = req.body.username;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let email = req.body.email;
+    let password = req.body.password;
+    let user = await User.create(username, firstName, lastName, email, password);
+    if (user.username != null) {
+      req.session.user = user
+      jwt.sign({user : user}, 'moolians', {expiresIn: '30m'}, (err, token) => {
+        res.status(200).json({ // return authentication object back to client
+          user : user, 
+          sessionId : req.session.id,
+          token: token,
+          message : "Sign Up Successfull!"
+        });
+      })
+    } else {
+      res.status(401).send(user);
+    }
+  } catch (err) {
+    res.status(401).send()
+  }
+  
+});
+
+app.post("/users/authenticate", async (req, res) => { 
+  let user = await User.authenticate(req.body.email, req.body.password)
+  if (user instanceof User) {
+    try {
+        jwt.sign({user : user}, 'moolians', {expiresIn : '30m'}, (err, token) => {
+          res.status(200).json({
+            user: user, 
+            sessionId : req.session.id, 
+            token : token,
+            message : "Sign in Successful!"
+          })
+        })
+    } catch (err) {
+      res.status(500).send("Failed")
+    }
+  } else {
+    res.status(401);
+  }
+});
+
+// Protected Route - Replace with route for portfolio
+app.post("/api/post", verifyToken, (req, res) => {
+  jwt.verify(req.token, 'moolians', (err, data) => {
+    if(err) {
+      res.sendStatus(403)
+    } else (res.json({
+      message : "This Route is rotected",
+       user : data.user,
+    }))
+  })
+})
+
+// MiddleWare for Protected Route
+function verifyToken(req, res, next) {
+  console.log("Verifying")
+  const bearerHeader = req.headers['authorization'];
+  if(bearerHeader != undefined) {
+    const bearerToken = bearerHeader.split(" ")[1]
+    req.token = bearerToken
+    next()
+  } else {
+    console.log("Sending")
+    res.sendStatus(403)
+  }
+}
+
+
+// ROOT
 app.get('/', (req, res) => {
   try {
     res.sendFile(path.join(__dirname+'/frontend/public/index.html'))
@@ -33,6 +119,7 @@ app.get('/', (req, res) => {
   }
 })
 
+// FINANCE
 app.get('/api/finance/:symbol', async (req, res) =>{
   try {
     let symbol = req.params.symbol
@@ -40,22 +127,6 @@ app.get('/api/finance/:symbol', async (req, res) =>{
   } catch (err) {
     console.log(err)
   }
-
-})
-
-app.get('/api/news/:symbol', async (req, res) => {
-  try {
-    let symbol = req.params.symbol
-    let details = await DataFetcher.fetchCompanyDetails(symbol)
-    let name = DataFetcher.getEncodedName(details)
-    let result = await NewsFetcher.fetchArticles(name)
-    let articles = NewsFetcher.parseArticles(result.articles)
-    res.status(200).send(articles)
-  } catch (err) {
-    console.log(err)
-    res.status(404).send(err)
-  }
-
 })
 
 app.get('/api/week/:symbol', async (req, res) => {
@@ -79,6 +150,7 @@ app.get('/api/prediction/:symbol', async (req, res) => {
   }
 })
 
+// IEX
 app.get('/api/company/:symbol', async (req, res) => {
   try {
     let symbol = req.params.symbol
@@ -88,6 +160,24 @@ app.get('/api/company/:symbol', async (req, res) => {
     console.log(err)
   }
 })
+
+
+// NEWS
+app.get('/api/news/:symbol', async (req, res) => {
+  try {
+    let symbol = req.params.symbol
+    let details = await DataFetcher.fetchCompanyDetails(symbol)
+    let name = DataFetcher.getEncodedName(details)
+    let result = await NewsFetcher.fetchArticles(name)
+    let articles = NewsFetcher.parseArticles(result.articles)
+    res.status(200).send(articles)
+  } catch (err) {
+    console.log(err)
+    res.status(404).send(err)
+  }
+})
+
+// ERROR?
 
 app.get('*', (req, res) => {
   try {
