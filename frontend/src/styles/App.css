@@ -5,32 +5,55 @@
 }
 
 .color-nav {
-  background-color: #bdbdbd;
+  background-color: #6edb75;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .nav-link {
+  display: flex;
   color: white;
   text-decoration: none;
   font-size: 15px;
   font-weight: 600;
 }
 
-.row1 {
+.search-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  color: black;
+  justify-content: flex-end;
+  color: white;
   text-decoration: none;
   font-size: 15px;
   font-weight: 600;
+  float: right;
+
+}
+
+.top-logo {
+  display: flex;
+  justify-content: center;
 }
 
 .cashcow-logo {
   margin: 10px;
   font-size: 50px;
+  font-weight: 600;
+}
+
+.row1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -40,93 +63,52 @@
   justify-content: center;
   align-items: center;
   display : flex;
-  flex-direction: row;
+  flex-direction: column;
   margin : 10px;
-}
-
-.search-container {
-  margin: 10px;
+  text-align: center;
 }
 
 .row2 {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  /* flex-wrap: wrap; */
   justify-content: space-between;
   padding: 10px;
-  color: black;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
-  background-color:
 }
 
 .company-details-container {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   flex-basis: 50%;
   text-align: justify;
-}
-
-.graph flex-item {
-  justify-content: flex-start;
-  flex-basis: 50%;
-}
-
-.symbol {
-  font-size: 26px;
-  font-weight: 800;
-}
-
-.main-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-content: space-around;
-}
-
-.app-left {
-  display: flex;
-  flex-direction: column;
-  align-content: space-around;
-  flex-basis: 55%;
-  padding: 10px;
+  color: black;
   text-decoration: none;
   font-size: 15px;
-  font-weight: 600;
 }
 
-.app-right {
-  display: flex;
-  flex-direction: column;
-  align-content: space-around;
-  justify-content: center;
-  flex-basis: 45%;
-  padding: 10px;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
+.news-details {
+  max-height: 600px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
-
 
 .news flex-item {
-  text-align: justify;
+  display: flex;
+  flex-wrap: wrap;
   margin : 10px;
+  flex-basis: 50%;
+}
+
+.graph {
+  justify-content: center;
 }
 
 .html {
   margin : 2px;
 }
 
-.article-title {}
-
-
-
 .indent {
   margin-left: 5%;
 }
-
 
 .negative {
   color : red;

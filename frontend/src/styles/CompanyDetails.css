@@ -1,27 +1,29 @@
-.company-details {
-  /* border : solid; */
+.company-header flex-item {
   display : flex;
   flex-direction: column;
-  flex: 0 0 50em;
-  align-content: flex-start;
-  padding: 20px;
+  flex-wrap: wrap;
 }
 
 .company-info {
   flex: 0 0 12em;
   display : flex;
-  align-items: flex-start;
+  align-items: flex-end;
   flex-direction: row;
   justify-content: space-between;
 
 }
 
-.company-header flex-item {
+.company-logo flex-item {
   display : flex;
   flex-direction: column;
 }
 
-.company-logo flex-item {
+.company-image-container {
+  display : flex;
+  flex-direction: row;
+}
+
+.company-text-container {
   display : flex;
   flex-direction: column;
 }

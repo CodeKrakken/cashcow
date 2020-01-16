@@ -129,11 +129,22 @@ class App extends React.Component {
       <div className="app-container">
         <Router>
           <Navbar className="color-nav" variant="light">
-              <Link className="nav-link" to="/">Home</Link>
-              { this.signupLink() }
-              { this.loginLink() }
-              { this.logoutLink() }
-              { this.portfolioLink() }
+              <div className="nav-items">
+                <Link className="nav-link" to="/">Home</Link>
+                { this.signupLink() }
+                { this.loginLink() }
+                { this.logoutLink() }
+                { this.portfolioLink() }
+
+
+              </div>
+              <div className="search-container">
+                < StockForm
+                  symbol={this.state.symbol}
+                  onSymbolChange={this.handleSymbolChange} />
+                < InvalidMessage flag={this.state.invalidFlag}/>
+              </div>
+
           </Navbar>
 
           <Route path="/register" component={() =>
@@ -164,42 +175,44 @@ class App extends React.Component {
 
           <Switch>
             <Route exact path="/">
-              <div className="row1">
+
+
+
+              {/*<div className="top-logo">
                 <div className="cashcow-logo">
                   <img src={'../cashcowlogosmall.jpg'}/>
                 </div>
-                <div className="search-container">
-                  < StockForm
-                    symbol={this.state.symbol}
-                    onSymbolChange={this.handleSymbolChange} />
-                  < InvalidMessage flag={this.state.invalidFlag}/>
-                </div>
+              </div>*/}
+
+
+              <div className="container">
 
                 <div className="price-details-container">
-                  <div className="symbol">
-                    {this.state.symbol}
-                  </div>
+
                   <div className="price-details">
-                    <Price symbol={this.state.symbol}/>
+                    <h1>{this.state.symbol}:</h1> <Price symbol={this.state.symbol}/>
                   </div>
                   <div className="prediction-container flex-item">
                     <Prediction symbol={this.state.symbol}/>
                   </div>
                 </div>
+
               </div>
 
-              <div className="row2">
-                <div className="graph flex-item">
-                  <Graph symbol={this.state.symbol}/>
-                </div>
-                <div className="company-details-container">
+
+
+              <div className="row news-details">
+                <div className="company-details-container col-6">
                   <CompanyDetails symbol={this.state.symbol}/>
                 </div>
+                <div className="news col-6">
+                  <NewsContainer symbol={this.state.symbol}/>
+                </div>
               </div>
 
-              <div className="row3">
-                <div className="news flex-item">
-                  <NewsContainer symbol={this.state.symbol}/>
+              <div className="container">
+                <div className="graph">
+                  <Graph symbol={this.state.symbol}/>
                 </div>
               </div>
 

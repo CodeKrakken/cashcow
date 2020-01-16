@@ -60,8 +60,8 @@ class Graph extends React.Component {
       .append('svg')
       // assign the height and width of the svg element
       .attr('viewBox', '0  0 800 600')
-      // .attr('width', width + margin['left'] + margin['right'])
-      // .attr('height', height + margin['top'] + margin['bottom'])
+      .attr('width', width + margin['left'] + margin['right'])
+      .attr('height', height + margin['top'] + margin['bottom'])
       .append('g')
       .attr('transform', `translate(${margin['left']},  ${margin['top']})`);
 
@@ -89,7 +89,7 @@ class Graph extends React.Component {
 
     const xScale = d3
       .scalePoint()
-      .domain(this.state.data.map((d) => d['date']).reverse()) // 
+      .domain(this.state.data.map((d) => d['date']).reverse()) //
       .range([0, this.state.width]); // chart width
     const yScale = d3
       .scaleLinear()
@@ -141,7 +141,7 @@ class Graph extends React.Component {
   render () {
     return(
       <div className="chart-container-div">
-        <div id="chart">
+        <div className="text-center" id="chart">
           <h2>Closing price (last 7 working days)</h2>
         </div>
       </div>
