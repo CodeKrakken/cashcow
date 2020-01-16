@@ -114,7 +114,6 @@ class App extends React.Component {
           <Navbar className="color-nav" variant="light">
               <Link className="nav-link" to="/">Home</Link>
               { this.signupLink() }
-              <Link className="nav-link" to="/">Home</Link>
               { this.loginLink() }
               { this.logoutLink() }
               <Link className="nav-link" to="/portfolio">Portfolio</Link>
