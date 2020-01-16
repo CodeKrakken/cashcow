@@ -131,11 +131,8 @@ class App extends React.Component {
             { this.signupLink() }
             { this.loginLink() }
             { this.logoutLink() }
-            <Link className="nav-link" to="/app">Main</Link>
+            <Link className="nav-link" to="/">Home</Link>
         </Navbar>
-
-
-
           <Route path="/register" component={() =>
             <Register
               authenticate={this.authenticate}
