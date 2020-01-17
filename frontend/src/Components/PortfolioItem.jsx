@@ -22,9 +22,13 @@ class PortfolioItem extends React.Component{
         close : parseFloat(result.prev_close.toFixed(2)),
         volume : result.volume,
         change : parseFloat(result.change.toFixed(2)),
+        total : parseFloat((result.price * this.props.amount).toFixed(2)),
         percentageChange : parseFloat(result.percent_change.toFixed(2))
       })
       return result
+    }).then(res => {
+      console.log(this.state.total)
+      this.props.updatePrices(this.state.total)
     })
     .catch((err) => {
       console.log(err);
@@ -32,10 +36,10 @@ class PortfolioItem extends React.Component{
   }
   
   componentDidMount() {
+    console.log(this.props)
     this._fetchData(this.props.symbol)
     this.fetchDetails(this.props.symbol)
     this.setState({total : parseFloat((this.props.amount * this.state.price).toFixed(2))})
-    this.props.updateTotal(this.state.total)
   }
 
 
@@ -61,8 +65,26 @@ class PortfolioItem extends React.Component{
 
   render() {
     return(
-      <div className="">
+      <div className="grid-row portfolio-item">
+        <div className="grid-cell portfolio-logo-container">
+           <img className="portfolio-logo" src={`//logo.clearbit.com/${this.state.imgUrl}`}></img>
+        </div>
         
+        <div className="grid-cell portfolio-item-details">
+          <p className='grid-cell portfolio-item-detail'>{this.props.symbol}</p>
+          <p className='grid-cell portfolio-item-detail'>${this.state.price}</p>
+          <p className='grid-cell portfolio-item-detail'>{this.props.amount}</p>
+          <p className='grid-cell portfolio-item-detail'>${this.state.total}</p>
+          <p className='grid-cell portfolio-item-detail'>
+            <span className={'price-item ' + this.handleChangeClass()}>
+              {this.state.change}
+            </span> 
+              / 
+            <span className={'price-item ' + this.handleChangeClass()}>
+              {this.state.percentageChange}%
+            </span>
+          </p>
+        </div>
       </div>
     )
   }
