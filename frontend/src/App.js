@@ -27,7 +27,6 @@ import './styles/Portfolio.css';
 import './styles/Register.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
-import { local } from 'd3';
 
 
 class App extends React.Component {
@@ -76,7 +75,6 @@ class App extends React.Component {
   // render links based on login
   signupLink = () => {
     let isAuth = this.state.isAuth
-    console.log("signUp:",isAuth)
     if(!isAuth) {
       return(
         <Link className="nav-link" to="/register/">Sign Up</Link>
@@ -118,7 +116,6 @@ class App extends React.Component {
   }
 
   reject = (res) => {
-    console.log(res)
     this.setState({isRejected : true})
     this.setState({didLogin : false})
     this.setState({message : res.message})
@@ -142,7 +139,10 @@ class App extends React.Component {
                 authenticate={this.authenticate}
                 reject={this.reject}
               />
-              <LoginMessage message={this.state.message} isRejected={this.state.isRejected} didLogin={this.state.didLogin}/>
+              <LoginMessage 
+                message={this.state.message} 
+                isRejected={this.state.isRejected} 
+                didLogin={this.state.didLogin}/>
             </div>
           }>
           </Route>

@@ -72,9 +72,11 @@
   font-weight: 600;
 }
 
+
+
 .company-details-container {
-  justify-content: center;
-  text-align: justify;
+  justify-content: stretch;
+  text-align: center;
 }
 
 .news flex-item {

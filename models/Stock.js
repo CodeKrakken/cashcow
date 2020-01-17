@@ -46,9 +46,9 @@ class Stock {
   static async update(symbol, userId, amount) {
     let db = new dbConnection()
     console.log("UPDATE")
-    // let stocks = await db.query('SELECT * FROM stocks;')
+    // let stocks = await db.query('SELECT * FROM stocks;') // SELECT from table, find ID and use ID to update
     let result = await db.query(`
-      UPDATE stocks
+      UPDATE stocks 
       SET symbol = '${symbol}', amount = ${amount}
       WHERE symbol = '${symbol}' AND user_id = ${userId};
     `)
