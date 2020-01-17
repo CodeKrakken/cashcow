@@ -164,16 +164,17 @@ class App extends React.Component {
 
           <Switch>
             <Route exact path="/">
+              <div className="cashcow-logo-container">
+                <div className="cashcow-logo">
+                  <img src={'../cashcowlogosmall.jpg'}/>
+                </div>
+              </div>
               <div className="top-bar">
                 <div className="search-container">
                   < StockForm
                     symbol={this.state.symbol}
                     onSymbolChange={this.handleSymbolChange} />
                   < InvalidMessage flag={this.state.invalidFlag}/>
-                </div>
-                <div className="cashcow-logo">
-                  <img src={'../cashcowlogosmall.jpg'}/>
-                  CashCow
                 </div>
               </div>
 

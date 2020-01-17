@@ -24,8 +24,7 @@ class StockForm extends React.Component{
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Enter a symbol
-            <input type="text" value={this.state.localSymbol} onChange={this.handleChange} />
+            <input type="text" placeholder="Enter a symbol" onChange={this.handleChange} />
           </label>
           <input type="submit" value="OK" />
         </form>
