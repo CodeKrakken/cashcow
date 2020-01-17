@@ -20,6 +20,7 @@ class CompanyDetails extends React.Component {
   async fetchData(symbol) {
     let data = await Axios.get(`/api/company/${this.props.symbol}`)
     this.setState(data.data)
+    this.props.setWebsite(data.data.website);
   }
 
   render(){
@@ -27,7 +28,6 @@ class CompanyDetails extends React.Component {
       <div className="company-details">
         <div className="company-info">
           <h1 className='company-header flex-item'><a href={this.state.website}>{this.state.companyName}</a></h1>
-          <img className="company-logo flex-item" src={`//logo.clearbit.com/${this.state.website}`}></img>
           <p className="flex-item">Exchange: {this.state.exchange}</p>
           <p className="flex-item">Industry: {this.state.industry}</p>
         </div>
