@@ -32,7 +32,7 @@ class CompanyDetails extends React.Component {
           <p className="flex-item">Industry: {this.state.industry}</p>
         </div>
         <div id="company-description">
-          <p>About The Company: </p>
+          <h4>About The Company</h4>
           <p><span className="indent"></span>{this.state.description}</p>
         </div>
       </div>

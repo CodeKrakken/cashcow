@@ -65,18 +65,26 @@ class PortfolioItem extends React.Component{
 
   render() {
     return(
-      <div className="">
-        <div className="portfolio-item">
+      <div className="grid-row portfolio-item">
+        <div className="portfolio-logo-container">
            <img className="portfolio-logo" src={`//logo.clearbit.com/${this.state.imgUrl}`}></img>
-           <div className="portfolio-item-details">
-             <p className='portfolio-item-detail'>{this.props.symbol}</p>
-             <p className='portfolio-item-detail'>${this.state.price}</p>
-             <p className='portfolio-item-detail'>{this.state.amount} </p>
-             <p className='portfolio-item-detail'>${this.state.total}</p>
-             <p className='portfolio-item-detail'><span className={'price-item ' + this.handleChangeClass()}>{this.state.change}</span> / <span className={'price-item ' + this.handleChangeClass()}>{this.state.percentageChange}%</span></p>
-           </div>
         </div>
-          
+        
+        <div className="grid-cell portfolio-item-details">
+          <p className='grid-cell portfolio-item-detail'>{this.props.symbol}</p>
+          <p className='grid-cell portfolio-item-detail'>${this.state.price}</p>
+          <p className='grid-cell portfolio-item-detail'>{this.props.amount}</p>
+          <p className='grid-cell portfolio-item-detail'>${this.state.total}</p>
+          <p className='grid-cell portfolio-item-detail'>
+            <span className={'price-item ' + this.handleChangeClass()}>
+              {this.state.change}
+            </span> 
+              / 
+            <span className={'price-item ' + this.handleChangeClass()}>
+              {this.state.percentageChange}%
+            </span>
+          </p>
+        </div>
       </div>
     )
   }

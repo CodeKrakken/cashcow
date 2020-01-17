@@ -129,8 +129,8 @@ class Portfolio extends React.Component {
 
         <div className="flex-grid portfolio-items-container">
           <div className="grid-row portfolio-item">
-            <p className='grid-cell heading'></p>
             <div className="grid-cell grid-col-headings">
+            <p className='grid-cell heading'></p>
               <p className='grid-cell heading'>Symbol</p>
               <p className='grid-cell heading'>Price</p>
               <p className='grid-cell heading'>Quantity</p>
@@ -138,6 +138,14 @@ class Portfolio extends React.Component {
               <p className='grid-cell heading'>Change</p>
              </div>
            </div>
+          {this.state.stocks.map((stock, index) => (
+            <PortfolioItem 
+              updatePrices={this.updatePrices} 
+              key={index} 
+              symbol={stock.symbol} 
+              amount={stock.amount}>
+            </PortfolioItem>
+          ))}
           {this.state.stocksWithPrices.map((stock, index) => (
            <div className="grid-row portfolio-item">
             <div className="portfolio-logo-container">
@@ -158,12 +166,8 @@ class Portfolio extends React.Component {
               </span>
             </p>
            </div>
-           
          </div>
-          ))}
-          {/* {this.state.stocks.map((stock, index) => (
-            <PortfolioItem updatePrices={this.updatePrices} key={index} symbol={stock.symbol} amount={stock.amount}></PortfolioItem>
-          ))} */}
+          ))} 
         </div>
       </div>
     )
