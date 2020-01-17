@@ -21,13 +21,10 @@ class StockForm extends React.Component{
 
   render() {
     return(
-      <div>
+      <div className='search-stock-form'>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Enter a symbol
-            <input type="text" value={this.state.localSymbol} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="OK" />
+          <input type="text" placeholder="Enter a symbol" onChange={this.handleChange} />
+          <button className="btn btn-secondary" type="submit">OK</button>
         </form>
       </div>
     );

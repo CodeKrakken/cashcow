@@ -121,6 +121,10 @@ class App extends React.Component {
     this.setState({message : res.message})
   }
 
+  setWebsite = (url) => {
+    this.setState({website: url});
+  }
+
   render () {
     return (
       <div className="app-container">
@@ -164,41 +168,44 @@ class App extends React.Component {
 
           <Switch>
             <Route exact path="/">
-              <div className="top-bar">
-                <div className="search-container">
-                  < StockForm
-                    symbol={this.state.symbol}
-                    onSymbolChange={this.handleSymbolChange} />
-                  < InvalidMessage flag={this.state.invalidFlag}/>
-                </div>
+              <div className="cashcow-logo-container">
                 <div className="cashcow-logo">
                   <img src={'../cashcowlogosmall.jpg'}/>
-                  CashCow
                 </div>
+              </div>
+              <div className="search-container">
+                < StockForm
+                  symbol={this.state.symbol}
+                  onSymbolChange={this.handleSymbolChange} />
+                < InvalidMessage flag={this.state.invalidFlag}/>
               </div>
 
               <div className="main-container flex-item">
-                <div className="app-left">
-                  <div className="price-details-container">
+                <div className="app-top">
+                  <div className="finance-info">
+                    <img className="company-logo" src={`//logo.clearbit.com/${this.state.website}`}></img>
                     <div className="symbol">
                       {this.state.symbol}
                     </div>
                     <div className="price-details">
                       <Price symbol={this.state.symbol}/>
                     </div>
+                    <div className="prediction-container">
+                      <Prediction symbol={this.state.symbol}/>
+                    </div>
                   </div>
-                  <div className="prediction-container flex-item">
-                    <Prediction symbol={this.state.symbol}/>
-                  </div>
-                  <div className="graph flex-item">
-                    <Graph symbol={this.state.symbol}/>
+                  <div className="graph-container">
+                    <Graph className="graph" symbol={this.state.symbol}/>
                   </div>
                 </div>
 
-                <div className="app-right">
+                <div className="app-middle">
                   <div className="company-details-container">
-                    <CompanyDetails symbol={this.state.symbol}/>
+                    <CompanyDetails setWebsite={this.setWebsite} symbol={this.state.symbol}/>
                   </div>
+                </div>
+
+                <div className="app-bottom">
                   <div className="news flex-item">
                     <NewsContainer symbol={this.state.symbol}/>
                   </div>
