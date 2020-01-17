@@ -93,30 +93,77 @@ class Portfolio extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="portfolio-container">
         { this.handleNoStocks() }
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <h1>Add Stock</h1><br></br>
-          </label>
+        <div className="portfolio-header">
+          <div className="totalValue">
+            <h2>Total: ${this.state.totalValue}</h2>
+          </div>
 
-          <label>
-            Symbol:
-            <input type="text" value={this.state.symbolText} onChange={this.handleSymbolTextChange} />
-          </label>
-          <label>
-            Number of Stocks:
-            <input type="text" value={this.state.amountText} onChange={this.handleAmountTextChange} />
-          </label>
-          <input type="submit" value="OK"/>
-        </form>
-        <div>
-          {this.state.stocks.map((stock, index) => (
-            <PortfolioItem updatePrices={this.updatePrices} key={index} symbol={stock.symbol} amount={stock.amount}></PortfolioItem>
-          ))}
+          <div className="add-stock-form">
+            <form onSubmit={this.handleSubmit}>
+              <ul>
+                <li className="add-info-container">
+                  <input
+                    type="text"
+                    placeholder="Symbol"
+                    value={this.state.symbolText}
+                    onChange={this.handleSymbolTextChange}
+                  />
+                </li>
+                <li className="add-info-container">
+                  <input type="text"
+                    placeholder="Number of stocks"
+                    value={this.state.amountText}
+                    onChange={this.handleAmountTextChange}
+                   />
+                </li>
+                <li>
+                  <button className="btn btn-secondary"
+ type="submit">Add</button>
+                </li>
+              </ul>
+            </form>
+          </div>
         </div>
-          <div>Total Portfolio Value : ${this.state.totalValue}</div>
-        <div>
+
+        <div className="flex-grid portfolio-items-container">
+          <div className="grid-row portfolio-item">
+            <p className='grid-cell heading'></p>
+            <div className="grid-cell grid-col-headings">
+              <p className='grid-cell heading'>Symbol</p>
+              <p className='grid-cell heading'>Price</p>
+              <p className='grid-cell heading'>Quantity</p>
+              <p className='grid-cell heading'>Total</p>
+              <p className='grid-cell heading'>Change</p>
+             </div>
+           </div>
+          {this.state.stocksWithPrices.map((stock, index) => (
+           <div className="grid-row portfolio-item">
+            <div className="portfolio-logo-container">
+               <img className="portfolio-logo" src={`//logo.clearbit.com/${stock.website}`}></img>
+            </div>
+           <div key={index}className="grid-cell portfolio-item-details">
+             <p className='grid-cell portfolio-item-detail'>{stock.symbol}</p>
+             <p className='grid-cell portfolio-item-detail'>${stock.price}</p>
+             <p className='grid-cell portfolio-item-detail'>{stock.amount} </p>
+             <p className='grid-cell portfolio-item-detail'>{stock.total}</p>
+             <p className='grid-cell portfolio-item-detail'>
+              <span className={'price-item ' + this.handleChangeClass()}>
+                {stock.change}
+              </span>
+              / 
+              <span className={'price-item ' + this.handleChangeClass()}>
+                {stock.percentageChange}%
+              </span>
+            </p>
+           </div>
+           
+         </div>
+          ))}
+          {/* {this.state.stocks.map((stock, index) => (
+            <PortfolioItem updatePrices={this.updatePrices} key={index} symbol={stock.symbol} amount={stock.amount}></PortfolioItem>
+          ))} */}
         </div>
       </div>
     )
