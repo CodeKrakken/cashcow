@@ -66,7 +66,7 @@ class PortfolioItem extends React.Component{
   render() {
     return(
       <div className="grid-row portfolio-item">
-        <div className="portfolio-logo-container">
+        <div className="grid-cell portfolio-logo-container">
            <img className="portfolio-logo" src={`//logo.clearbit.com/${this.state.imgUrl}`}></img>
         </div>
         

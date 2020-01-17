@@ -129,14 +129,16 @@ class Portfolio extends React.Component {
 
         <div className="flex-grid portfolio-items-container">
           <div className="grid-row portfolio-item">
+            <div className="grid-cell portfolio-logo-container">
+              <img className='portfolio-logo'></img>
+            </div>
             <div className="grid-cell grid-col-headings">
-            <p className='grid-cell heading'></p>
               <p className='grid-cell heading'>Symbol</p>
               <p className='grid-cell heading'>Price</p>
               <p className='grid-cell heading'>Quantity</p>
               <p className='grid-cell heading'>Total</p>
               <p className='grid-cell heading'>Change</p>
-             </div>
+            </div>
            </div>
           {this.state.stocks.map((stock, index) => (
             <PortfolioItem 
