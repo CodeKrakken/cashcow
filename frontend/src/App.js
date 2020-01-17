@@ -130,7 +130,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div className="app-container">
+      <div className="app-container row">
         <Router>
           <Navbar className="color-nav" variant="light">
               <div className="nav-items">
@@ -142,7 +142,7 @@ class App extends React.Component {
 
 
               </div>
-              <div className="search-container">
+              <div className="search-container nav-items">
                 < StockForm
                   symbol={this.state.symbol}
                   onSymbolChange={this.handleSymbolChange} />
