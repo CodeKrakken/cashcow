@@ -119,8 +119,7 @@ class Portfolio extends React.Component {
                    />
                 </li>
                 <li>
-                  <button className="btn btn-secondary"
- type="submit">Add</button>
+                  <button className="btn btn-secondary" type="submit">Add</button>
                 </li>
               </ul>
             </form>
