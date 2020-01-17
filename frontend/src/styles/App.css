@@ -22,11 +22,6 @@
   align-items: center;
 }
 
-.symbol {
-  font-size: 26px;
-  font-weight: 800;
-}
-
 .search-container {
   display: flex;
   justify-content: space-around;
@@ -56,9 +51,32 @@
 
 .finance-info {
   flex: 1;
-  border: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding : 10px;
+  flex: 0 0 20em;
   margin: 10px;
   width: 100%;
+}
+
+.company-logo {
+  width: 40%;
+  height: auto;
+  margin: 5px;
+}
+
+.symbol {
+  font-size: 72px;
+  font-weight: bold;
+  margin: 5px;
+}
+.price-item {
+  margin: 15px;
+}
+
+.prediction-container {
+  margin: 15px;
 }
 
 .graph-container {
@@ -66,7 +84,6 @@
   margin: 10px;
   width: 100%;
   height: auto;
-  border: solid;
 }
 
 

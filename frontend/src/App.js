@@ -121,6 +121,10 @@ class App extends React.Component {
     this.setState({message : res.message})
   }
 
+  setWebsite = (url) => {
+    this.setState({website: url});
+  }
+
   render () {
     return (
       <div className="app-container">
@@ -179,6 +183,7 @@ class App extends React.Component {
               <div className="main-container flex-item">
                 <div className="app-top">
                   <div className="finance-info">
+                    <img className="company-logo" src={`//logo.clearbit.com/${this.state.website}`}></img>
                     <div className="symbol">
                       {this.state.symbol}
                     </div>
@@ -194,10 +199,9 @@ class App extends React.Component {
                   </div>
                 </div>
 
-
                 <div className="app-bottom">
                   <div className="company-details-container">
-                    <CompanyDetails symbol={this.state.symbol}/>
+                    <CompanyDetails setWebsite={this.setWebsite} symbol={this.state.symbol}/>
                   </div>
                   <div className="news flex-item">
                     <NewsContainer symbol={this.state.symbol}/>
