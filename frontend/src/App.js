@@ -177,24 +177,25 @@ class App extends React.Component {
               </div>
 
               <div className="main-container flex-item">
-                <div className="app-left">
-                  <div className="price-details-container">
+                <div className="app-top">
+                  <div className="finance-info">
                     <div className="symbol">
                       {this.state.symbol}
                     </div>
                     <div className="price-details">
                       <Price symbol={this.state.symbol}/>
                     </div>
+                    <div className="prediction-container">
+                      <Prediction symbol={this.state.symbol}/>
+                    </div>
                   </div>
-                  <div className="prediction-container flex-item">
-                    <Prediction symbol={this.state.symbol}/>
-                  </div>
-                  <div className="graph flex-item">
-                    <Graph symbol={this.state.symbol}/>
+                  <div className="graph-container">
+                    <Graph className="graph" symbol={this.state.symbol}/>
                   </div>
                 </div>
 
-                <div className="app-right">
+
+                <div className="app-bottom">
                   <div className="company-details-container">
                     <CompanyDetails symbol={this.state.symbol}/>
                   </div>
