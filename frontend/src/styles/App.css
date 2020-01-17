@@ -15,6 +15,13 @@
   flex-direction: column;
 }
 
+.search-stock-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .top-bar {
   display: flex;
   flex-direction: row-reverse;
@@ -40,6 +47,10 @@
   margin: 10px;
   font-size: 50px;
   font-weight: 600;
+}
+
+.search-stock-form input {
+  margin: 5px;
 }
 
 .main-container {
