@@ -86,14 +86,33 @@
   height: auto;
 }
 
-.app-bottom {
+.app-middle {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .company-details-container {
-  justify-content: stretch;
-  text-align: center;
+  margin: 10px;
+}
+
+.company-details {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  align-items: center;
+}
+
+.company-info {
+  display : flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.company-description {
+  text-align: justify;
+  margin: 10px;
+  width: 80%;
 }
 
 .news {

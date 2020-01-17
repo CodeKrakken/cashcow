@@ -199,10 +199,13 @@ class App extends React.Component {
                   </div>
                 </div>
 
-                <div className="app-bottom">
+                <div className="app-middle">
                   <div className="company-details-container">
                     <CompanyDetails setWebsite={this.setWebsite} symbol={this.state.symbol}/>
                   </div>
+                </div>
+
+                <div className="app-bottom">
                   <div className="news flex-item">
                     <NewsContainer symbol={this.state.symbol}/>
                   </div>

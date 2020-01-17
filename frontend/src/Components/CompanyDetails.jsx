@@ -27,13 +27,12 @@ class CompanyDetails extends React.Component {
     return(
       <div className="company-details">
         <div className="company-info">
-          <h1 className='company-header flex-item'><a href={this.state.website}>{this.state.companyName}</a></h1>
-          <p className="flex-item">Exchange: {this.state.exchange}</p>
-          <p className="flex-item">Industry: {this.state.industry}</p>
+          <h1 className='company-header'><a href={this.state.website}>{this.state.companyName}</a></h1>
+          <p>Exchange: {this.state.exchange}</p>
+          <p>Industry: {this.state.industry}</p>
         </div>
-        <div id="company-description">
-          <h4>About The Company</h4>
-          <p><span className="indent"></span>{this.state.description}</p>
+        <div className="company-description">
+          <p>{this.state.description}</p>
         </div>
       </div>
     )

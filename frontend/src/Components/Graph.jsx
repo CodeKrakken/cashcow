@@ -142,7 +142,7 @@ class Graph extends React.Component {
     return(
       <div className="chart-container-div">
         <div id="chart">
-          <h2>Closing price (last 7 working days)</h2>
+          <h2>7 day chart</h2>
         </div>
       </div>
     )
