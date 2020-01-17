@@ -86,28 +86,17 @@
   height: auto;
 }
 
-
-
-.app-right {
+.app-bottom {
   display: flex;
   flex-direction: column;
-  align-content: space-around;
-  justify-content: center;
-  flex-basis: 45%;
-  padding: 10px;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
 }
-
-
 
 .company-details-container {
   justify-content: stretch;
   text-align: center;
 }
 
-.news flex-item {
+.news {
   text-align: justify;
   margin : 10px;
 }
