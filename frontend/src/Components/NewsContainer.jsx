@@ -33,13 +33,18 @@ class NewsContainer extends React.Component{
 
     return(
       <div className="article-container">
-        {this.state.articles.map((article, index) => (
-            <div key={index}className="article">
-            <img key={index/2}className="article-image" src={article.image_url}></img>
-            <p key={index/3}className="article-date">{formatDate(article.timestamp)}</p>
-            <a key={index/4}className="article-title" href={article.url}><p>{article.title}</p></a>
-          </div>
-        ))}
+        {this.state.articles.map((article, index) => {
+            if(!article.image_url) {
+              article.image_url = "https://hazelwood-dental.com/wp-content/themes/hazelwood/images/no-image-found-360x250.png"
+            }
+            return(
+              <div key={index}className="article">
+                <img key={index/2}className="article-image" src={article.image_url}></img>
+                <p key={index/3}className="article-date">{formatDate(article.timestamp)}</p>
+                <a key={index/4}className="article-title" href={article.url}><p>{article.title}</p></a>
+              </div>
+            )
+        })}
       </div>
     )
   }
