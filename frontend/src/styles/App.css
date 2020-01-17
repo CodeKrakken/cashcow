@@ -1,5 +1,5 @@
 .color-nav {
-  background-color: #bdbdbd;
+  background-color: #0e3040;
 }
 
 .nav-link {
@@ -22,18 +22,15 @@
   align-items: center;
 }
 
-.top-bar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .symbol {
   font-size: 26px;
   font-weight: 800;
 }
 
 .search-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   margin: 10px;
 }
 

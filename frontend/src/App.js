@@ -169,13 +169,11 @@ class App extends React.Component {
                   <img src={'../cashcowlogosmall.jpg'}/>
                 </div>
               </div>
-              <div className="top-bar">
-                <div className="search-container">
-                  < StockForm
-                    symbol={this.state.symbol}
-                    onSymbolChange={this.handleSymbolChange} />
-                  < InvalidMessage flag={this.state.invalidFlag}/>
-                </div>
+              <div className="search-container">
+                < StockForm
+                  symbol={this.state.symbol}
+                  onSymbolChange={this.handleSymbolChange} />
+                < InvalidMessage flag={this.state.invalidFlag}/>
               </div>
 
               <div className="main-container flex-item">
