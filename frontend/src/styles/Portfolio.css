@@ -1,0 +1,78 @@
+.portfolio-header {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.add-stock-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 18px auto;
+}
+
+.totalValue {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  margin: auto;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  max-width : 230px;
+  border-width: 2px;
+  border-radius: 2%;
+  margin: 5px;
+}
+
+.flex-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-row {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+  margin: 15px auto;
+}
+
+.grid-cell {
+  margin: auto 12px;
+  max-width: 100%;
+  min-width: 15%;
+  height: auto;
+}
+
+.portfolio-item-details, .grid-col-headings {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-self: flex-end;
+  justify-content: space-between;
+}
+
+.portfolio-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.portfolio-logo {
+  max-width: 100%;
+  height: auto;
+  min-width: 121px;
+}
+
+.grid-cell .heading {
+  font-weight: bold;
+}
