@@ -1,13 +1,36 @@
-# This is CashCow
+# CashCow
 
-Invest!
+Multipurpose stock market tracker.
 
 ## Setup
 ```
-git clone
+git clone https://github.com/CodeKrakken/cashcow.git
 npm install
 ```
-clone & install the [frontend respository]( https://github.com/CodeKrakken/cash-cow-client)
+
+## Usage
+
+When the user visits the page, they can search by stock market symbol (eg TSLA). The app then presents the stock's value over the past 50 days, company information and company news. The last 7 days' data is displayed as a graph. Our analyser component compares the current value to the average value of the last 50 days and recommends Buy, Sell or Stick. Registered users can add stocks to a portfolio page that tracks their value and displays the user's total wealth.
+
+## Development
+
+Built with Node; routed with Express
+
+PostgreSQL handles data for stocks and user accounts
+
+Frontend built with React; styled with Bootstrap and Flexbox
+
+Continuously integrated with Travis; deployed with Heroku
+
+Stock values retrieved from Alphavantage API
+
+Company information from IEX API
+
+Company news from Google News API
+
+D3 handles the graph display
+
+## Testing
 
 To run tests
 ` npm test` or `jasmine`
