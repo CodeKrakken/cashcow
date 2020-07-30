@@ -14,21 +14,21 @@ When the user visits the page, they can search by stock market symbol (eg TSLA).
 
 ## Development
 
-Built with Node; routed with Express
+* Built with Node; routed with Express
 
-PostgreSQL handles data for stocks and user accounts
+* PostgreSQL handles data for stocks and user accounts
 
-Frontend built with React; styled with Bootstrap and Flexbox
+* Frontend built with React; styled with Bootstrap and Flexbox
 
-Continuously integrated with Travis; deployed with Heroku
+* Continuously integrated with Travis; deployed with Heroku
 
-Stock values retrieved from Alphavantage API
+* Stock values retrieved from Alphavantage API
 
-Company information from IEX API
+* Company information from IEX API
 
-Company news from Google News API
+* Company news from Google News API
 
-D3 handles the graph display
+* D3 handles the graph display
 
 ## Testing
 
