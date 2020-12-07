@@ -6,7 +6,8 @@ Multipurpose stock market tracker.
 
 ## Usage
 
-When the user visits the page, they can search by stock market symbol (eg TSLA). The app then presents the stock's value over the past 50 days, company information and company news. The last 7 days' data is displayed as a graph. Our analyser component compares the current value to the average value of the last 50 days and recommends Buy, Sell or Stick. Registered users can add stocks to a portfolio page that tracks their value and displays the user's total wealth.
+<p align="justify">When the user visits the page, they can search by stock market symbol (eg TSLA). The app then presents the stock's value over the past 50 days, company information and company news. The last 7 days' data is displayed as a graph. Our analyser component compares the current value to the average value of the last 50 days and recommends Buy, Sell or Stick. Registered users can add stocks to a portfolio page that tracks their value and displays the user's total wealth.
+</p>
 
 <br> 
 
